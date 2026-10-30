@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { RefreshCw, Users } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { adminNavItems } from '@/data/navConfig';
+import { AdminLayout, VendorStatusBadge } from '@/admin/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
 const filters = ['all', 'pending', 'approved', 'suspended'];
-const statusColors = {
-  approved: 'border-green-400/20 bg-green-400/10 text-green-400',
-  pending: 'border-gold-400/20 bg-gold-400/10 text-gold-300',
-  suspended: 'border-red-400/20 bg-red-400/10 text-red-300',
-};
 
 function AdminVendors() {
   const { session } = useAuth();
@@ -60,7 +54,7 @@ function AdminVendors() {
     }
   };
 
-  return <DashboardLayout navItems={adminNavItems} title="Vendor Management" role="admin">
+  return <AdminLayout title="Vendor Management">
     <div className="mb-8 flex items-start justify-between gap-4">
       <div>
         <h2 className="font-serif text-3xl text-ink-50 mb-1">Vendor Management</h2>
@@ -113,7 +107,7 @@ function AdminVendors() {
             </td>
             <td className="px-5 py-4 text-xs text-ink-400">{[vendor.city, vendor.state].filter(Boolean).join(', ') || '—'}</td>
             <td className="whitespace-nowrap px-5 py-4 text-xs text-ink-400">{new Date(vendor.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
-            <td className="px-5 py-4"><span className={`rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-widest ${statusColors[vendor.status] || ''}`}>{vendor.status}</span></td>
+            <td className="px-5 py-4"><VendorStatusBadge status={vendor.status} /></td>
             <td className="px-5 py-4">
               {vendor.status === 'pending' ? <div className="flex gap-2">
                 <button type="button" disabled={updatingId === vendor._id} onClick={() => updateStatus(vendor._id, 'approved')} className="rounded-sm bg-gold-400 px-3 py-2 text-[10px] font-medium uppercase tracking-widest text-ink-950 hover:bg-gold-300 disabled:opacity-50">Approve</button>
@@ -141,7 +135,7 @@ function AdminVendors() {
         </tbody>
       </table>
     </div>
-  </DashboardLayout>;
+  </AdminLayout>;
 }
 
 export default AdminVendors;

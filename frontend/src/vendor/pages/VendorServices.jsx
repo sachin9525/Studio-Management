@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Briefcase, Pencil, Plus, RefreshCw, Save, Trash2, X } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -112,7 +111,7 @@ function VendorServices() {
     }
   };
 
-  return <DashboardLayout navItems={vendorNavItems} title="Services" role="vendor">
+  return <VendorLayout title="Services">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Studio Services</h2>
@@ -189,7 +188,7 @@ function VendorServices() {
       <p className="text-sm text-ink-300">No services added yet.</p>
       <p className="mt-1 text-xs text-ink-500">Use the form above to add your first studio service.</p>
     </div>}
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorServices;

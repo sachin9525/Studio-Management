@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Check, Save } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -64,7 +63,7 @@ function VendorProfile() {
     }
   };
 
-  return <DashboardLayout navItems={vendorNavItems} title="Studio Profile" role="vendor">
+  return <VendorLayout title="Studio Profile">
     <div className="mb-8">
       <h2 className="mb-1 font-serif text-3xl text-ink-50">Studio Profile</h2>
       <p className="text-sm text-ink-400">Keep your studio and contact information up to date.</p>
@@ -109,7 +108,7 @@ function VendorProfile() {
         </button>
       </>}
     </form>
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorProfile;

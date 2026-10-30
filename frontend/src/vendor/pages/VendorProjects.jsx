@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, CalendarDays, FolderHeart, Pencil, Plus, RefreshCw, Save, Trash2, X } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import SelectedMediaPreviews from '@/components/common/SelectedMediaPreviews';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout, SelectedMediaPreviews } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -146,7 +144,7 @@ function VendorProjects() {
 
   const publishedCount = projects.filter((project) => project.isPublished).length;
 
-  return <DashboardLayout navItems={vendorNavItems} title="Wedding Projects" role="vendor">
+  return <VendorLayout title="Wedding Projects">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Wedding Projects</h2>
@@ -246,7 +244,7 @@ function VendorProjects() {
       <p className="text-sm text-ink-300">No wedding projects added yet.</p>
       <p className="mt-1 text-xs text-ink-500">Add a project above to start building your portfolio.</p>
     </div>}
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorProjects;

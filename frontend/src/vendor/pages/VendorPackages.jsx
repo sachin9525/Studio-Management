@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ArrowUpRight, Package, Pencil, Plus, RefreshCw, Save, Star, Trash2, X } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -118,7 +117,7 @@ function VendorPackages() {
 
   const publishedCount = packages.filter((item) => item.isPublished).length;
 
-  return <DashboardLayout navItems={vendorNavItems} title="Packages" role="vendor">
+  return <VendorLayout title="Packages">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Packages</h2>
@@ -201,7 +200,7 @@ function VendorPackages() {
       <p className="text-sm text-ink-300">No packages added yet.</p>
       <p className="mt-1 text-xs text-ink-500">Create a package above and publish it to show it on the public page.</p>
     </div>}
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorPackages;

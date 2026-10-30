@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Mail, RefreshCw } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { adminNavItems } from '@/data/navConfig';
+import { AdminLayout } from '@/admin/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -75,7 +74,7 @@ function AdminInquiries() {
     }
   };
 
-  return <DashboardLayout navItems={adminNavItems} title="Client Inquiries" role="admin">
+  return <AdminLayout title="Client Inquiries">
     <div className="mb-8 flex items-start justify-between gap-4">
       <div>
         <h2 className="font-serif text-3xl text-ink-50 mb-1">Client Inquiries</h2>
@@ -179,7 +178,7 @@ function AdminInquiries() {
         </tbody>
       </table>
     </div>
-  </DashboardLayout>;
+  </AdminLayout>;
 }
 
 export default AdminInquiries;

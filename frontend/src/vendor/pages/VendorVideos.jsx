@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, CalendarDays, Pencil, Plus, RefreshCw, Save, Trash2, Video, X } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import SelectedMediaPreviews from '@/components/common/SelectedMediaPreviews';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout, SelectedMediaPreviews } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -150,7 +148,7 @@ function VendorVideos() {
   const publishedCount = videos.filter((video) => video.isPublished).length;
   const totalVideoFiles = videos.reduce((total, video) => total + (video.media?.length || 0), 0);
 
-  return <DashboardLayout navItems={vendorNavItems} title="Videos" role="vendor">
+  return <VendorLayout title="Videos">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Videos</h2>
@@ -248,7 +246,7 @@ function VendorVideos() {
       <p className="text-sm text-ink-300">No videos added yet.</p>
       <p className="mt-1 text-xs text-ink-500">Add a video above and it will appear here for viewing.</p>
     </div>}
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorVideos;

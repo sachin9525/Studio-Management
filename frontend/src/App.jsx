@@ -1,23 +1,27 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
-import AdminLanding from "@/pages/admin/AdminLanding";
-import AdminLogin from "@/pages/admin/AdminLogin";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import AdminInquiries from "@/pages/admin/AdminInquiries";
-import AdminVendors from "@/pages/admin/AdminVendors";
-import AdminSettings from "@/pages/admin/AdminSettings";
-import VendorLogin from "@/pages/vendor/VendorLogin";
-import VendorRegister from "@/pages/vendor/VendorRegister";
-import VendorDashboard from "@/pages/vendor/VendorDashboard";
-import VendorProfile from "@/pages/vendor/VendorProfile";
-import VendorServices from "@/pages/vendor/VendorServices";
-import VendorProjects from "@/pages/vendor/VendorProjects";
-import VendorAlbums from "@/pages/vendor/VendorAlbums";
-import VendorVideos from "@/pages/vendor/VendorVideos";
-import VendorPackages from "@/pages/vendor/VendorPackages";
-import VendorInquiries from "@/pages/vendor/VendorInquiries";
-import VendorTestimonials from "@/pages/vendor/VendorTestimonials";
-import ComingSoon from "@/pages/common/ComingSoon";
+import {
+  AdminLanding,
+  AdminLogin,
+  AdminDashboard,
+  AdminInquiries,
+  AdminVendors,
+  AdminSettings,
+} from "@/admin/pages";
+import {
+  VendorLogin,
+  VendorRegister,
+  VendorDashboard,
+  VendorProfile,
+  VendorServices,
+  VendorProjects,
+  VendorAlbums,
+  VendorVideos,
+  VendorPackages,
+  VendorInquiries,
+  VendorTestimonials,
+} from "@/vendor/pages";
+import ComingSoon from "@/common/pages/ComingSoon";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
 import { vendorNavItems, adminNavItems } from "@/data/navConfig";
 function App() {

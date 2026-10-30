@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Check, Save } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { adminNavItems } from '@/data/navConfig';
+import { AdminLayout } from '@/admin/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -65,7 +64,7 @@ function AdminSettings() {
     }
   };
 
-  return <DashboardLayout navItems={adminNavItems} title="Settings" role="admin">
+  return <AdminLayout title="Settings">
     <div className="mb-8">
       <h2 className="mb-1 font-serif text-3xl text-ink-50">Studio Settings</h2>
       <p className="text-sm text-ink-400">Manage the studio details shown on the public contact page.</p>
@@ -99,7 +98,7 @@ function AdminSettings() {
         </div>
       </>}
     </form>
-  </DashboardLayout>;
+  </AdminLayout>;
 }
 
 export default AdminSettings;

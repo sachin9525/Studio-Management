@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, CalendarDays, ImagePlus, Images, Pencil, Plus, RefreshCw, Save, Trash2, X } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import SelectedMediaPreviews from '@/components/common/SelectedMediaPreviews';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout, SelectedMediaPreviews } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -142,7 +140,7 @@ function VendorAlbums() {
 
   const publishedCount = albums.filter((album) => album.isPublished).length;
 
-  return <DashboardLayout navItems={vendorNavItems} title="Albums" role="vendor">
+  return <VendorLayout title="Albums">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Albums</h2>
@@ -235,7 +233,7 @@ function VendorAlbums() {
       <p className="text-sm text-ink-300">No albums added yet.</p>
       <p className="mt-1 text-xs text-ink-500">Create an album above and upload your photos.</p>
     </div>}
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorAlbums;

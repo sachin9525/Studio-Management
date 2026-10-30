@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Mail, RefreshCw } from 'lucide-react';
-import DashboardLayout from '@/components/common/DashboardLayout';
-import { vendorNavItems } from '@/data/navConfig';
+import { VendorLayout } from '@/vendor/components';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
@@ -58,7 +57,7 @@ function VendorInquiries() {
     }
   };
 
-  return <DashboardLayout navItems={vendorNavItems} title="Client Inquiries" role="vendor">
+  return <VendorLayout title="Client Inquiries">
     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 className="mb-1 font-serif text-3xl text-ink-50">Client Inquiries</h2>
@@ -134,7 +133,7 @@ function VendorInquiries() {
         </tbody>
       </table>
     </div>
-  </DashboardLayout>;
+  </VendorLayout>;
 }
 
 export default VendorInquiries;
