@@ -63,6 +63,15 @@
   .image-cover {
     @apply w-full h-full object-cover;
   }
+  .glass-card {
+    @apply bg-ink-900/70 backdrop-blur-xl border border-white/5 hover:border-gold-400/30 transition-all duration-300;
+  }
+  .glass-card-gold {
+    @apply bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/30 backdrop-blur-xl;
+  }
+  .glow-gold {
+    box-shadow: 0 0 35px -10px rgba(216, 179, 106, 0.18);
+  }
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   }

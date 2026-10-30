@@ -7,6 +7,12 @@ import {
   AdminInquiries,
   AdminVendors,
   AdminSettings,
+  AdminPortfolio,
+  AdminServices,
+  AdminAlbums,
+  AdminVideos,
+  AdminPackages,
+  AdminTestimonials,
 } from "@/admin/pages";
 import {
   VendorLogin,
@@ -89,23 +95,23 @@ function App() {
     />
     <Route
       path="/admin/dashboard/services"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Demo Services" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminServices /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/portfolio"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Demo Portfolio" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminPortfolio /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/albums"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Demo Albums" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminAlbums /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/videos"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Demo Videos" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminVideos /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/packages"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Demo Packages" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminPackages /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/inquiries"
@@ -113,7 +119,7 @@ function App() {
     />
     <Route
       path="/admin/dashboard/testimonials"
-      element={<ProtectedRoute role="admin"><ComingSoon title="Testimonials" role="admin" navItems={adminNavItems} /></ProtectedRoute>}
+      element={<ProtectedRoute role="admin"><AdminTestimonials /></ProtectedRoute>}
     />
     <Route
       path="/admin/dashboard/settings"

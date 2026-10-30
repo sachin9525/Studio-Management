@@ -4,4 +4,9 @@ export { default as AdminDashboard } from './AdminDashboard';
 export { default as AdminInquiries } from './AdminInquiries';
 export { default as AdminVendors } from './AdminVendors';
 export { default as AdminSettings } from './AdminSettings';
-
+export { default as AdminPortfolio } from './AdminPortfolio';
+export { default as AdminServices } from './AdminServices';
+export { default as AdminAlbums } from './AdminAlbums';
+export { default as AdminVideos } from './AdminVideos';
+export { default as AdminPackages } from './AdminPackages';
+export { default as AdminTestimonials } from './AdminTestimonials';

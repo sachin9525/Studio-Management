@@ -47,27 +47,27 @@ function AdminDashboard() {
 
   const stats = dashboard?.stats;
   const cards = [
-    { label: 'Total Vendors', value: stats?.totalVendors, icon: <Users className="w-5 h-5" />, accent: true },
-    { label: 'Active Vendors', value: stats?.activeVendors, icon: <UserCheck className="w-5 h-5" /> },
-    { label: 'Pending Approval', value: stats?.pendingVendors, icon: <Clock className="w-5 h-5" /> },
-    { label: 'Suspended', value: stats?.suspendedVendors, icon: <UserX className="w-5 h-5" /> },
-    { label: 'Total Inquiries', value: stats?.totalInquiries, icon: <Mail className="w-5 h-5" /> },
+    { label: 'Total Vendors', value: stats?.totalVendors, icon: <Users className="w-4 h-4" />, accent: true },
+    { label: 'Active Vendors', value: stats?.activeVendors, icon: <UserCheck className="w-4 h-4" /> },
+    { label: 'Pending Approval', value: stats?.pendingVendors, icon: <Clock className="w-4 h-4" /> },
+    { label: 'Suspended', value: stats?.suspendedVendors, icon: <UserX className="w-4 h-4" /> },
+    { label: 'Total Inquiries', value: stats?.totalInquiries, icon: <Mail className="w-4 h-4" /> },
   ];
 
   return (
     <AdminLayout title="Admin Dashboard">
-      <div className="mb-8 flex items-start justify-between gap-4">
+      <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h2 className="font-serif text-3xl text-ink-50 mb-1">Platform Overview</h2>
-          <p className="text-sm text-ink-400">Live vendor activity from your platform.</p>
+          <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">Platform Overview</h2>
+          <p className="text-xs sm:text-sm text-ink-400">Live vendor activity from your platform.</p>
         </div>
         <button
           type="button"
           onClick={loadDashboard}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-2 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-1.5 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
         >
-          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
         </button>
       </div>
@@ -79,12 +79,12 @@ function AdminDashboard() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-5 mb-10 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 mb-8">
         {cards.map((card) => (
           <StatCard
             key={card.label}
             label={card.label}
-            value={!dashboard && (loading || error) ? '—' : (card.value ?? 0).toLocaleString('en-IN')}
+            value={!dashboard && (loading || error) ? '—' : (card.value ?? 0)}
             icon={card.icon}
             accent={card.accent}
           />

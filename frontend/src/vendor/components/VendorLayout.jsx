@@ -15,10 +15,10 @@ function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Das
   };
 
   return (
-    <div className="min-h-screen bg-ink-950 flex">
+    <div className="h-screen w-full bg-ink-950 flex overflow-hidden">
       {/* Sidebar — desktop */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-ink-900 border-r border-white/5 flex flex-col transition-transform duration-300 ${
+        className={`fixed lg:static top-0 left-0 z-40 h-screen w-64 shrink-0 bg-ink-900 border-r border-white/5 flex flex-col transition-transform duration-300 ${
           open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -76,10 +76,10 @@ function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Das
         <div className="fixed inset-0 bg-ink-950/60 z-30 lg:hidden" onClick={() => setOpen(false)} />
       )}
 
-      {/* Main */}
-      <div className="flex-1 min-w-0 flex flex-col">
+      {/* Main Content Area — independent scroll */}
+      <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
         {/* Top bar */}
-        <header className="sticky top-0 z-20 bg-ink-900/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-20 shrink-0 bg-ink-900/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               className="lg:hidden text-ink-300"
