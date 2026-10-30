@@ -132,14 +132,14 @@ function AdminPackages() {
       const updated = packages.map((p) =>
         p.id === editingPackage.id
           ? {
-              ...p,
-              name: formData.name,
-              tagline: formData.tagline,
-              price: Number(formData.price),
-              features,
-              isFeatured: formData.isFeatured,
-              isPublished: formData.isPublished,
-            }
+            ...p,
+            name: formData.name,
+            tagline: formData.tagline,
+            price: Number(formData.price),
+            features,
+            isFeatured: formData.isFeatured,
+            isPublished: formData.isPublished,
+          }
           : p
       );
       savePackages(updated);
@@ -218,11 +218,10 @@ function AdminPackages() {
         {packages.map((pkg) => (
           <div
             key={pkg.id}
-            className={`rounded-sm p-6 flex flex-col justify-between transition-all duration-300 relative ${
-              pkg.isFeatured
+            className={`rounded-sm p-6 flex flex-col justify-between transition-all duration-300 relative ${pkg.isFeatured
                 ? 'bg-gradient-to-b from-gold-400/15 via-ink-900 to-ink-900 border-2 border-gold-400/50 shadow-2xl shadow-gold-500/10 scale-[1.02]'
                 : 'bg-ink-900/80 border border-white/5 hover:border-gold-400/30'
-            }`}
+              }`}
           >
             {pkg.isFeatured && (
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
@@ -235,11 +234,10 @@ function AdminPackages() {
               <div className="flex items-center justify-between gap-2 mb-3">
                 <h3 className="font-serif text-2xl text-ink-50 font-medium">{pkg.name}</h3>
                 <span
-                  className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold ${
-                    pkg.isPublished
+                  className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold ${pkg.isPublished
                       ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
                       : 'bg-ink-950 text-ink-500 border border-white/10'
-                  }`}
+                    }`}
                 >
                   {pkg.isPublished ? 'Live' : 'Draft'}
                 </span>
@@ -273,17 +271,15 @@ function AdminPackages() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleTogglePublish(pkg.id)}
-                  className={`px-3 py-1 rounded-sm text-[10px] uppercase tracking-wider font-semibold transition-colors ${
-                    pkg.isPublished ? 'text-ink-400 hover:text-amber-400' : 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20'
-                  }`}
+                  className={`px-3 py-1 rounded-sm text-[10px] uppercase tracking-wider font-semibold transition-colors ${pkg.isPublished ? 'text-ink-400 hover:text-amber-400' : 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20'
+                    }`}
                 >
                   {pkg.isPublished ? 'Unpublish' : 'Publish'}
                 </button>
                 <button
                   onClick={() => handleToggleFeatured(pkg.id)}
-                  className={`px-2.5 py-1 rounded-sm text-[10px] uppercase tracking-wider ${
-                    pkg.isFeatured ? 'text-gold-400 font-bold' : 'text-ink-500 hover:text-gold-300'
-                  }`}
+                  className={`px-2.5 py-1 rounded-sm text-[10px] uppercase tracking-wider ${pkg.isFeatured ? 'text-gold-400 font-bold' : 'text-ink-500 hover:text-gold-300'
+                    }`}
                 >
                   {pkg.isFeatured ? '★ Pinned' : '☆ Pin'}
                 </button>

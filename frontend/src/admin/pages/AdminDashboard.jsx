@@ -47,11 +47,11 @@ function AdminDashboard() {
 
   const stats = dashboard?.stats;
   const cards = [
-    { label: 'Total Vendors', value: stats?.totalVendors, icon: <Users className="w-4 h-4" />, accent: true },
-    { label: 'Active Vendors', value: stats?.activeVendors, icon: <UserCheck className="w-4 h-4" /> },
-    { label: 'Pending Approval', value: stats?.pendingVendors, icon: <Clock className="w-4 h-4" /> },
-    { label: 'Suspended', value: stats?.suspendedVendors, icon: <UserX className="w-4 h-4" /> },
-    { label: 'Total Inquiries', value: stats?.totalInquiries, icon: <Mail className="w-4 h-4" /> },
+    { label: 'Total Vendors', value: stats?.totalVendors, icon: <Users className="w-3.5 h-3.5" />, accent: true },
+    { label: 'Active Vendors', value: stats?.activeVendors, icon: <UserCheck className="w-3.5 h-3.5" /> },
+    { label: 'Pending Approval', value: stats?.pendingVendors, icon: <Clock className="w-3.5 h-3.5" /> },
+    { label: 'Suspended', value: stats?.suspendedVendors, icon: <UserX className="w-3.5 h-3.5" /> },
+    { label: 'Total Inquiries', value: stats?.totalInquiries, icon: <Mail className="w-3.5 h-3.5" /> },
   ];
 
   return (
@@ -79,7 +79,7 @@ function AdminDashboard() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 mb-6">
         {cards.map((card) => (
           <StatCard
             key={card.label}

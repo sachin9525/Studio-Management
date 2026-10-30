@@ -13,7 +13,7 @@ function StatCard({ label, value, icon, trend = '+12% this mo.', accent = false 
         setDisplayValue(0);
         return;
       }
-      const duration = 800; // ms
+      const duration = 500; // ms
       const stepTime = 20;
       const totalSteps = duration / stepTime;
       const increment = end / totalSteps;
@@ -41,40 +41,40 @@ function StatCard({ label, value, icon, trend = '+12% this mo.', accent = false 
 
   return (
     <div
-      className={`relative rounded-sm p-3.5 sm:p-4 border transition-all duration-300 hover:-translate-y-0.5 group overflow-hidden ${
+      className={`relative rounded-sm p-2.5 sm:p-3 border transition-all duration-300 hover:-translate-y-0.5 group overflow-hidden ${
         accent
-          ? 'bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border-gold-400/40 shadow-lg shadow-gold-500/5'
-          : 'bg-ink-900/80 border-white/5 hover:border-gold-400/30 hover:shadow-lg'
+          ? 'bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border-gold-400/40 shadow-md shadow-gold-500/5'
+          : 'bg-ink-900/80 border-white/5 hover:border-gold-400/30 hover:shadow-md'
       }`}
     >
       {/* Subtle ambient light on hover */}
-      <div className="absolute -top-10 -right-10 w-20 h-20 bg-gold-400/10 rounded-full blur-xl group-hover:bg-gold-400/20 transition-all duration-500 pointer-events-none" />
+      <div className="absolute -top-8 -right-8 w-16 h-16 bg-gold-400/10 rounded-full blur-lg group-hover:bg-gold-400/20 transition-all duration-500 pointer-events-none" />
 
-      <div className="flex items-center justify-between mb-3 relative z-10">
+      <div className="flex items-center justify-between mb-1.5 relative z-10">
         <div
-          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-sm flex items-center justify-center transition-all duration-300 group-hover:scale-105 ${
+          className={`w-7 h-7 rounded-sm flex items-center justify-center transition-all duration-300 group-hover:scale-105 shrink-0 ${
             accent
-              ? 'bg-gold-400 text-ink-950 font-bold shadow shadow-gold-400/20'
+              ? 'bg-gold-400 text-ink-950 font-bold shadow-sm shadow-gold-400/20'
               : 'bg-ink-800 text-gold-400 border border-white/5 group-hover:border-gold-400/40 group-hover:text-gold-300'
           }`}
         >
           {icon}
         </div>
         {trend && (
-          <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 whitespace-nowrap">
-            <TrendingUp className="w-2.5 h-2.5 shrink-0" />
-            <span className="truncate max-w-[70px] sm:max-w-none">{trend}</span>
+          <span className="inline-flex items-center gap-1 text-[8px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 whitespace-nowrap">
+            <TrendingUp className="w-2 h-2 shrink-0" />
+            <span className="truncate max-w-[60px] sm:max-w-none">{trend}</span>
           </span>
         )}
       </div>
 
       <div className="relative z-10">
-        <p className="font-serif text-2xl sm:text-3xl text-ink-50 font-normal tracking-tight group-hover:text-gold-200 transition-colors leading-none">
+        <p className="font-serif text-xl sm:text-2xl text-ink-50 font-normal tracking-tight group-hover:text-gold-200 transition-colors leading-none">
           {formattedValue}
         </p>
-        <p className="text-[10px] uppercase tracking-wider text-ink-400 mt-2 font-medium flex items-center justify-between leading-tight">
+        <p className="text-[9px] uppercase tracking-wider text-ink-400 mt-1 font-medium flex items-center justify-between leading-tight">
           <span className="truncate">{label}</span>
-          <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-gold-400 shrink-0 ml-1" />
+          <ArrowUpRight className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity text-gold-400 shrink-0 ml-1" />
         </p>
       </div>
     </div>
