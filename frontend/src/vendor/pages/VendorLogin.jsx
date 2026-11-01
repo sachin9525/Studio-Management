@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Camera, ArrowRight, ArrowLeft, AlertCircle, Loader2 } from "lucide-react";
+import ThemeToggle from "@/components/common/ThemeToggle";
 function VendorLogin() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
@@ -34,13 +35,16 @@ function VendorLogin() {
           <span className="text-gold-400">.</span>
         </span>
       </Link>
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-ink-400 hover:text-gold-400 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        {"Back to Home"}
-      </Link>
+      <div className="flex items-center gap-3">
+        <ThemeToggle />
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-ink-400 hover:text-gold-400 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          {"Back to Home"}
+        </Link>
+      </div>
     </div>
     <div className="flex-1 flex items-center justify-center px-6 py-12"><div className="w-full max-w-md">
       <div className="text-center mb-10">

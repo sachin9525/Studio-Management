@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { adminNavItems } from '@/data/navConfig';
+import ThemeToggle from '@/components/common/ThemeToggle';
 
 function AdminLayout({ children, navItems = adminNavItems, title = 'Admin Dashboard' }) {
   const { profile, signOut } = useAuth();
@@ -51,10 +52,6 @@ function AdminLayout({ children, navItems = adminNavItems, title = 'Admin Dashbo
 
   return (
     <div className="h-screen w-full bg-ink-950 text-ink-100 flex overflow-hidden relative selection:bg-gold-400 selection:text-ink-950 font-sans">
-      {/* Ambient background glow effects */}
-      <div className="pointer-events-none fixed -top-40 right-0 w-[550px] h-[550px] bg-gold-400/5 rounded-full blur-3xl opacity-70 animate-pulse-glow" />
-      <div className="pointer-events-none fixed -bottom-40 left-60 w-[450px] h-[450px] bg-gold-500/5 rounded-full blur-3xl opacity-50" />
-
       {/* Sidebar — desktop & mobile */}
       <aside
         className={`fixed lg:static top-0 left-0 z-40 h-screen w-64 shrink-0 bg-ink-900/95 backdrop-blur-2xl border-r border-white/5 flex flex-col transition-transform duration-300 ease-in-out shadow-2xl ${
@@ -102,14 +99,14 @@ function AdminLayout({ children, navItems = adminNavItems, title = 'Admin Dashbo
                 onClick={() => setOpen(false)}
                 className={`group flex items-center justify-between px-3.5 py-2.5 rounded-sm text-xs uppercase tracking-widest transition-all duration-200 relative ${
                   isActive
-                    ? 'bg-gradient-to-r from-gold-400/20 via-gold-400/10 to-transparent text-gold-300 font-semibold border-l-2 border-gold-400 shadow-sm'
-                    : 'text-ink-400 hover:text-ink-100 hover:bg-white/[0.04] hover:translate-x-1'
+                    ? 'bg-gradient-to-r from-gold-400/20 via-gold-400/10 to-transparent text-gold-600 dark:text-gold-300 font-bold border-l-2 border-gold-500 shadow-sm'
+                    : 'text-ink-400 hover:text-ink-50 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:translate-x-1 font-medium'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span
                     className={`shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                      isActive ? 'text-gold-400 filter drop-shadow-[0_0_8px_rgba(216,179,106,0.5)]' : 'text-ink-400 group-hover:text-gold-300'
+                      isActive ? 'text-gold-600 dark:text-gold-400 filter drop-shadow-[0_0_8px_rgba(216,179,106,0.5)]' : 'text-ink-400 group-hover:text-gold-600 dark:group-hover:text-gold-300'
                     }`}
                   >
                     {item.icon}
@@ -117,7 +114,7 @@ function AdminLayout({ children, navItems = adminNavItems, title = 'Admin Dashbo
                   <span>{item.label}</span>
                 </div>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse shadow-sm shadow-gold-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse shadow-sm shadow-gold-500" />
                 )}
               </Link>
             );
@@ -207,11 +204,14 @@ function AdminLayout({ children, navItems = adminNavItems, title = 'Admin Dashbo
               to="/"
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm border border-gold-400/30 bg-gold-400/10 hover:bg-gold-400/20 text-gold-300 text-xs uppercase tracking-widest font-medium transition-all duration-200 hover:scale-[1.02]"
+              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm border border-gold-400/40 bg-gold-400/10 hover:bg-gold-400/20 text-gold-600 dark:text-gold-300 text-xs uppercase tracking-widest font-semibold transition-all duration-200 hover:scale-[1.02]"
             >
               <span>View Site</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
+
+            {/* Theme Toggle (Dark / Light) */}
+            <ThemeToggle />
 
             {/* Notifications Menu */}
             <div className="relative">

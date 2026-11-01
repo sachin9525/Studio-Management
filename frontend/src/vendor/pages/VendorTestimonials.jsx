@@ -216,22 +216,22 @@ function VendorTestimonials() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Reviews</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{testimonials.length}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{testimonials.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">{publishedCount} live online</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">5-Star Reviews</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-400 leading-none">{fiveStarCount}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-400 leading-none tabular-nums">{fiveStarCount}</p>
           <p className="text-[10px] text-ink-500 mt-1">Top rated feedback</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Rating Score</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">4.9 / 5.0</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">4.9 / 5.0</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">Studio satisfaction</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">Client Love</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-300 leading-none">100%</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-300 leading-none tabular-nums">100%</p>
           <p className="text-[10px] text-gold-400/80 mt-1 font-medium">Positive recommendation</p>
         </div>
       </div>

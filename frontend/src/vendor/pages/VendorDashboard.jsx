@@ -89,16 +89,16 @@ function VendorDashboard() {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-300 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-gold-400" />
+            <span className="px-2 py-0.5 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-600 dark:text-gold-300 text-[10px] uppercase tracking-widest font-bold flex items-center gap-1">
+              <Sparkles className="w-2.5 h-2.5 text-gold-600 dark:text-gold-400" />
               Studio Operations
             </span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">
             Welcome back, {(vendor.fullName || profile?.full_name || 'Vendor').split(' ')[0]}
           </h2>
-          <p className="text-xs sm:text-sm text-ink-400">
-            Real-time activity and showcase performance for <span className="text-gold-300 font-medium">{studioName}</span>.
+          <p className="text-xs sm:text-sm text-ink-300 dark:text-ink-400">
+            Real-time activity and showcase performance for <span className="text-gold-600 dark:text-gold-300 font-semibold">{studioName}</span>.
           </p>
         </div>
 
@@ -107,7 +107,7 @@ function VendorDashboard() {
             type="button"
             onClick={loadDashboard}
             disabled={loading}
-            className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-1.5 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-sm border border-black/10 dark:border-white/10 px-3 py-1.5 text-xs text-ink-200 dark:text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-600 dark:hover:text-gold-300 disabled:opacity-50 font-medium"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh

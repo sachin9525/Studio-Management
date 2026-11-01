@@ -4,12 +4,56 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+html.dark,
+.dark {
+  --ink-50: 247 245 242;
+  --ink-100: 232 228 223;
+  --ink-200: 209 203 195;
+  --ink-300: 180 172 162;
+  --ink-400: 148 138 126;
+  --ink-500: 117 107 97;
+  --ink-600: 91 83 76;
+  --ink-800: 48 43 40;
+  --ink-900: 33 30 28;
+  --ink-950: 21 19 17;
+
+  /* Luxury Champagne Gold (Dark mode) */
+  --gold-300: 240 211 139; /* #f0d38b */
+  --gold-400: 216 179 106; /* #d8b36a */
+  --gold-500: 189 145 72;  /* #bd9148 */
+  --gold-600: 154 113 52;  /* #9a7134 */
+}
+
+html.light,
+.light {
+  /* Crisp, high-contrast typography hierarchy for luxury light mode */
+  --ink-50: 9 9 11;        /* #09090b — Pitch Obsidian for titles & headings (20:1 contrast) */
+  --ink-100: 24 24 27;     /* #18181b — Jet Charcoal primary body text (16:1 contrast) */
+  --ink-200: 39 39 42;     /* #27272a — Deep neutral secondary headings (12:1 contrast) */
+  --ink-300: 63 63 70;     /* #3f3f46 — Rich dark slate descriptions (9:1 contrast) */
+  --ink-400: 75 85 99;     /* #4b5563 — High-contrast dark gray for labels & metadata (7:1 contrast) */
+  --ink-500: 75 85 99;     /* #4b5563 — High-contrast sub-captions & dates (7:1 contrast) */
+  --ink-600: 156 163 175;  /* #9ca3af — Subtle borders & dividers */
+  --ink-800: 244 240 234;  /* #f4f0ea — Soft warm ivory card/hover background */
+  --ink-900: 255 255 255;  /* #ffffff — Crisp pure white card surface */
+  --ink-950: 250 248 245;  /* #faf8f5 — Warm luxury porcelain background */
+
+  /* High-Contrast Rich Antique Honey Bronze for Light Mode */
+  --gold-300: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
+  --gold-400: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
+  --gold-500: 113 63 18;   /* #713f12 — Deep antique bronze (9.2:1 contrast on white) */
+  --gold-600: 89 48 6;     /* #593006 — Rich dark espresso bronze */
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
   body {
     @apply bg-ink-950 text-ink-100 font-sans antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
   ::selection {
     @apply bg-gold-400 text-ink-950;
@@ -75,4 +119,377 @@
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   }
+}
+
+/* ==========================================================================
+   LIGHT MODE: HIGH-CONTRAST TYPOGRAPHY & LUXURY CLARITY RULES
+   ========================================================================== */
+
+.light ::selection {
+  background-color: #d8b36a;
+  color: #151311;
+}
+
+.light ::-webkit-scrollbar-track {
+  background-color: #f2eee8;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background-color: #854d0e;
+}
+
+/* Base Body & Container in Light Mode */
+.light,
+html.light,
+.light body {
+  background-color: #faf8f5 !important;
+  color: #18181b !important;
+}
+
+/* Typography Hierarchy: Dark, Crisp, Razor-Sharp (WCAG AAA) */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6,
+.light .text-ink-50,
+.light .heading-serif {
+  color: #09090b !important;
+}
+
+.light .text-ink-100 {
+  color: #18181b !important;
+}
+
+.light .text-ink-200 {
+  color: #27272a !important;
+}
+
+.light .text-ink-300 {
+  color: #3f3f46 !important;
+}
+
+.light .text-ink-400 {
+  color: #4b5563 !important; /* solid, high-contrast dark gray */
+}
+
+.light .text-ink-500 {
+  color: #4b5563 !important; /* clear and readable */
+}
+
+.light .text-ink-600 {
+  color: #6b7280 !important;
+}
+
+/* Uppercase Micro-Labels in Stat Cards & Headers */
+.light [class*="text-[9px]"].text-ink-400,
+.light [class*="text-[10px]"].text-ink-400,
+.light [class*="text-[10px]"].text-ink-500,
+.light [class*="text-xs"].text-ink-400 {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+/* High-Contrast Gold Accents in Light Mode (Deep Antique Honey Bronze) */
+.light .text-gold-300,
+.light .text-gold-400 {
+  color: #854d0e !important; /* Rich amber bronze, 7.2:1 contrast on white */
+}
+
+.light .text-gold-500,
+.light .text-gold-600 {
+  color: #713f12 !important; /* Deep antique bronze */
+}
+
+.light .group:hover .group-hover\:text-gold-300,
+.light .group:hover .group-hover\:text-gold-400,
+.light .hover\:text-gold-300:hover,
+.light .hover\:text-gold-400:hover {
+  color: #593006 !important;
+}
+
+.light .group:hover .group-hover\:text-gold-200 {
+  color: #854d0e !important;
+}
+
+/* Gold background washes & borders */
+.light .bg-gold-400\/5,
+.light .bg-gold-400\/10,
+.light .bg-gold-500\/10 {
+  background-color: rgba(133, 77, 14, 0.08) !important;
+}
+
+.light .bg-gold-400\/15,
+.light .bg-gold-400\/20,
+.light .bg-gold-500\/20 {
+  background-color: rgba(133, 77, 14, 0.12) !important;
+}
+
+.light .border-gold-400,
+.light .border-gold-400\/40,
+.light .border-gold-400\/50 {
+  border-color: #854d0e !important;
+}
+
+.light .border-gold-400\/20,
+.light .border-gold-400\/30,
+.light .border-gold-500\/30 {
+  border-color: rgba(133, 77, 14, 0.35) !important;
+}
+
+/* Ensure text on solid gold buttons & badges remains pitch black */
+.light .text-ink-950,
+.light [class*="bg-gold-400"]:not([class*="/"]),
+.light [class*="from-gold-"]:not([class*="/"]) {
+  color: #151311 !important;
+}
+
+.light [class*="bg-gold-"] > [class*="text-gold-"] {
+  color: #151311 !important;
+}
+
+/* Sidebar Navigation in Light Mode */
+.light aside {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.03);
+}
+
+.light aside .text-ink-50 {
+  color: #09090b !important;
+}
+
+.light aside .text-ink-500 {
+  color: #4b5563 !important;
+  font-weight: 600 !important;
+}
+
+/* Inactive Sidebar Links */
+.light nav a:not([class*="from-gold-"]) {
+  color: #374151 !important;
+  font-weight: 500;
+}
+
+.light nav a:not([class*="from-gold-"]):hover {
+  color: #09090b !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.light nav a:not([class*="from-gold-"]) span {
+  color: #374151 !important;
+}
+
+.light nav a:not([class*="from-gold-"]):hover span {
+  color: #09090b !important;
+}
+
+.light nav a:not([class*="from-gold-"]) svg {
+  color: #4b5563 !important;
+}
+
+.light nav a:not([class*="from-gold-"]):hover svg {
+  color: #854d0e !important;
+}
+
+/* Active Sidebar Link (High prominence & luxury warmth) */
+.light nav a[class*="from-gold-"] {
+  background: linear-gradient(to right, rgba(133, 77, 14, 0.12), rgba(133, 77, 14, 0.04), transparent) !important;
+  color: #854d0e !important;
+  border-left-color: #854d0e !important;
+  font-weight: 700 !important;
+}
+
+.light nav a[class*="from-gold-"] span {
+  color: #854d0e !important;
+  font-weight: 700 !important;
+}
+
+.light nav a[class*="from-gold-"] svg {
+  color: #854d0e !important;
+  filter: drop-shadow(0 0 3px rgba(133, 77, 14, 0.3)) !important;
+}
+
+/* Top Header & Bar in Light Mode */
+.light header {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* View Site Button */
+.light a[href="/"]:not([class*="group"]) {
+  border-color: rgba(133, 77, 14, 0.35) !important;
+  background-color: rgba(133, 77, 14, 0.08) !important;
+  color: #854d0e !important;
+  font-weight: 600 !important;
+}
+
+.light a[href="/"]:not([class*="group"]):hover {
+  background-color: rgba(133, 77, 14, 0.16) !important;
+  color: #593006 !important;
+}
+
+/* Crisp Solid White Card Backgrounds */
+.light .bg-ink-900,
+.light .bg-ink-900\/70,
+.light .bg-ink-900\/80,
+.light .bg-ink-900\/90,
+.light .bg-ink-900\/95 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+}
+
+.light .bg-ink-800,
+.light .bg-ink-800\/40,
+.light .bg-ink-800\/60 {
+  background-color: #f4f0ea !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .bg-ink-800 svg {
+  color: #854d0e !important;
+}
+
+.light .bg-ink-950,
+.light .bg-ink-950\/40,
+.light .bg-ink-950\/60,
+.light .bg-ink-950\/80 {
+  background-color: #faf8f5 !important;
+}
+
+/* Distinct Card & Section Borders */
+.light .border-white\/5,
+.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .border-white\/20,
+.light .border-white\/30 {
+  border-color: rgba(0, 0, 0, 0.16) !important;
+}
+
+.light .hover\:border-white\/10:hover,
+.light .hover\:border-white\/20:hover,
+.light .hover\:border-white\/30:hover {
+  border-color: rgba(133, 77, 14, 0.35) !important;
+}
+
+.light .divide-white\/5 > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .glass-card {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.light .glass-card-gold {
+  background: linear-gradient(135deg, rgba(133, 77, 14, 0.06) 0%, #ffffff 50%, #ffffff 100%) !important;
+  border-color: rgba(133, 77, 14, 0.3) !important;
+}
+
+/* Status Colors in Light Mode (High Contrast WCAG AA) */
+.light .text-emerald-400,
+.light .text-emerald-300 {
+  color: #047857 !important; /* rich emerald-700 */
+}
+
+.light .bg-emerald-400\/10,
+.light .bg-emerald-950\/80 {
+  background-color: rgba(4, 120, 87, 0.12) !important;
+}
+
+.light .border-emerald-400\/20,
+.light .border-emerald-500\/30 {
+  border-color: rgba(4, 120, 87, 0.28) !important;
+}
+
+.light .text-green-400 {
+  color: #15803d !important; /* green-700 */
+}
+
+.light .bg-green-400\/10 {
+  background-color: rgba(21, 128, 61, 0.12) !important;
+}
+
+.light .border-green-400\/20 {
+  border-color: rgba(21, 128, 61, 0.28) !important;
+}
+
+.light .text-blue-400 {
+  color: #1d4ed8 !important; /* blue-700 */
+}
+
+.light .text-amber-400 {
+  color: #b45309 !important; /* amber-700 */
+}
+
+.light .text-red-400,
+.light .text-red-300 {
+  color: #b91c1c !important; /* red-700 */
+}
+
+.light .bg-red-400\/10 {
+  background-color: rgba(185, 28, 28, 0.1) !important;
+}
+
+.light .border-red-400\/20 {
+  border-color: rgba(185, 28, 28, 0.25) !important;
+}
+
+/* Tables in Light Mode */
+.light table thead tr {
+  background-color: #f4f0ea !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light table thead th {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+.light table tbody tr {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.light table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Form Controls in Light Mode */
+.light input,
+.light textarea,
+.light select {
+  background-color: #ffffff !important;
+  color: #18181b !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+.light input:focus,
+.light textarea:focus {
+  border-color: #854d0e !important;
+  box-shadow: 0 0 0 1px #854d0e !important;
+}
+
+/* Preserving Dark Glass Badges Over Photography */
+.light .bg-black\/70,
+.light .bg-black\/80,
+.light .bg-black\/90 {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.light .bg-black\/70 span,
+.light .bg-black\/70 .text-gold-300,
+.light .bg-black\/80 .text-gold-300 {
+  color: #f0d38b !important;
 }

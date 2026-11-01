@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, Camera } from "lucide-react";
 import { NAV_LINKS } from "@/data/demoContent";
 import Button from "./Button";
+import ThemeToggle from "./ThemeToggle";
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -75,17 +76,21 @@ function Navbar() {
         </li>
       </ul>
       <div className="hidden md:flex items-center gap-3 shrink-0">
+        <ThemeToggle />
         <Button to="/vendor/login" variant="ghost" size="sm">Vendor Login</Button>
         <Button to="/vendor/register" variant="gold" size="sm">Get Started</Button>
       </div>
       {
         /* Mobile toggle */
       }
-      {!open && <button
-        className="xl:hidden text-ink-50 p-1"
-        onClick={() => setOpen(true)}
-        aria-label="Open menu"
-      ><Menu className="w-6 h-6" /></button>}
+      <div className="xl:hidden flex items-center gap-2">
+        <ThemeToggle />
+        {!open && <button
+          className="text-ink-50 p-1"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+        ><Menu className="w-6 h-6" /></button>}
+      </div>
     </nav>
     {
       /* Mobile drawer */

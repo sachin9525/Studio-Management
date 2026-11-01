@@ -97,7 +97,7 @@ function AdminInquiries() {
         ['Contacted', stats.contacted],
         ['Booked', stats.booked],
       ].map(([label, value]) => <div key={label} className="rounded-sm border border-white/5 bg-ink-800 p-4">
-        <p className="font-serif text-2xl text-ink-50">{value.toLocaleString('en-IN')}</p>
+        <p className="font-sans font-bold text-2xl text-ink-50 tabular-nums">{value.toLocaleString('en-IN')}</p>
         <p className="mt-1 text-[10px] uppercase tracking-widest text-ink-400">{label}</p>
       </div>)}
     </div>

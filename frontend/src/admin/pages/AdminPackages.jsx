@@ -14,21 +14,21 @@ import {
 import { AdminLayout } from '@/admin/components';
 import { PACKAGES } from '@/data/demoContent';
 
-const parsePrice = (val) => {
-  if (typeof val === 'number' && !isNaN(val)) return val;
-  if (!val) return 85000;
+const parsePrice = (val, fallback = 49000) => {
+  if (typeof val === 'number') return Number.isFinite(val) && val > 0 ? val : fallback;
+  if (!val) return fallback;
   const cleaned = String(val).replace(/[^0-9]/g, '');
   const parsed = parseInt(cleaned, 10);
-  return isNaN(parsed) ? 85000 : parsed;
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 };
 
-const formatPrice = (val) => parsePrice(val).toLocaleString('en-IN');
+const formatPrice = (val, fallback = 49000) => parsePrice(val, fallback).toLocaleString('en-IN');
 
 const initialPackages = PACKAGES.map((pkg, idx) => ({
   id: `pkg-${idx + 1}`,
   name: pkg.name,
   tagline: pkg.tagline,
-  price: parsePrice(pkg.price || (idx === 0 ? 85000 : idx === 1 ? 149000 : 249000)),
+  price: parsePrice(pkg.price, idx === 0 ? 49000 : idx === 1 ? 89000 : 149000),
   features: pkg.features || [
     'Traditional & Candid Photography',
     'Cinematic 4K Highlights Film',
@@ -47,7 +47,12 @@ function AdminPackages() {
       const saved = localStorage.getItem('svml_admin_packages_items');
       if (saved) {
         const parsed = JSON.parse(saved);
-        return parsed.map((p) => ({ ...p, price: parsePrice(p.price) }));
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((p, idx) => ({
+            ...p,
+            price: parsePrice(p.price, idx === 0 ? 49000 : idx === 1 ? 89000 : 149000),
+          }));
+        }
       }
       return initialPackages;
     } catch {
@@ -184,34 +189,42 @@ function AdminPackages() {
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Active Tiers</span>
-          <p className="font-serif text-3xl text-ink-50">{packages.length}</p>
-          <p className="text-[10px] text-emerald-400 mt-1">{packages.filter((p) => p.isPublished).length} Published online</p>
-        </div>
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Starting Price</span>
-          <p className="font-serif text-3xl text-gold-400">
-            ₹{Math.min(...packages.map((p) => parsePrice(p.price))).toLocaleString('en-IN')}
-          </p>
-          <p className="text-[10px] text-ink-500 mt-1">Introductory package</p>
-        </div>
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Premium Tier</span>
-          <p className="font-serif text-3xl text-ink-50">
-            ₹{Math.max(...packages.map((p) => parsePrice(p.price))).toLocaleString('en-IN')}
-          </p>
-          <p className="text-[10px] text-ink-500 mt-1">Royal Luxury tier</p>
-        </div>
-        <div className="p-5 rounded-sm bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/20 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-gold-400 block mb-1 font-semibold">Featured Badge</span>
-          <p className="font-serif text-3xl text-gold-300">
-            {packages.find((p) => p.isFeatured)?.name || 'Gold'}
-          </p>
-          <p className="text-[10px] text-gold-400/80 mt-1">Most Booked Tier</p>
-        </div>
-      </div>
+      {(() => {
+        const validPrices = packages.map((p) => parsePrice(p.price)).filter((p) => p > 0);
+        const startingPrice = validPrices.length ? Math.min(...validPrices) : 49000;
+        const premiumPrice = validPrices.length ? Math.max(...validPrices) : 149000;
+
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
+              <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Active Tiers</span>
+              <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{packages.length}</p>
+              <p className="text-[10px] text-emerald-400 mt-1 font-medium">{packages.filter((p) => p.isPublished).length} Published online</p>
+            </div>
+            <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
+              <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Starting Price</span>
+              <p className="font-sans font-bold text-3xl text-gold-600 dark:text-gold-400 tabular-nums">
+                ₹{startingPrice.toLocaleString('en-IN')}
+              </p>
+              <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Introductory package</p>
+            </div>
+            <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
+              <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Premium Tier</span>
+              <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">
+                ₹{premiumPrice.toLocaleString('en-IN')}
+              </p>
+              <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Royal Luxury tier</p>
+            </div>
+            <div className="p-5 rounded-sm bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/30 backdrop-blur-md">
+              <span className="text-[10px] uppercase tracking-widest text-gold-600 dark:text-gold-400 block mb-1 font-bold">Featured Badge</span>
+              <p className="font-serif text-3xl text-gold-600 dark:text-gold-300 font-semibold">
+                {packages.find((p) => p.isFeatured)?.name || 'Signature'}
+              </p>
+              <p className="text-[10px] text-gold-600/90 dark:text-gold-400/80 mt-1 font-semibold">Most Booked Tier</p>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Packages Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -247,7 +260,7 @@ function AdminPackages() {
               <div className="mb-6 pb-6 border-b border-white/10">
                 <span className="text-xs text-ink-500 uppercase tracking-widest block mb-1">Starting from</span>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-serif text-4xl text-gold-300 font-semibold">
+                  <span className="font-sans font-bold text-3xl sm:text-4xl text-gold-300 tabular-nums">
                     ₹{formatPrice(pkg.price)}
                   </span>
                   <span className="text-xs text-ink-500">/ event</span>

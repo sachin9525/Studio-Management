@@ -1,26 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
         ink: {
-          50: '#f7f5f2',
-          100: '#e8e4df',
-          200: '#d1cbc3',
-          300: '#b4aca2',
-          400: '#948a7e',
-          500: '#756b61',
-          600: '#5b534c',
-          800: '#302b28',
-          900: '#211e1c',
-          950: '#151311',
+          50: 'rgb(var(--ink-50) / <alpha-value>)',
+          100: 'rgb(var(--ink-100) / <alpha-value>)',
+          200: 'rgb(var(--ink-200) / <alpha-value>)',
+          300: 'rgb(var(--ink-300) / <alpha-value>)',
+          400: 'rgb(var(--ink-400) / <alpha-value>)',
+          500: 'rgb(var(--ink-500) / <alpha-value>)',
+          600: 'rgb(var(--ink-600) / <alpha-value>)',
+          800: 'rgb(var(--ink-800) / <alpha-value>)',
+          900: 'rgb(var(--ink-900) / <alpha-value>)',
+          950: 'rgb(var(--ink-950) / <alpha-value>)',
         },
         gold: {
-          300: '#f0d38b',
-          400: '#d8b36a',
-          500: '#bd9148',
-          600: '#9a7134',
+          300: 'rgb(var(--gold-300) / <alpha-value>)',
+          400: 'rgb(var(--gold-400) / <alpha-value>)',
+          500: 'rgb(var(--gold-500) / <alpha-value>)',
+          600: 'rgb(var(--gold-600) / <alpha-value>)',
         },
       },
       fontFamily: {

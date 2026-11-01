@@ -24,10 +24,10 @@ function HeroSection() {
       className={`w-full h-full object-cover ${i === active ? "animate-ken-burns" : ""}`}
     /></div>)}
     {
-      /* Overlays */
+      /* Overlays — crisp rich cinematic black overlays so photo is never washed out */
     }
-    <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/30 to-ink-950" />
-    <div className="absolute inset-0 bg-gradient-to-r from-ink-950/60 to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 pointer-events-none" />
+    <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent pointer-events-none" />
     {
       /* Content */
     }

@@ -154,7 +154,7 @@ function AdminVideos() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Total Films</span>
-          <p className="font-serif text-3xl text-ink-50">{videos.length}</p>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{videos.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1">{videos.filter((v) => v.isPublished).length} Published Live</p>
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
@@ -164,7 +164,7 @@ function AdminVideos() {
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Total Views</span>
-          <p className="font-serif text-3xl text-ink-50">
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">
             {videos.reduce((a, b) => a + (b.views || 0), 0).toLocaleString('en-IN')}
           </p>
           <p className="text-[10px] text-ink-500 mt-1">Trailer plays</p>
@@ -204,13 +204,13 @@ function AdminVideos() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-black/20 to-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40" />
 
               <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-ink-950/80 backdrop-blur-md border border-white/10 text-gold-300">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300">
                   {vid.quality}
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-black/70 text-ink-200 border border-white/10 flex items-center gap-1">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-black/70 text-stone-200 border border-white/10 flex items-center gap-1">
                   <Clock className="w-3 h-3 text-gold-400" />
                   {vid.duration}
                 </span>

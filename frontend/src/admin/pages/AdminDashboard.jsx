@@ -59,13 +59,13 @@ function AdminDashboard() {
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">Platform Overview</h2>
-          <p className="text-xs sm:text-sm text-ink-400">Live vendor activity from your platform.</p>
+          <p className="text-xs sm:text-sm text-ink-300 dark:text-ink-400">Live vendor activity from your platform.</p>
         </div>
         <button
           type="button"
           onClick={loadDashboard}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-1.5 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-sm border border-black/10 dark:border-white/10 px-3 py-1.5 text-xs text-ink-200 dark:text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-600 dark:hover:text-gold-300 disabled:opacity-50 font-medium"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh

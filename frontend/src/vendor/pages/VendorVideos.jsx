@@ -236,7 +236,7 @@ function VendorVideos() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Films</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{videos.length}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{videos.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">{publishedCount} live online</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
@@ -246,7 +246,7 @@ function VendorVideos() {
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Video Files</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{totalVideoFiles}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{totalVideoFiles}</p>
           <p className="text-[10px] text-ink-500 mt-1">Uploaded clips</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
@@ -391,13 +391,13 @@ function VendorVideos() {
                       e.currentTarget.src = DEFAULT_POSTERS[0];
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-85" />
 
                   {/* Play Button Trigger */}
                   <button
                     type="button"
                     onClick={() => setSelectedVideo({ ...video, videoUrl, posterImage })}
-                    className="absolute inset-0 flex items-center justify-center group-hover:bg-ink-950/20 transition-colors"
+                    className="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition-colors"
                     aria-label="Play Video"
                   >
                     <div className="w-14 h-14 rounded-full bg-gold-400 text-ink-950 flex items-center justify-center shadow-xl shadow-gold-500/30 transition-transform duration-300 group-hover:scale-110">
@@ -406,15 +406,15 @@ function VendorVideos() {
                   </button>
 
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-ink-950/80 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-wider text-gold-300 font-semibold">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[10px] uppercase tracking-wider text-gold-300 font-semibold">
                       <Film className="w-3 h-3" />
                       4K Ultra HD
                     </span>
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-[9px] uppercase tracking-wider font-semibold backdrop-blur-md border ${
                         video.isPublished
-                          ? 'bg-emerald-400/10 border-emerald-400/20 text-emerald-400'
-                          : 'bg-ink-950/80 border-white/10 text-ink-400'
+                          ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-300'
+                          : 'bg-black/70 border-white/10 text-stone-300'
                       }`}
                     >
                       {video.isPublished ? 'Live' : 'Draft'}

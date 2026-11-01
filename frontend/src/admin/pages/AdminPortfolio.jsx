@@ -231,7 +231,7 @@ function AdminPortfolio() {
             <span className="text-[10px] uppercase tracking-widest">Total Shoots</span>
             <FolderHeart className="w-4 h-4 text-gold-400" />
           </div>
-          <p className="font-serif text-3xl text-ink-50 font-medium">{stats.total}</p>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.total}</p>
           <div className="mt-2 text-[10px] text-ink-500 flex items-center gap-1">
             <span className="text-emerald-400 font-semibold">{stats.published}</span> published online
           </div>
@@ -242,7 +242,7 @@ function AdminPortfolio() {
             <span className="text-[10px] uppercase tracking-widest">Weddings</span>
             <span className="text-xs text-gold-400">💍</span>
           </div>
-          <p className="font-serif text-3xl text-ink-50 font-medium">{stats.wedding}</p>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.wedding}</p>
           <p className="mt-2 text-[10px] text-ink-500">Traditional & Destination</p>
         </div>
 
@@ -251,7 +251,7 @@ function AdminPortfolio() {
             <span className="text-[10px] uppercase tracking-widest">Pre-Weddings</span>
             <span className="text-xs text-gold-400">✨</span>
           </div>
-          <p className="font-serif text-3xl text-ink-50 font-medium">{stats.preWedding}</p>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.preWedding}</p>
           <p className="mt-2 text-[10px] text-ink-500">Couples & Outdoor</p>
         </div>
 
@@ -260,7 +260,7 @@ function AdminPortfolio() {
             <span className="text-[10px] uppercase tracking-widest font-semibold">Live Impressions</span>
             <Eye className="w-4 h-4" />
           </div>
-          <p className="font-serif text-3xl text-gold-300 font-medium">{stats.totalViews.toLocaleString('en-IN')}</p>
+          <p className="font-sans font-bold text-3xl text-gold-300 tabular-nums">{stats.totalViews.toLocaleString('en-IN')}</p>
           <p className="mt-2 text-[10px] text-gold-400/80">Public Portfolio Visits</p>
         </div>
       </div>
@@ -276,7 +276,7 @@ function AdminPortfolio() {
               className={`px-3.5 py-1.5 rounded-sm text-xs uppercase tracking-wider font-medium transition-all ${
                 activeCategory === cat
                   ? 'bg-gold-400 text-ink-950 shadow-md font-semibold'
-                  : 'text-ink-400 hover:text-ink-100 hover:bg-white/5'
+                  : 'bg-ink-800/60 text-ink-300 hover:text-ink-50 hover:bg-ink-800 border border-ink-600/30'
               }`}
             >
               {cat}
@@ -354,11 +354,11 @@ function AdminPortfolio() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
 
                 {/* Badges on image */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-ink-950/80 backdrop-blur-md border border-white/10 text-gold-300">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300">
                     {item.category}
                   </span>
                   {item.featured && (
@@ -373,13 +373,13 @@ function AdminPortfolio() {
                   <span
                     className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1 border backdrop-blur-md ${
                       item.isPublished
-                        ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/30'
-                        : 'bg-ink-900/80 text-ink-400 border-white/10'
+                        ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
+                        : 'bg-black/70 text-stone-300 border-white/10'
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
-                        item.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-ink-500'
+                        item.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-stone-500'
                       }`}
                     />
                     {item.isPublished ? 'Live' : 'Draft'}

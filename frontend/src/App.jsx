@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import {
   AdminLanding,
   AdminLogin,
@@ -31,7 +32,11 @@ import ComingSoon from "@/common/pages/ComingSoon";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
 import { vendorNavItems, adminNavItems } from "@/data/navConfig";
 function App() {
-  return <AuthProvider><BrowserRouter><Routes>
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
     {
       /* Public routes */
     }
@@ -129,7 +134,11 @@ function App() {
       /* Fallback */
     }
     <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes></BrowserRouter></AuthProvider>;
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
+  );
 }
 var App_default = App;
 export {

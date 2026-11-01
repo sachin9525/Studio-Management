@@ -221,30 +221,30 @@ function VendorPackages() {
       {/* Symmetrical Metric Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Active Tiers</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{packages.length}</p>
+          <span className="text-[10px] uppercase tracking-wider text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Active Tiers</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{packages.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">{publishedCount} published online</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Starting Price</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-400 leading-none">
+          <span className="text-[10px] uppercase tracking-wider text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Starting Price</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-600 dark:text-gold-400 leading-none tabular-nums">
             {minPrice > 0 ? formatPrice(minPrice) : '₹0'}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Base package</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Base package</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Premium Tier</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">
+          <span className="text-[10px] uppercase tracking-wider text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Premium Tier</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">
             {maxPrice > 0 ? formatPrice(maxPrice) : '₹0'}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Luxury tier</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Luxury tier</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">Featured Badge</span>
-          <p className="font-serif text-xl sm:text-2xl text-gold-300 leading-none truncate">
+          <span className="text-[10px] uppercase tracking-wider text-gold-600 dark:text-gold-400 block mb-1 font-bold">Featured Badge</span>
+          <p className="font-serif text-xl sm:text-2xl text-gold-600 dark:text-gold-300 leading-none truncate font-semibold">
             {featuredPkg?.name || 'Signature'}
           </p>
-          <p className="text-[10px] text-gold-400/80 mt-1 font-medium">Most Booked Tier</p>
+          <p className="text-[10px] text-gold-600/90 dark:text-gold-400/80 mt-1 font-semibold">Most Booked Tier</p>
         </div>
       </div>
 

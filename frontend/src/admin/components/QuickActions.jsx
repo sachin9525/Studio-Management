@@ -38,11 +38,11 @@ function QuickActions({ stats }) {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-serif text-2xl text-ink-50 font-normal">Command Center</h3>
-          <span className="text-[10px] uppercase tracking-widest text-gold-400 font-semibold flex items-center gap-1">
+          <span className="text-[10px] uppercase tracking-widest text-gold-600 dark:text-gold-400 font-bold flex items-center gap-1">
             <Sparkles className="w-3 h-3" /> Quick Access
           </span>
         </div>
-        <p className="text-xs text-ink-400 mb-5">
+        <p className="text-xs text-ink-300 dark:text-ink-400 mb-5 font-normal">
           Priority administrative workflows and live queue shortcuts
         </p>
 
@@ -58,10 +58,10 @@ function QuickActions({ stats }) {
                   {action.icon}
                 </div>
                 <div>
-                  <span className="text-xs font-medium text-ink-100 group-hover:text-gold-300 transition-colors block">
+                  <span className="text-xs font-medium text-ink-100 group-hover:text-gold-600 dark:group-hover:text-gold-300 transition-colors block">
                     {action.label}
                   </span>
-                  <span className="text-[10px] text-ink-500">{action.desc}</span>
+                  <span className="text-[10px] text-ink-400 dark:text-ink-500 font-medium">{action.desc}</span>
                 </div>
               </div>
 

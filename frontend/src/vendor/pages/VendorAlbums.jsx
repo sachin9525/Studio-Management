@@ -231,17 +231,17 @@ function VendorAlbums() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Albums</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{albums.length}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{albums.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">{publishedCount} published online</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Photos</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-400 leading-none">{totalPhotosCount}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-400 leading-none tabular-nums">{totalPhotosCount}</p>
           <p className="text-[10px] text-ink-500 mt-1">Uploaded media assets</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Draft Albums</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{albums.length - publishedCount}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{albums.length - publishedCount}</p>
           <p className="text-[10px] text-ink-500 mt-1">Pending publication</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
@@ -383,19 +383,19 @@ function VendorAlbums() {
                       e.currentTarget.src = DEFAULT_COVERS[0];
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-85" />
 
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-ink-950/80 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-wider text-ink-200 font-medium">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[10px] uppercase tracking-wider text-stone-200 font-medium">
                       <Images className="w-3 h-3 text-gold-400" />
                       {photosCount} photos
                     </span>
                     <span
                       className={`inline-flex items-center px-2.5 py-1 rounded-full text-[9px] uppercase tracking-wider font-semibold backdrop-blur-md border ${
                         album.isPublished
-                          ? 'bg-emerald-400/10 border-emerald-400/20 text-emerald-400'
-                          : 'bg-ink-950/80 border-white/10 text-ink-400'
+                          ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-300'
+                          : 'bg-black/70 border-white/10 text-stone-300'
                       }`}
                     >
                       {album.isPublished ? 'Live' : 'Draft'}

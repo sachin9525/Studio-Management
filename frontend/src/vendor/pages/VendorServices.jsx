@@ -217,27 +217,27 @@ function VendorServices() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Offerings</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{services.length}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{services.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">Active in catalog</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Starting Rate</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-400 leading-none">
+          <span className="text-[10px] uppercase tracking-wider text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Starting Rate</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-600 dark:text-gold-400 leading-none tabular-nums">
             {minPrice > 0 ? formatPrice(minPrice) : '₹0'}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Base service fee</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Base service fee</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Average Offering</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">
+          <span className="text-[10px] uppercase tracking-wider text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Average Offering</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">
             {avgPrice > 0 ? formatPrice(avgPrice) : '₹0'}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Average rate</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Average rate</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">Categories</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-300 leading-none">{uniqueCategories || 1}</p>
-          <p className="text-[10px] text-gold-400/80 mt-1 font-medium">Specializations</p>
+          <span className="text-[10px] uppercase tracking-wider text-gold-600 dark:text-gold-400 block mb-1 font-bold">Categories</span>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-600 dark:text-gold-300 leading-none tabular-nums font-semibold">{uniqueCategories || 1}</p>
+          <p className="text-[10px] text-gold-600/90 dark:text-gold-400/80 mt-1 font-semibold">Specializations</p>
         </div>
       </div>
 

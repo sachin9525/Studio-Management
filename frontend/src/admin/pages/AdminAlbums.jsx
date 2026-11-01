@@ -159,19 +159,19 @@ function AdminAlbums() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Total Albums</span>
-          <p className="font-serif text-3xl text-ink-50">{albums.length}</p>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{albums.length}</p>
           <p className="text-[10px] text-emerald-400 mt-1">{albums.filter((a) => a.isPublished).length} Published</p>
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Total Photos</span>
-          <p className="font-serif text-3xl text-gold-400">
+          <p className="font-sans font-bold text-3xl text-gold-400 tabular-nums">
             {albums.reduce((a, b) => a + (Number(b.count) || 0), 0)}
           </p>
           <p className="text-[10px] text-ink-500 mt-1">High-res frames</p>
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Avg Size</span>
-          <p className="font-serif text-3xl text-ink-50">
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">
             {Math.round(albums.reduce((a, b) => a + (Number(b.count) || 0), 0) / (albums.length || 1))} Photos
           </p>
           <p className="text-[10px] text-ink-500 mt-1">Per story book</p>
@@ -221,9 +221,9 @@ function AdminAlbums() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-ink-950/80 backdrop-blur-md border border-white/10 text-gold-300 flex items-center gap-1.5">
+                <span className="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300 flex items-center gap-1.5">
                   <Images className="w-3 h-3 text-gold-400" />
                   {album.count} Photos
                 </span>
@@ -232,11 +232,11 @@ function AdminAlbums() {
                 <span
                   className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1 border backdrop-blur-md ${
                     album.isPublished
-                      ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/30'
-                      : 'bg-ink-900/80 text-ink-400 border-white/10'
+                      ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
+                      : 'bg-black/70 text-stone-300 border-white/10'
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${album.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-ink-500'}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${album.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-stone-500'}`} />
                   {album.isPublished ? 'Live' : 'Draft'}
                 </span>
               </div>
@@ -244,7 +244,7 @@ function AdminAlbums() {
               {/* View Overlay Button */}
               <button
                 onClick={() => setPreviewAlbum(album)}
-                className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-ink-950/80 text-gold-400 border border-gold-400/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-xl"
+                className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-black/80 text-gold-300 border border-gold-400/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-xl"
                 title="Browse Album"
               >
                 <Eye className="w-5 h-5" />

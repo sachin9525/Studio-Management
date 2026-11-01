@@ -29,13 +29,13 @@ function VendorRegistrationsChart({ registrations = [], loading = false, error =
               +42% Growth
             </span>
           </div>
-          <p className="mt-1 text-xs text-ink-400">
+          <p className="mt-1 text-xs text-ink-300 dark:text-ink-400">
             Monthly onboarding of luxury photography & cinematography studios
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-ink-400 bg-ink-950/60 px-3 py-1.5 rounded-sm border border-white/5">
-          <TrendingUp className="w-4 h-4 text-gold-400" />
-          <span className="font-mono text-gold-300 font-semibold">{totalInPeriod}</span>
+        <div className="flex items-center gap-2 text-xs text-ink-300 dark:text-ink-400 bg-ink-950/60 px-3 py-1.5 rounded-sm border border-black/5 dark:border-white/5 font-medium">
+          <TrendingUp className="w-4 h-4 text-gold-600 dark:text-gold-400" />
+          <span className="font-mono text-gold-600 dark:text-gold-300 font-bold">{totalInPeriod}</span>
           <span>studios joined</span>
         </div>
       </div>
@@ -72,7 +72,7 @@ function VendorRegistrationsChart({ registrations = [], loading = false, error =
 
                   <span
                     className={`text-[10px] font-mono transition-colors ${
-                      isHovered || isLast ? 'text-gold-300 font-semibold' : 'text-ink-500'
+                      isHovered || isLast ? 'text-gold-600 dark:text-gold-300 font-bold' : 'text-ink-400 dark:text-ink-500 font-medium'
                     }`}
                   >
                     {bar.count}
@@ -92,7 +92,7 @@ function VendorRegistrationsChart({ registrations = [], loading = false, error =
 
                   <span
                     className={`text-[10px] uppercase tracking-widest transition-colors ${
-                      isHovered || isLast ? 'text-gold-400 font-bold' : 'text-ink-500'
+                      isHovered || isLast ? 'text-gold-600 dark:text-gold-400 font-bold' : 'text-ink-400 dark:text-ink-500 font-semibold'
                     }`}
                   >
                     {bar.month}

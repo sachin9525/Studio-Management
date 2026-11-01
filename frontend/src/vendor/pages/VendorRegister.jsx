@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Camera, ArrowRight, ArrowLeft, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import ThemeToggle from "@/components/common/ThemeToggle";
 function VendorRegister() {
   const { signUpVendor } = useAuth();
   const navigate = useNavigate();
@@ -48,13 +49,16 @@ function VendorRegister() {
           <span className="text-gold-400">.</span>
         </span>
       </Link>
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-ink-400 hover:text-gold-400 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        {"Back to Home"}
-      </Link>
+      <div className="flex items-center gap-3">
+        <ThemeToggle />
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-ink-400 hover:text-gold-400 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          {"Back to Home"}
+        </Link>
+      </div>
     </div>
     <div className="flex-1 flex items-center justify-center px-6 py-12"><div className="w-full max-w-2xl">{success ? <div className="text-center animate-scale-in">
       <CheckCircle2 className="w-16 h-16 text-gold-400 mx-auto mb-6" />

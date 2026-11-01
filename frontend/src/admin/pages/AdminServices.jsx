@@ -165,28 +165,28 @@ function AdminServices() {
       {/* Metrics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Total Offerings</span>
-          <p className="font-serif text-3xl text-ink-50">{services.length}</p>
-          <p className="text-[10px] text-emerald-400 mt-1">{services.filter((s) => s.isActive).length} active online</p>
+          <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Total Offerings</span>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{services.length}</p>
+          <p className="text-[10px] text-emerald-400 mt-1 font-medium">{services.filter((s) => s.isActive).length} active online</p>
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Starting Price</span>
-          <p className="font-serif text-3xl text-gold-400">
+          <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Starting Price</span>
+          <p className="font-sans font-bold text-3xl text-gold-600 dark:text-gold-400 tabular-nums">
             ₹{Math.min(...services.map((s) => s.price || 35000)).toLocaleString('en-IN')}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Base rate</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Base rate</p>
         </div>
         <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-ink-500 block mb-1">Avg Package</span>
-          <p className="font-serif text-3xl text-ink-50">
+          <span className="text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-500 block mb-1 font-semibold">Avg Package</span>
+          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">
             ₹{Math.round(services.reduce((a, b) => a + (b.price || 0), 0) / (services.length || 1)).toLocaleString('en-IN')}
           </p>
-          <p className="text-[10px] text-ink-500 mt-1">Platform average</p>
+          <p className="text-[10px] text-ink-400 dark:text-ink-500 mt-1 font-medium">Platform average</p>
         </div>
-        <div className="p-5 rounded-sm bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/20 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-widest text-gold-400 block mb-1 font-semibold">Active Coverage</span>
-          <p className="font-serif text-3xl text-gold-300">100% Verified</p>
-          <p className="text-[10px] text-gold-400/80 mt-1">Studio Certified</p>
+        <div className="p-5 rounded-sm bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/30 backdrop-blur-md">
+          <span className="text-[10px] uppercase tracking-widest text-gold-600 dark:text-gold-400 block mb-1 font-bold">Active Coverage</span>
+          <p className="font-sans font-bold text-3xl text-gold-600 dark:text-gold-400 tabular-nums">100% Verified</p>
+          <p className="text-[10px] text-gold-600/90 dark:text-gold-400/80 mt-1 font-semibold">Studio Certified</p>
         </div>
       </div>
 
@@ -200,7 +200,7 @@ function AdminServices() {
               className={`px-3.5 py-1.5 rounded-sm text-xs uppercase tracking-wider font-medium transition-all ${
                 activeCategory === cat
                   ? 'bg-gold-400 text-ink-950 font-semibold shadow-md'
-                  : 'text-ink-400 hover:text-ink-100 hover:bg-white/5'
+                  : 'bg-ink-800/60 text-ink-300 hover:text-ink-50 hover:bg-ink-800 border border-ink-600/30'
               }`}
             >
               {cat}
@@ -234,9 +234,9 @@ function AdminServices() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-ink-950/80 backdrop-blur-md border border-white/10 text-gold-300">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300">
                   {srv.category}
                 </span>
               </div>
@@ -244,16 +244,16 @@ function AdminServices() {
                 <span
                   className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1 border backdrop-blur-md ${
                     srv.isActive
-                      ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/30'
-                      : 'bg-ink-900/80 text-ink-400 border-white/10'
+                      ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
+                      : 'bg-black/70 text-stone-300 border-white/10'
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${srv.isActive ? 'bg-emerald-400 animate-pulse' : 'bg-ink-500'}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${srv.isActive ? 'bg-emerald-400 animate-pulse' : 'bg-stone-500'}`} />
                   {srv.isActive ? 'Active' : 'Disabled'}
                 </span>
               </div>
-              <div className="absolute bottom-3 left-3 text-gold-300 font-serif text-lg font-medium drop-shadow-md">
-                Starting at ₹{Number(srv.price || 0).toLocaleString('en-IN')}
+              <div className="absolute bottom-3 left-3 text-white font-serif text-lg font-medium drop-shadow-md">
+                Starting at <span className="text-gold-300 font-semibold">₹{Number(srv.price || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
 

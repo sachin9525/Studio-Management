@@ -131,22 +131,22 @@ function VendorInquiries() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">All Inquiries</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{stats.total}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{stats.total}</p>
           <p className="text-[10px] text-emerald-400 mt-1 font-medium">Total leads received</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">New Leads</span>
-          <p className="font-serif text-2xl sm:text-3xl text-gold-300 leading-none">{stats.new}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-300 leading-none tabular-nums">{stats.new}</p>
           <p className="text-[10px] text-gold-400/80 mt-1 font-medium">Requires initial response</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Contacted</span>
-          <p className="font-serif text-2xl sm:text-3xl text-blue-400 leading-none">{stats.contacted}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-blue-400 leading-none tabular-nums">{stats.contacted}</p>
           <p className="text-[10px] text-ink-500 mt-1">In active discussion</p>
         </div>
         <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
           <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Booked</span>
-          <p className="font-serif text-2xl sm:text-3xl text-emerald-400 leading-none">{stats.booked}</p>
+          <p className="font-sans font-bold text-2xl sm:text-3xl text-emerald-400 leading-none tabular-nums">{stats.booked}</p>
           <p className="text-[10px] text-emerald-400/80 mt-1 font-medium">Locked wedding clients</p>
         </div>
       </div>

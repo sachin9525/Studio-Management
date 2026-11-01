@@ -55,7 +55,7 @@ function StatCard({ label, value, icon, trend = '+12% this mo.', accent = false 
           className={`w-7 h-7 rounded-sm flex items-center justify-center transition-all duration-300 group-hover:scale-105 shrink-0 ${
             accent
               ? 'bg-gold-400 text-ink-950 font-bold shadow-sm shadow-gold-400/20'
-              : 'bg-ink-800 text-gold-400 border border-white/5 group-hover:border-gold-400/40 group-hover:text-gold-300'
+              : 'bg-ink-800 text-gold-600 dark:text-gold-400 border border-black/5 dark:border-white/5 group-hover:border-gold-400/40 group-hover:text-gold-700 dark:group-hover:text-gold-300'
           }`}
         >
           {icon}
@@ -69,10 +69,10 @@ function StatCard({ label, value, icon, trend = '+12% this mo.', accent = false 
       </div>
 
       <div className="relative z-10">
-        <p className="font-serif text-xl sm:text-2xl text-ink-50 font-normal tracking-tight group-hover:text-gold-200 transition-colors leading-none">
+        <p className="font-sans font-bold text-xl sm:text-2xl text-ink-50 tracking-tight group-hover:text-gold-600 dark:group-hover:text-gold-200 transition-colors leading-none tabular-nums">
           {formattedValue}
         </p>
-        <p className="text-[9px] uppercase tracking-wider text-ink-400 mt-1 font-medium flex items-center justify-between leading-tight">
+        <p className="text-[9px] uppercase tracking-wider text-ink-400 mt-1 font-semibold flex items-center justify-between leading-tight">
           <span className="truncate">{label}</span>
           <ArrowUpRight className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity text-gold-400 shrink-0 ml-1" />
         </p>

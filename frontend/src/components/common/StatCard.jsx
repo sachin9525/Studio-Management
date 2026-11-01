@@ -21,8 +21,8 @@ function StatCard({ label, value, icon, trend, accent }) {
           </span>
         )}
       </div>
-      <p className="font-serif text-xl sm:text-2xl text-ink-50 mb-0.5 leading-none">{value}</p>
-      <p className="text-[9px] uppercase tracking-wider text-ink-400 font-medium truncate">{label}</p>
+      <p className="font-sans font-bold text-xl sm:text-2xl text-ink-50 mb-0.5 leading-none tabular-nums">{value}</p>
+      <p className="text-[9px] uppercase tracking-wider text-ink-400 font-semibold truncate">{label}</p>
     </div>
   );
 }
