@@ -11,10 +11,12 @@ import {
   Sparkles,
   Store,
   Layers,
+  ArrowLeft,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { vendorNavItems } from '@/data/navConfig';
 import ThemeToggle from '@/components/common/ThemeToggle';
+import GlassySidebar from '@/components/common/GlassySidebar';
 
 function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Dashboard' }) {
   const { profile, signOut } = useAuth();
@@ -52,219 +54,166 @@ function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Das
 
   return (
     <div className="h-screen w-full bg-ink-950 text-ink-100 flex overflow-hidden relative selection:bg-gold-400 selection:text-ink-950 font-sans">
-      {/* Sidebar — desktop & mobile */}
-      <aside
-        className={`fixed lg:static top-0 left-0 z-40 h-screen w-64 shrink-0 bg-ink-900/95 backdrop-blur-2xl border-r border-white/5 flex flex-col transition-transform duration-300 ease-in-out shadow-2xl ${
-          open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
-      >
-        {/* Brand Header */}
-        <div className="p-6 border-b border-white/5 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-gold-400/20 to-gold-400/5 border border-gold-400/30 flex items-center justify-center text-gold-400 group-hover:border-gold-400/60 group-hover:scale-105 transition-all duration-300 shadow-lg shadow-gold-400/5">
-              <Camera className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="font-serif text-xl text-ink-50 font-medium tracking-tight block leading-tight group-hover:text-gold-300 transition-colors">
-                SVML<span className="text-gold-400">.</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-gold-400 font-semibold">
-                <Store className="w-2.5 h-2.5" />
-                Vendor Panel
-              </span>
-            </div>
-          </Link>
-          <button
-            onClick={() => setOpen(false)}
-            className="lg:hidden text-ink-400 hover:text-ink-100 transition-colors"
-            aria-label="Close menu"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+      {/* Studio Ambient Luxury Background Lighting for Realistic Glass Blur */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_15%_10%,rgba(216,179,106,0.08),rgba(0,0,0,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_15%_10%,rgba(216,179,106,0.1),rgba(0,0,0,0))] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-orange-600/5 rounded-full blur-[140px] pointer-events-none" />
 
-        {/* Navigation list */}
-        <nav className="flex-1 overflow-y-auto py-5 px-3 space-y-1.5 no-scrollbar">
-          <div className="px-3 pb-2 text-[10px] uppercase tracking-widest-2 text-ink-500 font-semibold flex items-center justify-between">
-            <span>Studio Menu</span>
-            <span className="flex h-1.5 w-1.5 rounded-full bg-gold-400" />
-          </div>
+      {/* Glassy SideBar V5 — Desktop */}
+      <div className="hidden lg:block shrink-0">
+        <GlassySidebar role="vendor" navItems={navItems} />
+      </div>
 
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setOpen(false)}
-                className={`group flex items-center justify-between px-3.5 py-2.5 rounded-sm text-xs uppercase tracking-widest transition-all duration-200 relative ${
-                  isActive
-                    ? 'bg-gradient-to-r from-gold-400/20 via-gold-400/10 to-transparent text-gold-600 dark:text-gold-300 font-bold border-l-2 border-gold-500 shadow-sm'
-                    : 'text-ink-400 hover:text-ink-50 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:translate-x-1 font-medium'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                      isActive ? 'text-gold-600 dark:text-gold-400 filter drop-shadow-[0_0_8px_rgba(216,179,106,0.5)]' : 'text-ink-400 group-hover:text-gold-600 dark:group-hover:text-gold-300'
-                    }`}
-                  >
-                    {item.icon}
-                  </span>
-                  <span>{item.label}</span>
-                </div>
-                {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse shadow-sm shadow-gold-500" />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Vendor Profile Footer */}
-        <div className="p-4 border-t border-white/5 bg-ink-950/40">
-          <div className="flex items-center gap-3 mb-3 p-2 rounded-sm bg-ink-900/60 border border-white/5">
-            <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-gold-500/20 to-gold-400/30 border border-gold-400/40 flex items-center justify-center text-gold-300 font-serif text-sm font-semibold shadow-inner">
-                {profile?.full_name?.charAt(0).toUpperCase() ?? profile?.studio_name?.charAt(0).toUpperCase() ?? 'V'}
-              </div>
-              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-ink-900" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-xs font-medium text-ink-100 truncate">{studioName}</p>
-              <p className="text-[10px] text-ink-500 truncate">{profile?.email ?? 'vendor@svml.studio'}</p>
-            </div>
-          </div>
-          <button
-            onClick={handleSignOut}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-sm text-[10px] font-medium uppercase tracking-widest text-ink-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            Logout Session
-          </button>
-        </div>
-      </aside>
-
-      {/* Mobile Backdrop */}
+      {/* Mobile Drawer with Glassy SideBar V5 */}
       {open && (
-        <div
-          className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm z-30 lg:hidden transition-opacity duration-300"
-          onClick={() => setOpen(false)}
-        />
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          <div
+            className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setOpen(false)}
+          />
+          <div className="relative z-10 w-72 h-full flex items-center">
+            <GlassySidebar role="vendor" navItems={navItems} />
+          </div>
+        </div>
       )}
 
       {/* Main Content Area — independent scroll */}
       <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
-        {/* Sticky Header */}
-        <header className="sticky top-0 z-30 shrink-0 bg-ink-950/85 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between transition-all">
-          <div className="flex items-center gap-4">
-            <button
-              className="lg:hidden p-2 rounded-sm text-ink-400 hover:text-ink-100 hover:bg-white/5 transition-colors"
-              onClick={() => setOpen(!open)}
-              aria-label="Toggle navigation"
-            >
-              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+        {/* Glassy Floating Island Header */}
+        <header className="sticky top-0 z-30 shrink-0 pl-6 sm:pl-8 pr-4 sm:pr-6 pt-3 sm:pt-4 pb-2 transition-all">
+          <div className="relative rounded-[24px] sm:rounded-full bg-white/85 dark:bg-black/50 backdrop-blur-3xl border border-black/10 dark:border-white/15 px-4 sm:px-6 py-2 flex items-center justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/15 dark:bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
 
-            {/* Breadcrumb / Title */}
-            <div>
-              <div className="hidden sm:flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-ink-500 mb-0.5">
-                <span>Vendor</span>
-                <ChevronRight className="w-3 h-3 text-ink-600" />
-                {breadcrumbItems.map((item) => (
-                  <span key={item.url} className="flex items-center gap-1.5">
-                    {item.isLast ? (
-                      <span className="text-gold-400 font-semibold">{item.label}</span>
-                    ) : (
-                      <>
-                        <Link to={item.url} className="hover:text-ink-300 transition-colors">{item.label}</Link>
-                        <ChevronRight className="w-3 h-3 text-ink-600" />
-                      </>
-                    )}
-                  </span>
-                ))}
-              </div>
-              <h1 className="font-serif text-2xl text-ink-50 font-normal tracking-tight">{title}</h1>
-            </div>
-          </div>
-
-          {/* Right Header Actions */}
-          <div className="flex items-center gap-3">
-            {/* Live Status Pill */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-emerald-400 text-[10px] uppercase tracking-widest font-medium">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>Studio Online</span>
-            </div>
-
-            {/* View Live Site Shortcut */}
-            <Link
-              to="/"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm border border-gold-400/40 bg-gold-400/10 hover:bg-gold-400/20 text-gold-600 dark:text-gold-300 text-xs uppercase tracking-widest font-semibold transition-all duration-200 hover:scale-[1.02]"
-            >
-              <span>View Site</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </Link>
-
-            {/* Theme Toggle (Dark / Light) */}
-            <ThemeToggle />
-
-            {/* Notifications Menu */}
-            <div className="relative">
+            <div className="flex items-center gap-3 sm:gap-4 relative z-10">
               <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className={`relative p-2.5 rounded-sm border transition-all duration-200 ${
-                  showNotifications
-                    ? 'border-gold-400/40 bg-gold-400/10 text-gold-300'
-                    : 'border-white/5 bg-ink-900 hover:border-gold-400/30 text-ink-300 hover:text-gold-300'
-                }`}
-                aria-label="Notifications"
+                className="lg:hidden p-2 rounded-full text-ink-500 hover:text-ink-50 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                onClick={() => setOpen(!open)}
+                aria-label="Toggle navigation"
               >
-                <Bell className="w-4 h-4" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-gold-400 ring-2 ring-ink-950 animate-pulse" />
+                {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
 
-              {/* Notifications Dropdown Drawer */}
-              {showNotifications && (
-                <div className="absolute right-0 mt-3 w-80 sm:w-96 rounded-sm border border-gold-400/20 bg-ink-900/95 backdrop-blur-2xl p-4 shadow-2xl z-50 animate-scale-in">
-                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-gold-400" />
-                      <h4 className="font-serif text-lg text-ink-50">Studio Inquiries & Updates</h4>
-                    </div>
-                    <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-gold-400/10 text-gold-400 border border-gold-400/20">
-                      2 New
-                    </span>
-                  </div>
-                  <div className="space-y-2.5 max-h-72 overflow-y-auto no-scrollbar">
-                    {notifications.map((n) => (
-                      <div
-                        key={n.id}
-                        className={`p-3 rounded-sm border transition-colors ${
-                          n.unread ? 'bg-gold-400/[0.04] border-gold-400/20' : 'bg-ink-800/40 border-white/5'
-                        }`}
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <p className="text-xs font-medium text-ink-100">{n.title}</p>
-                          <span className="text-[10px] text-ink-500 whitespace-nowrap">{n.time}</span>
-                        </div>
-                        <p className="text-[11px] text-ink-400 mt-1">{n.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <Link
-                    to="/vendor/dashboard/inquiries"
-                    onClick={() => setShowNotifications(false)}
-                    className="mt-3 block text-center text-[10px] uppercase tracking-widest text-gold-400 hover:text-gold-300 py-1.5 transition-colors font-semibold"
-                  >
-                    View All Studio Inquiries →
-                  </Link>
-                </div>
+              {/* Universal Back Button for All Sidebar Sections (hidden on root dashboard) */}
+              {location.pathname !== '/vendor/dashboard' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.history.length > 1) {
+                      navigate(-1);
+                    } else {
+                      navigate('/vendor/dashboard');
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/10 hover:bg-amber-500/15 border border-black/10 dark:border-white/10 text-xs text-ink-950 dark:text-ink-50 hover:text-amber-700 dark:hover:text-amber-300 font-sans font-semibold transition-all shadow-2xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                  title="Go back to dashboard"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-ink-950 dark:text-ink-50 group-hover:text-amber-600 stroke-[2.5] transition-transform group-hover:-translate-x-0.5" />
+                  <span>Back</span>
+                </button>
               )}
+
+              {/* Glassy Title & Section Indicator */}
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-400 text-white font-bold text-xs flex items-center justify-center shadow-md shadow-orange-500/20 shrink-0">
+                  {studioName.charAt(0).toUpperCase() || 'S'}
+                </div>
+                <div className="flex items-center gap-2">
+                  <h1 className="font-sans font-bold text-sm sm:text-base text-ink-950 dark:text-ink-50 tracking-tight leading-none">{title}</h1>
+                  {location.pathname !== '/vendor/dashboard' ? (
+                    <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[10px] font-sans font-semibold text-ink-500 dark:text-ink-400">
+                      <Link to="/vendor/dashboard" className="hover:text-ink-950 dark:hover:text-white">Studio</Link>
+                      <span>/</span>
+                      <span className="text-amber-700 dark:text-amber-300 font-bold">{title.replace('Vendor ', '')}</span>
+                    </span>
+                  ) : (
+                    <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-[10px] font-sans font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                      Studio
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Header Actions */}
+            <div className="flex items-center gap-2 sm:gap-2.5 relative z-10">
+              {/* Live Status Pill */}
+              <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-sans font-semibold shadow-2xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>Studio Online</span>
+              </div>
+
+              {/* View Live Site Shortcut */}
+              <Link
+                to="/"
+                target="_blank"
+                rel="noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/10 hover:bg-amber-500/15 border border-black/10 dark:border-white/15 hover:border-amber-500/40 text-xs font-sans font-semibold text-ink-950 dark:text-ink-50 hover:text-amber-700 dark:hover:text-amber-300 transition-all shadow-2xs hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span>View Site</span>
+                <ExternalLink className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              </Link>
+
+              {/* Theme Toggle (Dark / Light) */}
+              <ThemeToggle className="w-8 h-8" />
+
+              {/* Notifications Menu */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className={`relative w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-200 cursor-pointer shadow-2xs hover:scale-105 active:scale-95 ${
+                    showNotifications
+                      ? 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300'
+                      : 'border-black/10 dark:border-white/15 bg-black/[0.04] dark:bg-white/10 text-ink-700 dark:text-ink-300 hover:bg-amber-500/15 hover:border-amber-500/40 hover:text-amber-700 dark:hover:text-amber-300'
+                  }`}
+                  aria-label="Notifications"
+                >
+                  <Bell className="w-3.5 h-3.5" />
+                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white dark:ring-black animate-pulse" />
+                </button>
+
+                {/* Notifications Dropdown Drawer */}
+                {showNotifications && (
+                  <div className="absolute right-0 mt-3 w-80 sm:w-96 rounded-[28px] border border-black/10 dark:border-white/15 bg-white/95 dark:bg-black/90 backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] z-50 animate-fade-in">
+                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/10 dark:border-white/10">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                        <h4 className="font-sans font-bold text-base text-ink-950 dark:text-ink-50">Studio Inquiries & Updates</h4>
+                      </div>
+                      <span className="text-[10px] font-sans font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                        2 New
+                      </span>
+                    </div>
+                    <div className="space-y-2.5 max-h-72 overflow-y-auto no-scrollbar">
+                      {notifications.map((n) => (
+                        <div
+                          key={n.id}
+                          className={`p-3.5 rounded-2xl border transition-all ${
+                            n.unread
+                              ? 'bg-amber-500/10 border-amber-500/25 shadow-2xs'
+                              : 'bg-black/[0.02] dark:bg-white/[0.03] border-black/10 dark:border-white/10'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="text-xs font-bold text-ink-950 dark:text-ink-50">{n.title}</p>
+                            <span className="text-[10px] font-sans font-medium text-ink-500 dark:text-ink-400 whitespace-nowrap">{n.time}</span>
+                          </div>
+                          <p className="text-[11px] text-ink-600 dark:text-ink-300 mt-1">{n.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <Link
+                      to="/vendor/dashboard/inquiries"
+                      onClick={() => setShowNotifications(false)}
+                      className="mt-3 block text-center text-[10px] font-sans font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 hover:underline py-1.5 transition-colors"
+                    >
+                      View All Studio Inquiries →
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>

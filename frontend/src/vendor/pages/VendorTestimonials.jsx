@@ -18,7 +18,15 @@ import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/utils/api';
 
 const blankForm = { name: '', role: '', review: '', rating: '5', isPublished: true };
-const inputClass = 'w-full rounded-sm border border-white/10 bg-ink-900 px-3 py-2.5 text-sm text-ink-100 focus:border-gold-400 focus:outline-none transition-colors';
+
+const inputClass =
+  'w-full rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 px-4 py-2.5 text-xs text-ink-50 placeholder:text-ink-400 focus:outline-none focus:border-gold-500/60 shadow-inner transition-colors';
+
+const selectClass =
+  'w-full rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 px-4 py-2.5 text-xs text-ink-50 font-semibold focus:outline-none focus:border-gold-500/60 shadow-inner transition-colors cursor-pointer';
+
+const textareaClass =
+  'w-full rounded-2xl border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 px-4 py-3 text-xs text-ink-50 placeholder:text-ink-400 focus:outline-none focus:border-gold-500/60 shadow-inner transition-colors';
 
 const DEFAULT_AVATARS = [
   'https://images.pexels.com/photos/15490147/pexels-photo-15490147.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -55,7 +63,9 @@ function VendorTestimonials() {
     }
   }, [session?.token]);
 
-  useEffect(() => { loadTestimonials(); }, [loadTestimonials]);
+  useEffect(() => {
+    loadTestimonials();
+  }, [loadTestimonials]);
 
   const resetForm = () => {
     setForm(blankForm);
@@ -157,26 +167,26 @@ function VendorTestimonials() {
   return (
     <VendorLayout title="Client Reviews">
       {/* Top Header */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-300 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-gold-400" />
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-700 dark:text-gold-300 text-[10px] font-mono uppercase tracking-widest font-bold flex items-center gap-1.5 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-gold-600 dark:text-gold-400" />
               Social Proof & Trust
             </span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">Client Testimonials</h2>
-          <p className="text-xs sm:text-sm text-ink-400">
+          <h2 className="font-serif text-3xl sm:text-4xl text-ink-50 font-normal tracking-tight">Client Testimonials</h2>
+          <p className="text-xs sm:text-sm text-ink-500 dark:text-ink-400 mt-1 max-w-2xl font-medium">
             Showcase verified bride, groom, and family praise on your studio profile.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 self-start md:self-auto">
           <button
             type="button"
             onClick={loadTestimonials}
             disabled={loading}
-            className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-1.5 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/15 dark:border-white/15 bg-white/80 dark:bg-white/5 text-xs text-ink-50 font-medium hover:bg-gold-500/10 hover:border-gold-500/40 transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -190,114 +200,175 @@ function VendorTestimonials() {
                 setShowAddForm(true);
               }
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-medium text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-md shadow-gold-500/10"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg shadow-gold-500/25 cursor-pointer"
           >
-            {showAddForm ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+            {showAddForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
             <span>{showAddForm ? 'Close Form' : 'Add Review'}</span>
           </button>
         </div>
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-xs font-semibold text-red-600 dark:text-red-400">
           <span>{error}</span>
-          <button type="button" onClick={loadTestimonials} className="underline underline-offset-4">Try again</button>
+          <button type="button" onClick={loadTestimonials} className="underline underline-offset-4 cursor-pointer">Try again</button>
         </div>
       )}
 
       {saved && (
-        <div role="status" className="mb-6 rounded-sm border border-emerald-400/20 bg-emerald-400/10 p-3 text-xs text-emerald-300 flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div role="status" className="mb-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           <span>Testimonial saved and published on your review wall.</span>
         </div>
       )}
 
-      {/* Symmetrical Metric Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Total Reviews</span>
-          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">{testimonials.length}</p>
-          <p className="text-[10px] text-emerald-400 mt-1 font-medium">{publishedCount} live online</p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">5-Star Reviews</span>
-          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-400 leading-none tabular-nums">{fiveStarCount}</p>
-          <p className="text-[10px] text-ink-500 mt-1">Top rated feedback</p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Rating Score</span>
-          <p className="font-sans font-bold text-2xl sm:text-3xl text-ink-50 leading-none tabular-nums">4.9 / 5.0</p>
-          <p className="text-[10px] text-emerald-400 mt-1 font-medium">Studio satisfaction</p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">Client Love</span>
-          <p className="font-sans font-bold text-2xl sm:text-3xl text-gold-300 leading-none tabular-nums">100%</p>
-          <p className="text-[10px] text-gold-400/80 mt-1 font-medium">Positive recommendation</p>
-        </div>
+      {/* 4 Glassy Stat Capsules */}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {[
+          ['Total Reviews', testimonials.length, `${publishedCount} Live Online`],
+          ['5-Star Reviews', fiveStarCount, 'Top Rated Feedback'],
+          ['Rating Score', '4.9 / 5.0', 'Studio Satisfaction'],
+          ['Client Love', '100%', 'Positive Recommendation'],
+        ].map(([label, value, subtext], idx) => (
+          <div
+            key={label}
+            className="relative rounded-[24px] p-4 sm:p-5 border bg-white/90 dark:bg-black/45 backdrop-blur-2xl border-black/10 dark:border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group hover:-translate-y-0.5 transition-all"
+          >
+            <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
+            <div className="flex items-center justify-between mb-2 relative z-10">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-gold-400/30 text-gold-700 dark:text-gold-300 flex items-center justify-center font-bold text-xs shadow-2xs">
+                {idx + 1}
+              </span>
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 border border-black/10 dark:border-white/15 text-ink-600 dark:text-ink-300">
+                {subtext}
+              </span>
+            </div>
+            <div className="relative z-10">
+              <p className="font-serif text-2xl sm:text-3xl text-ink-50 font-normal tracking-tight group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors truncate">
+                {value}
+              </p>
+              <p className="mt-1 text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 dark:text-ink-400">
+                {label}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Add / Edit Testimonial Form */}
+      {/* Add / Edit Testimonial Form Panel */}
       {showAddForm && (
-        <form onSubmit={handleSubmit} className="mb-8 rounded-sm border border-gold-400/30 bg-ink-900/95 backdrop-blur-xl p-5 sm:p-6 shadow-2xl animate-scale-in">
-          <div className="mb-5 flex items-center justify-between border-b border-white/5 pb-3">
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-gold-400 fill-gold-400" />
-              <h3 className="font-serif text-xl text-ink-50">{editingId ? 'Edit Testimonial' : 'Add Client Testimonial'}</h3>
+        <form
+          onSubmit={handleSubmit}
+          className="mb-8 rounded-[28px] border border-black/10 dark:border-white/15 bg-white/95 dark:bg-black/60 backdrop-blur-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-fade-in relative overflow-hidden"
+        >
+          <div className="absolute -top-16 -right-16 w-48 h-48 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="mb-6 flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4 relative z-10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gold-500/15 border border-gold-500/30 flex items-center justify-center text-gold-700 dark:text-gold-300">
+                <Star className="w-5 h-5 fill-gold-500" />
+              </div>
+              <div>
+                <h3 className="font-serif text-2xl text-ink-50 font-normal">{editingId ? 'Edit Testimonial' : 'Add Client Testimonial'}</h3>
+                <p className="text-xs text-ink-500 dark:text-ink-400">Record genuine client feedback and ratings</p>
+              </div>
             </div>
-            <button type="button" onClick={resetForm} className="inline-flex items-center gap-1 text-xs text-ink-400 hover:text-ink-100">
-              <X className="h-4 w-4" /> Cancel
+            <button
+              type="button"
+              onClick={resetForm}
+              className="p-2 rounded-full text-ink-400 hover:text-ink-50 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              <X className="h-5 w-5" />
             </button>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 relative z-10">
             <label className="block">
-              <span className="mb-1.5 block text-[10px] uppercase tracking-wider text-ink-400 font-medium">Client / Couple Name *</span>
-              <input required maxLength={100} value={form.name} onChange={(e) => setForm((curr) => ({ ...curr, name: e.target.value }))} className={inputClass} placeholder="e.g. Priya & Rohan" />
+              <span className="mb-1.5 block text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Client / Couple Name *</span>
+              <input
+                required
+                maxLength={100}
+                value={form.name}
+                onChange={(e) => setForm((curr) => ({ ...curr, name: e.target.value }))}
+                className={inputClass}
+                placeholder="e.g. Priya & Rohan"
+              />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[10px] uppercase tracking-wider text-ink-400 font-medium">Event / Role Tag</span>
-              <input maxLength={100} value={form.role} onChange={(e) => setForm((curr) => ({ ...curr, role: e.target.value }))} className={inputClass} placeholder="e.g. Udaipur Palace Wedding · Bride & Groom" />
+              <span className="mb-1.5 block text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Event / Role Tag</span>
+              <input
+                maxLength={100}
+                value={form.role}
+                onChange={(e) => setForm((curr) => ({ ...curr, role: e.target.value }))}
+                className={inputClass}
+                placeholder="e.g. Udaipur Palace Wedding · Bride & Groom"
+              />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[10px] uppercase tracking-wider text-ink-400 font-medium">Rating</span>
-              <select value={form.rating} onChange={(e) => setForm((curr) => ({ ...curr, rating: e.target.value }))} className={inputClass}>
+              <span className="mb-1.5 block text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Rating</span>
+              <select
+                value={form.rating}
+                onChange={(e) => setForm((curr) => ({ ...curr, rating: e.target.value }))}
+                className={selectClass}
+              >
                 <option value="5">★★★★★ (5 Stars - Exceptional)</option>
                 <option value="4">★★★★☆ (4 Stars - Great)</option>
                 <option value="3">★★★☆☆ (3 Stars - Good)</option>
               </select>
             </label>
 
-            <div className="border border-white/10 rounded-sm p-3 bg-ink-950/40 flex items-center gap-3">
-              <UploadCloud className="w-6 h-6 text-gold-400 shrink-0" />
+            <div className="border border-black/15 dark:border-white/15 rounded-2xl p-4 bg-black/[0.02] dark:bg-white/[0.02] flex items-center gap-3">
+              <UploadCloud className="w-7 h-7 text-gold-600 dark:text-gold-400 shrink-0" />
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] uppercase tracking-wider text-ink-400 block font-medium">Couple Photo (Optional)</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 block font-bold">Couple Photo (Optional)</span>
                 <input
                   ref={imageInputRef}
                   type="file"
                   accept="image/*"
                   onChange={(e) => setFiles(Array.from(e.target.files || []))}
-                  className="text-xs text-ink-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-sm file:border-0 file:text-[11px] file:bg-white/10 file:text-gold-300 cursor-pointer"
+                  className="text-xs text-ink-500 dark:text-ink-400 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:bg-black/[0.06] dark:file:bg-white/10 file:text-ink-50 file:font-semibold cursor-pointer"
                 />
               </div>
             </div>
 
             <label className="block sm:col-span-2">
-              <span className="mb-1.5 block text-[10px] uppercase tracking-wider text-ink-400 font-medium">Client Feedback & Review *</span>
-              <textarea required rows={3} maxLength={2000} value={form.review} onChange={(e) => setForm((curr) => ({ ...curr, review: e.target.value }))} className={inputClass} placeholder="Describe the couple's kind words about your photography, warmth, and deliverable quality." />
+              <span className="mb-1.5 block text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Client Feedback & Review *</span>
+              <textarea
+                required
+                rows={3}
+                maxLength={2000}
+                value={form.review}
+                onChange={(e) => setForm((curr) => ({ ...curr, review: e.target.value }))}
+                className={textareaClass}
+                placeholder="Describe the couple's kind words about your photography, warmth, and deliverable quality."
+              />
             </label>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-white/5 pt-4">
-            <label className="flex cursor-pointer items-center gap-2.5 text-xs text-ink-300">
-              <input type="checkbox" checked={form.isPublished} onChange={(e) => setForm((curr) => ({ ...curr, isPublished: e.target.checked }))} className="h-4 w-4 rounded border-white/20 bg-ink-900 accent-yellow-500" />
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-black/10 dark:border-white/10 pt-5 relative z-10">
+            <label className="flex cursor-pointer items-center gap-3 text-xs text-ink-50 font-medium">
+              <input
+                type="checkbox"
+                checked={form.isPublished}
+                onChange={(e) => setForm((curr) => ({ ...curr, isPublished: e.target.checked }))}
+                className="h-4 w-4 rounded-full border-black/20 bg-transparent text-gold-500 focus:ring-gold-500 cursor-pointer"
+              />
               <span>Publish Review on Public Profile</span>
             </label>
-            <div className="flex items-center gap-2">
-              <button type="button" onClick={resetForm} className="px-3.5 py-2 rounded-sm border border-white/10 text-xs text-ink-400 hover:text-ink-200">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={resetForm}
+                className="px-5 py-2.5 rounded-full border border-black/15 dark:border-white/15 text-xs font-semibold text-ink-500 dark:text-ink-400 hover:text-ink-50 transition-colors cursor-pointer"
+              >
                 Cancel
               </button>
-              <button type="submit" disabled={saving} className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-r from-gold-500 to-gold-400 px-4 py-2 text-xs font-medium uppercase tracking-wider text-ink-950 hover:brightness-110 disabled:opacity-50 shadow-md shadow-gold-500/10">
-                {editingId ? <Save className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-ink-950 hover:brightness-110 disabled:opacity-50 shadow-lg shadow-gold-500/25 cursor-pointer"
+              >
+                {editingId ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                 <span>{saving ? 'Saving…' : editingId ? 'Update Review' : 'Save Review'}</span>
               </button>
             </div>
@@ -306,25 +377,25 @@ function VendorTestimonials() {
       )}
 
       {/* Search Bar */}
-      <div className="p-3 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 mb-6 flex items-center justify-between gap-3 backdrop-blur-md">
-        <div className="relative w-full max-w-md">
-          <Search className="w-4 h-4 text-ink-500 absolute left-3 top-1/2 -translate-y-1/2" />
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="relative w-full md:w-80">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-500 dark:text-ink-400" />
           <input
             type="text"
             placeholder="Search reviews by name or keyword…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 rounded-sm bg-ink-950/70 border border-white/10 text-xs text-ink-100 focus:border-gold-400 focus:outline-none"
+            className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 pl-10 pr-4 py-2 text-xs text-ink-50 placeholder:text-ink-400 focus:outline-none focus:border-gold-500/60 shadow-inner"
           />
         </div>
-        <span className="text-xs text-ink-500">{filteredTestimonials.length} reviews found</span>
+        <span className="text-xs font-mono font-bold text-ink-500 dark:text-ink-400 uppercase tracking-widest">{filteredTestimonials.length} reviews found</span>
       </div>
 
       {/* Testimonials Grid */}
       {loading ? (
-        <div className="py-16 text-center text-sm text-ink-500">Loading reviews…</div>
+        <div className="py-20 text-center text-sm text-ink-500 dark:text-ink-400 font-mono">Loading reviews…</div>
       ) : filteredTestimonials.length ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTestimonials.map((t, idx) => {
             const avatarImg = t.media?.[0]?.url || DEFAULT_AVATARS[idx % DEFAULT_AVATARS.length];
             const ratingNum = Number(t.rating) || 5;
@@ -332,58 +403,60 @@ function VendorTestimonials() {
             return (
               <article
                 key={t._id}
-                className="relative flex flex-col justify-between rounded-sm border border-white/5 bg-ink-900/80 backdrop-blur-md p-6 transition-all duration-300 hover:border-gold-400/30 hover:-translate-y-1"
+                className="group relative rounded-[28px] overflow-hidden border border-black/10 dark:border-white/15 bg-white/90 dark:bg-black/45 backdrop-blur-2xl p-7 shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
               >
+                <div className="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
+
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1 text-gold-400">
+                    <div className="flex items-center gap-1 text-gold-500">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-3.5 h-3.5 ${i < ratingNum ? 'fill-gold-400 text-gold-400' : 'text-ink-600'}`}
+                          className={`w-3.5 h-3.5 ${i < ratingNum ? 'fill-gold-500 text-gold-500' : 'text-ink-300 dark:text-ink-700'}`}
                         />
                       ))}
                     </div>
                     <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wider font-semibold border ${
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold backdrop-blur-md border shadow-md ${
                         t.isPublished
-                          ? 'border-emerald-400/20 bg-emerald-400/10 text-emerald-400'
-                          : 'border-white/10 bg-white/5 text-ink-500'
+                          ? 'bg-emerald-500/20 border-emerald-400/40 text-emerald-600 dark:text-emerald-300'
+                          : 'bg-black/[0.04] dark:bg-black/70 border-black/10 dark:border-white/20 text-ink-500 dark:text-stone-300'
                       }`}
                     >
                       {t.isPublished ? 'Live' : 'Draft'}
                     </span>
                   </div>
 
-                  <Quote className="w-7 h-7 text-gold-400/20 mb-2" />
+                  <Quote className="w-8 h-8 text-gold-500/25 mb-3" />
 
-                  <p className="font-serif italic text-sm text-ink-100 leading-relaxed mb-6">
+                  <p className="font-serif italic text-base text-ink-50 leading-relaxed mb-6 font-normal">
                     &ldquo;{t.review}&rdquo;
                   </p>
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                  <div className="flex items-center gap-3 pt-5 border-t border-black/10 dark:border-white/10">
                     <img
                       src={avatarImg}
                       alt={t.name}
-                      className="w-10 h-10 rounded-full object-cover border border-gold-400/30"
+                      className="w-11 h-11 rounded-full object-cover border-2 border-gold-400/40 shadow-md"
                       onError={(e) => {
                         e.currentTarget.src = DEFAULT_AVATARS[0];
                       }}
                     />
                     <div className="min-w-0 flex-1">
-                      <p className="font-serif text-sm text-ink-50 font-normal truncate">{t.name}</p>
-                      <p className="text-[11px] text-ink-400 truncate">{t.role || 'Happy Couple'}</p>
+                      <p className="font-serif text-base text-ink-50 font-normal truncate group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors">{t.name}</p>
+                      <p className="text-xs text-ink-500 dark:text-ink-400 truncate font-mono">{t.role || 'Happy Couple'}</p>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                  <div className="mt-4 pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => editTestimonial(t)}
-                        className="inline-flex items-center gap-1 text-xs text-ink-300 hover:text-gold-300 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/10 hover:bg-gold-500/20 border border-black/10 dark:border-white/10 text-xs font-semibold text-ink-50 hover:text-gold-700 dark:hover:text-gold-300 transition-all cursor-pointer"
                       >
                         <Pencil className="w-3 h-3" />
                         <span>Edit</span>
@@ -392,7 +465,7 @@ function VendorTestimonials() {
                         type="button"
                         disabled={updatingId === t._id}
                         onClick={() => updateVisibility(t)}
-                        className="inline-flex items-center gap-1 text-xs text-ink-300 hover:text-gold-300 transition-colors disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/10 hover:bg-gold-500/20 border border-black/10 dark:border-white/10 text-xs font-semibold text-ink-50 hover:text-gold-700 dark:hover:text-gold-300 transition-all disabled:opacity-50 cursor-pointer"
                       >
                         <span>{t.isPublished ? 'Unpublish' : 'Publish'}</span>
                       </button>
@@ -401,10 +474,10 @@ function VendorTestimonials() {
                       type="button"
                       disabled={updatingId === t._id}
                       onClick={() => deleteTestimonial(t)}
-                      className="inline-flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
+                      className="p-2 rounded-full text-red-500 hover:bg-red-500/10 transition-colors disabled:opacity-50 cursor-pointer"
+                      title="Delete review"
                     >
-                      <Trash2 className="w-3 h-3" />
-                      <span>Delete</span>
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -413,10 +486,10 @@ function VendorTestimonials() {
           })}
         </div>
       ) : (
-        <div className="rounded-sm border border-dashed border-white/10 bg-ink-900/60 px-5 py-16 text-center">
-          <Star className="mx-auto mb-3 h-10 w-10 text-gold-400/50" />
-          <h4 className="font-serif text-lg text-ink-100">No Testimonials Yet</h4>
-          <p className="mt-1 text-xs text-ink-400 max-w-sm mx-auto">
+        <div className="rounded-[28px] border border-dashed border-black/15 dark:border-white/15 bg-white/60 dark:bg-black/30 p-12 text-center">
+          <Star className="mx-auto mb-3 h-10 w-10 text-gold-500/60" />
+          <h4 className="font-serif text-lg text-ink-50 font-normal">No Testimonials Yet</h4>
+          <p className="mt-1 text-xs text-ink-500 dark:text-ink-400 max-w-sm mx-auto">
             {searchQuery
               ? 'No reviews match your search query.'
               : 'Add your first client recommendation by clicking "Add Review" above.'}
