@@ -56,30 +56,30 @@ function AdminDashboard() {
 
   return (
     <AdminLayout title="Admin Dashboard">
-      <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">Platform Overview</h2>
-          <p className="text-xs sm:text-sm text-ink-300 dark:text-ink-400">Live vendor activity from your platform.</p>
+          <h2 className="font-serif text-3xl sm:text-4xl text-ink-50 mb-1 font-normal tracking-tight">Platform Overview</h2>
+          <p className="text-xs sm:text-sm text-ink-500 dark:text-ink-400 font-medium">Real-time studio onboarding and vendor operations analytics.</p>
         </div>
         <button
           type="button"
           onClick={loadDashboard}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-sm border border-black/10 dark:border-white/10 px-3 py-1.5 text-xs text-ink-200 dark:text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-600 dark:hover:text-gold-300 disabled:opacity-50 font-medium"
+          className="inline-flex items-center gap-2 rounded-full border border-black/15 dark:border-white/15 px-4 py-2 text-xs font-semibold bg-white/80 dark:bg-black/30 text-ink-700 dark:text-ink-300 hover:border-gold-500/40 hover:text-gold-700 dark:hover:text-gold-300 transition-all shadow-xs disabled:opacity-50 cursor-pointer self-start sm:self-auto"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
+          Refresh Metrics
         </button>
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-xs font-semibold text-red-600 dark:text-red-300 shadow-xs">
           <span>{error}</span>
           <button type="button" onClick={loadDashboard} className="underline underline-offset-4">Try again</button>
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8">
         {cards.map((card) => (
           <StatCard
             key={card.label}
@@ -91,7 +91,7 @@ function AdminDashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         <VendorRegistrationsChart
           registrations={dashboard?.registrations || []}
           loading={loading}

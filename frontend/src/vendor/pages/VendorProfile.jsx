@@ -27,7 +27,9 @@ const fields = [
 ];
 
 const blankProfile = Object.fromEntries(fields.map(([name]) => [name, '']));
-const inputClass = 'w-full rounded-sm border border-white/10 bg-ink-900 px-3.5 py-2.5 text-sm text-ink-100 focus:border-gold-400 focus:outline-none transition-colors';
+
+const inputClass =
+  'w-full rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 px-4 py-2.5 text-xs text-ink-50 placeholder:text-ink-400 focus:outline-none focus:border-gold-500/60 shadow-inner transition-colors';
 
 function VendorProfile() {
   const { session, refreshProfile } = useAuth();
@@ -53,13 +55,29 @@ function VendorProfile() {
     }
   }, [session?.token]);
 
-  useEffect(() => { loadProfile(); }, [loadProfile]);
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSaving(true);
     setError('');
     setSaved(false);
+
+    if (profile.fullName && profile.fullName.trim().length < 2) {
+      setError('Please enter your full name (at least 2 characters).');
+      return;
+    }
+    if (profile.studioName && profile.studioName.trim().length < 2) {
+      setError('Please enter your studio name (at least 2 characters).');
+      return;
+    }
+    if (profile.phone && profile.phone.replace(/\D/g, '').length < 10) {
+      setError('Please enter a valid phone number with at least 10 digits.');
+      return;
+    }
+
+    setSaving(true);
     try {
       const data = await apiRequest('/vendor/profile', {
         method: 'PUT',
@@ -83,16 +101,16 @@ function VendorProfile() {
   return (
     <VendorLayout title="Studio Profile">
       {/* Top Header */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-300 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-gold-400" />
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-700 dark:text-gold-300 text-[10px] font-mono uppercase tracking-widest font-bold flex items-center gap-1.5 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-gold-600 dark:text-gold-400" />
               Brand & Contact Settings
             </span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl text-ink-50 mb-1">Studio Profile</h2>
-          <p className="text-xs sm:text-sm text-ink-400">
+          <h2 className="font-serif text-3xl sm:text-4xl text-ink-50 font-normal tracking-tight">Studio Profile</h2>
+          <p className="text-xs sm:text-sm text-ink-500 dark:text-ink-400 mt-1 max-w-2xl font-medium">
             Manage your official studio identity, contact lines, and presence across the platform.
           </p>
         </div>
@@ -101,7 +119,7 @@ function VendorProfile() {
           type="button"
           onClick={loadProfile}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-sm border border-white/10 px-3 py-1.5 text-xs text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-300 disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/15 dark:border-white/15 bg-white/80 dark:bg-white/5 text-xs text-ink-50 font-medium hover:bg-gold-500/10 hover:border-gold-500/40 transition-colors shadow-2xs cursor-pointer self-start md:self-auto disabled:opacity-50"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -109,74 +127,79 @@ function VendorProfile() {
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-xs font-semibold text-red-600 dark:text-red-400">
           <span>{error}</span>
-          <button type="button" onClick={loadProfile} className="underline underline-offset-4">Try again</button>
+          <button type="button" onClick={loadProfile} className="underline underline-offset-4 cursor-pointer">Try again</button>
         </div>
       )}
 
       {saved && (
-        <div role="status" className="mb-6 rounded-sm border border-emerald-400/20 bg-emerald-400/10 p-3 text-xs text-emerald-300 flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div role="status" className="mb-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           <span>Studio profile updated successfully.</span>
         </div>
       )}
 
-      {/* Symmetrical Metric Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 mb-8">
-        <div className="p-3.5 sm:p-4 rounded-sm bg-gradient-to-br from-gold-400/15 via-ink-900/90 to-ink-900 border border-gold-400/30 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-gold-400 block mb-1 font-semibold">Account Status</span>
-          <p className="font-serif text-xl sm:text-2xl text-gold-300 leading-none capitalize">
-            {account.status || 'Active'}
-          </p>
-          <p className="text-[10px] text-emerald-400 mt-1 font-medium flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            Verified Vendor
-          </p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Profile Completeness</span>
-          <p className="font-serif text-2xl sm:text-3xl text-ink-50 leading-none">{completeness}%</p>
-          <p className="text-[10px] text-emerald-400 mt-1 font-medium">{filledCount} of {fields.length} details filled</p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Headquarters</span>
-          <p className="font-serif text-xl sm:text-2xl text-ink-50 leading-none truncate">
-            {profile.city ? `${profile.city}, ${profile.state}` : 'Location pending'}
-          </p>
-          <p className="text-[10px] text-ink-500 mt-1">Primary coverage base</p>
-        </div>
-        <div className="p-3.5 sm:p-4 rounded-sm bg-ink-900/80 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] uppercase tracking-wider text-ink-500 block mb-1 font-medium">Contact Phone</span>
-          <p className="font-serif text-lg sm:text-xl text-gold-400 leading-none truncate">
-            {profile.phone || 'Not added'}
-          </p>
-          <p className="text-[10px] text-ink-500 mt-1">Inquiry helpline</p>
-        </div>
+      {/* 4 Glassy Stat Capsules */}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {[
+          ['Account Status', account.status || 'Active', 'Verified Vendor'],
+          ['Completeness', `${completeness}%`, `${filledCount} of ${fields.length} details`],
+          ['Headquarters', profile.city ? `${profile.city}, ${profile.state}` : 'Location pending', 'Primary Base'],
+          ['Contact Phone', profile.phone || 'Not added', 'Inquiry helpline'],
+        ].map(([label, value, subtext], idx) => (
+          <div
+            key={label}
+            className="relative rounded-[24px] p-4 sm:p-5 border bg-white/90 dark:bg-black/45 backdrop-blur-2xl border-black/10 dark:border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group hover:-translate-y-0.5 transition-all"
+          >
+            <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
+            <div className="flex items-center justify-between mb-2 relative z-10">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-gold-400/30 text-gold-700 dark:text-gold-300 flex items-center justify-center font-bold text-xs shadow-2xs">
+                {idx + 1}
+              </span>
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 border border-black/10 dark:border-white/15 text-ink-600 dark:text-ink-300">
+                {subtext}
+              </span>
+            </div>
+            <div className="relative z-10">
+              <p className="font-serif text-xl sm:text-2xl text-ink-50 font-normal tracking-tight group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors truncate capitalize">
+                {value}
+              </p>
+              <p className="mt-1 text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 dark:text-ink-400">
+                {label}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Main Profile Form */}
-      <form onSubmit={handleSubmit} className="max-w-4xl rounded-sm border border-white/5 bg-ink-900/80 backdrop-blur-md p-6 sm:p-8 shadow-xl">
+      {/* Main Profile Form Card */}
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-4xl rounded-[28px] border border-black/10 dark:border-white/15 bg-white/90 dark:bg-black/45 backdrop-blur-2xl p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
+      >
+        <div className="absolute -top-16 -right-16 w-48 h-48 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+
         {loading ? (
-          <div className="py-16 text-center text-sm text-ink-400">Loading profile data…</div>
+          <div className="py-20 text-center text-sm text-ink-500 dark:text-ink-400 font-mono">Loading profile data…</div>
         ) : (
-          <>
-            <div className="mb-6 flex items-center gap-3 pb-4 border-b border-white/5">
-              <div className="w-12 h-12 rounded-full bg-gold-400/10 border border-gold-400/30 flex items-center justify-center text-gold-400 font-serif text-xl font-bold">
+          <div className="relative z-10">
+            <div className="mb-8 flex items-center gap-4 pb-6 border-b border-black/10 dark:border-white/10">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-500/20 to-amber-500/10 border border-gold-400/30 flex items-center justify-center text-gold-700 dark:text-gold-300 font-serif text-2xl font-normal shadow-md">
                 {profile.studioName?.charAt(0)?.toUpperCase() || profile.fullName?.charAt(0)?.toUpperCase() || 'S'}
               </div>
               <div>
-                <h3 className="font-serif text-xl text-ink-50 font-normal">
+                <h3 className="font-serif text-2xl text-ink-50 font-normal">
                   {profile.studioName || 'Studio Information'}
                 </h3>
-                <p className="text-xs text-ink-400">Owner: {profile.fullName || 'Studio Artist'}</p>
+                <p className="text-xs text-ink-500 dark:text-ink-400 font-mono mt-0.5">Owner: {profile.fullName || 'Studio Artist'}</p>
               </div>
             </div>
 
-            <div className="mb-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {fields.map(([name, label, maxLength, placeholder]) => (
                 <label key={name} className={`block ${name === 'address' ? 'sm:col-span-2' : ''}`}>
-                  <span className="mb-1.5 block text-[10px] uppercase tracking-wider text-ink-400 font-medium">{label} *</span>
+                  <span className="mb-1.5 block text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">{label} *</span>
                   <input
                     type="text"
                     name={name}
@@ -194,22 +217,22 @@ function VendorProfile() {
               ))}
             </div>
 
-            {/* Account Credentials Summary */}
-            <div className="grid grid-cols-1 gap-4 border-t border-white/5 pt-6 sm:grid-cols-2 bg-ink-950/40 p-4 rounded-sm mb-6">
+            {/* Account Credentials Summary Card */}
+            <div className="grid grid-cols-1 gap-4 border border-black/10 dark:border-white/10 pt-6 sm:grid-cols-2 bg-black/[0.02] dark:bg-white/[0.02] p-5 rounded-[22px] mb-8">
               <div>
-                <p className="mb-1 text-[10px] uppercase tracking-wider text-ink-500 font-semibold">Account Sign-in Email</p>
-                <p className="text-sm font-medium text-ink-200">{account.email}</p>
-                <p className="mt-1 text-[11px] text-ink-500">Associated login email; contact admin to modify.</p>
+                <p className="mb-1 text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Account Sign-in Email</p>
+                <p className="text-sm font-semibold text-ink-50 font-sans">{account.email}</p>
+                <p className="mt-1 text-xs text-ink-500 dark:text-ink-400">Associated login email; contact admin to modify.</p>
               </div>
               <div>
-                <p className="mb-1 text-[10px] uppercase tracking-wider text-ink-500 font-semibold">Verification & Tier</p>
+                <p className="mb-1 text-[10px] font-mono uppercase tracking-widest text-ink-500 dark:text-ink-400 font-bold">Verification & Tier</p>
                 <div className="flex items-center gap-2">
-                  <span className="capitalize text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span className="capitalize text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                     {account.status || 'Active'}
                   </span>
-                  <span className="text-ink-600">·</span>
-                  <span className="text-xs text-gold-300">Certified Studio</span>
+                  <span className="text-ink-400">·</span>
+                  <span className="text-xs font-mono font-bold text-gold-700 dark:text-gold-300">Certified Studio</span>
                 </div>
               </div>
             </div>
@@ -217,12 +240,12 @@ function VendorProfile() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-r from-gold-500 to-gold-400 px-5 py-2.5 text-xs font-medium uppercase tracking-wider text-ink-950 hover:brightness-110 disabled:opacity-50 transition-all shadow-md shadow-gold-500/10"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 px-7 py-3 text-xs font-bold uppercase tracking-wider text-ink-950 hover:brightness-110 hover:scale-[1.02] disabled:opacity-50 transition-all shadow-lg shadow-gold-500/25 cursor-pointer"
             >
               <Save className="h-4 w-4" />
               <span>{saving ? 'Saving Profile…' : 'Save Studio Profile'}</span>
             </button>
-          </>
+          </div>
         )}
       </form>
     </VendorLayout>

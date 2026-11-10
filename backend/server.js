@@ -27,6 +27,10 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static(uploadsDirectory, { maxAge: '1d' }));
 
+<<<<<<< HEAD
+=======
+// Health check endpoints for Render and ping monitors
+>>>>>>> 5c3de334890c83be6a71b75dd461a49f9fb2c2d1
 app.get('/', (_req, res) => res.json({ status: 'ok', service: 'svml-backend', uptime: process.uptime() }));
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 app.use('/api/auth', authRoutes);

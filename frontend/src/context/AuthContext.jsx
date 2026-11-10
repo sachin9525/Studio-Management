@@ -1,104 +1,105 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { apiRequest } from "@/utils/api";
-const storageKey = "svml_local_auth";
+import { createContext, useContext, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectSession,
+  selectUser,
+  selectProfile,
+  selectAuthLoading,
+  selectAuthNotice,
+  clearAuthNotice,
+  signOut as signOutAction,
+  signInUser,
+  signUpVendor as signUpVendorAction,
+  refreshProfile as refreshProfileAction,
+} from '@/store/slices/authSlice';
+
 const AuthContext = createContext(void 0);
-function toProfile(user) {
-  return {
-    id: user.id,
-    email: user.email,
-    role: user.role,
-    full_name: user.fullName,
-    studio_name: user.studioName ?? null,
-    studio_slug: user.studioSlug ?? null,
-    status: user.status,
-    phone: user.phone,
-    address: user.address,
-    city: user.city,
-    state: user.state
-  };
-}
-function AuthProvider({ children }) {
-  const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+export function AuthProvider({ children }) {
+  const dispatch = useDispatch();
+  const session = useSelector(selectSession);
+  const user = useSelector(selectUser);
+  const profile = useSelector(selectProfile);
+  const loading = useSelector(selectAuthLoading);
+  const authNotice = useSelector(selectAuthNotice);
+
+  const handleClearAuthNotice = useCallback(() => {
+    dispatch(clearAuthNotice());
+  }, [dispatch]);
+
+  const signOut = useCallback(
+    async (noticeMessage = null) => {
+      dispatch(signOutAction(noticeMessage));
+    },
+    [dispatch]
+  );
+
+  // Listen for global 401 session-expired events from api.js
   useEffect(() => {
-    const savedAuth = localStorage.getItem(storageKey);
-    if (savedAuth) {
-      try {
-        const savedSession = JSON.parse(savedAuth);
-        setSession(savedSession);
-        setUser(savedSession.user);
-        setProfile(savedSession.profile);
-      } catch {
-        localStorage.removeItem(storageKey);
-      }
-    }
-    setLoading(false);
-  }, []);
+    const handleSessionExpired = (event) => {
+      const msg = event?.detail?.message || 'Your session has expired. Please sign in again.';
+      signOut(msg);
+    };
+
+    window.addEventListener('auth:session-expired', handleSessionExpired);
+    return () => {
+      window.removeEventListener('auth:session-expired', handleSessionExpired);
+    };
+  }, [signOut]);
+
   const signUpVendor = async (data) => {
     try {
-      await apiRequest("/auth/register/vendor", {
-        method: "POST",
-        body: JSON.stringify(data)
-      });
+      await dispatch(signUpVendorAction(data)).unwrap();
       return { error: null };
     } catch (error) {
-      return { error: error instanceof Error ? error.message : "Unable to create account." };
+      return { error: typeof error === 'string' ? error : 'Unable to create account.' };
     }
   };
+
   const signIn = async (email, password) => {
     try {
-      const response = await apiRequest("/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password })
-      });
-      const nextProfile = toProfile(response.user);
-      const nextSession = { token: response.token, user: { id: response.user.id, email: response.user.email }, profile: nextProfile };
-      localStorage.setItem(storageKey, JSON.stringify(nextSession));
-      setSession(nextSession);
-      setUser(nextSession.user);
-      setProfile(nextProfile);
+      await dispatch(signInUser({ email, password })).unwrap();
       return { error: null };
     } catch (error) {
-      return { error: error instanceof Error ? error.message : "Unable to sign in." };
+      return { error: typeof error === 'string' ? error : 'Unable to sign in.' };
     }
   };
-  const signOut = useCallback(async () => {
-    localStorage.removeItem(storageKey);
-    setProfile(null);
-    setUser(null);
-    setSession(null);
-  }, []);
+
   const refreshProfile = useCallback(async () => {
     if (!session?.token) return;
     try {
-      const response = await apiRequest("/auth/me", { token: session.token });
-      const nextProfile = toProfile(response.user);
-      const nextSession = {
-        token: session.token,
-        user: { id: response.user.id, email: response.user.email },
-        profile: nextProfile
-      };
-      localStorage.setItem(storageKey, JSON.stringify(nextSession));
-      setSession(nextSession);
-      setUser(nextSession.user);
-      setProfile(nextProfile);
-    } catch {
-      // Keep the last known profile while the API is temporarily unavailable.
+      await dispatch(refreshProfileAction()).unwrap();
+    } catch (err) {
+      // If 401, handled in extraReducers
     }
-  }, [session?.token]);
-  return <AuthContext.Provider
-    value={{ session, user, profile, loading, signUpVendor, signIn, signOut, refreshProfile }}
-  >{children}</AuthContext.Provider>;
+  }, [dispatch, session?.token]);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        session,
+        user,
+        profile,
+        loading,
+        authNotice,
+        clearAuthNotice: handleClearAuthNotice,
+        signUpVendor,
+        signIn,
+        signOut,
+        refreshProfile,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
-function useAuth() {
+
+export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx)
-    throw new Error("useAuth must be used within AuthProvider");
+  if (!ctx) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
   return ctx;
 }
-export {
-  AuthProvider,
-  useAuth
-};
+
+export default AuthContext;

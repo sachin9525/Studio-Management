@@ -42,69 +42,73 @@ function RecentVendorsTable({ vendors = [], loading = false, error = false }) {
       ];
 
   return (
-    <section className="mt-8 bg-ink-900/80 rounded-sm p-6 border border-white/5 backdrop-blur-xl group hover:border-gold-400/20 transition-all duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+    <section className="mt-8 bg-white/90 dark:bg-black/45 rounded-[28px] p-6 sm:p-7 border border-black/10 dark:border-white/15 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300 relative overflow-hidden">
+      {/* Soft Glass Ambient Highlights */}
+      <div className="absolute -top-20 -left-20 w-44 h-44 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 relative z-10">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="font-serif text-2xl text-ink-50 font-normal">Recent Vendor Registrations</h3>
-            <span className="px-2 py-0.5 rounded-full bg-gold-400/10 text-gold-400 border border-gold-400/20 text-[9px] uppercase tracking-wider font-semibold">
+            <h3 className="font-serif text-2xl sm:text-3xl text-ink-50 font-normal">Recent Vendor Registrations</h3>
+            <span className="px-2.5 py-1 rounded-full bg-gold-500/10 dark:bg-gold-400/10 text-gold-700 dark:text-gold-300 border border-gold-500/20 text-[9px] uppercase font-mono tracking-wider font-bold shadow-2xs">
               Live Feed
             </span>
           </div>
-          <p className="mt-1 text-xs text-ink-400">
+          <p className="mt-1 text-xs text-ink-500 dark:text-ink-400 font-medium">
             Latest studio creators and wedding cinematographers joining the platform
           </p>
         </div>
         <Link
           to="/admin/dashboard/vendors"
-          className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold-400 hover:text-gold-300 font-semibold transition-colors"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono uppercase tracking-widest text-gold-700 dark:text-gold-300 hover:bg-gold-500/10 hover:border-gold-500/30 font-bold transition-all shadow-2xs"
         >
           <span>View All Vendors</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-sm border border-white/5">
+      <div className="overflow-x-auto rounded-2xl border border-black/10 dark:border-white/10 relative z-10 bg-white/60 dark:bg-black/30">
         <table className="w-full text-left">
           <thead>
-            <tr className="text-[10px] uppercase tracking-widest text-ink-400 bg-ink-950/80 border-b border-white/5">
-              <th className="py-3.5 px-4 font-semibold">Studio / Brand</th>
-              <th className="py-3.5 px-4 font-semibold">Owner / Lead</th>
-              <th className="py-3.5 px-4 font-semibold">City</th>
-              <th className="py-3.5 px-4 font-semibold">Joined Date</th>
-              <th className="py-3.5 px-4 font-semibold">Account Status</th>
-              <th className="py-3.5 px-4 font-semibold text-right">Quick Action</th>
+            <tr className="text-[10px] uppercase font-mono tracking-widest text-ink-500 dark:text-ink-400 bg-black/[0.03] dark:bg-white/[0.03] border-b border-black/10 dark:border-white/10">
+              <th className="py-3.5 px-5 font-bold">Studio / Brand</th>
+              <th className="py-3.5 px-5 font-bold">Owner / Lead</th>
+              <th className="py-3.5 px-5 font-bold">City</th>
+              <th className="py-3.5 px-5 font-bold">Joined Date</th>
+              <th className="py-3.5 px-5 font-bold">Account Status</th>
+              <th className="py-3.5 px-5 font-bold text-right">Quick Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5 text-xs">
+          <tbody className="divide-y divide-black/5 dark:divide-white/5 text-xs">
             {displayVendors.map((vendor) => (
-              <tr key={vendor._id} className="hover:bg-white/[0.02] transition-colors">
-                <td className="py-3.5 px-4">
+              <tr key={vendor._id} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors">
+                <td className="py-3.5 px-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-gold-500/20 to-gold-400/20 border border-gold-400/30 flex items-center justify-center text-gold-300 font-serif text-xs font-semibold shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-gold-400/30 flex items-center justify-center text-gold-700 dark:text-gold-300 font-serif text-xs font-bold shrink-0 shadow-2xs">
                       {(vendor.studioName || vendor.fullName || '?').charAt(0).toUpperCase()}
                     </div>
-                    <span className="font-medium text-ink-100">{vendor.studioName || vendor.fullName}</span>
+                    <span className="font-semibold text-ink-50">{vendor.studioName || vendor.fullName}</span>
                   </div>
                 </td>
-                <td className="py-3.5 px-4 text-ink-300">{vendor.fullName}</td>
-                <td className="py-3.5 px-4 text-ink-400">{vendor.city || '—'}</td>
-                <td className="py-3.5 px-4 text-ink-400">
+                <td className="py-3.5 px-5 text-ink-700 dark:text-ink-300 font-medium">{vendor.fullName}</td>
+                <td className="py-3.5 px-5 text-ink-500 dark:text-ink-400">{vendor.city || '—'}</td>
+                <td className="py-3.5 px-5 text-ink-500 dark:text-ink-400 font-mono">
                   {new Date(vendor.createdAt).toLocaleDateString('en-IN', {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
                   })}
                 </td>
-                <td className="py-3.5 px-4">
+                <td className="py-3.5 px-5">
                   <VendorStatusBadge status={vendor.status} />
                 </td>
-                <td className="py-3.5 px-4 text-right">
+                <td className="py-3.5 px-5 text-right">
                   <Link
                     to="/admin/dashboard/vendors"
-                    className="text-[10px] uppercase tracking-wider text-gold-400 hover:text-gold-300 hover:underline font-medium"
+                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 text-[10px] font-mono uppercase tracking-widest text-ink-700 dark:text-ink-300 hover:text-gold-700 dark:hover:text-gold-300 hover:border-gold-500/30 font-bold transition-all shadow-2xs"
                   >
-                    Manage →
+                    <span>Inspect</span>
+                    <ArrowUpRight className="w-3 h-3" />
                   </Link>
                 </td>
               </tr>

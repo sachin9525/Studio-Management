@@ -90,38 +90,38 @@ const SERVICES = [
   }
 ];
 const WEDDING_PORTFOLIO = [
-  { url: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Traditional wedding ritual", category: "Ceremony", span: "tall" },
-  { url: "https://images.pexels.com/photos/38147801/pexels-photo-38147801.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple in wedding attire", category: "Couple", span: "wide" },
+  { url: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Traditional wedding ritual", category: "Ceremony" },
+  { url: "https://images.pexels.com/photos/38147801/pexels-photo-38147801.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple in wedding attire", category: "Couple" },
   { url: "https://images.pexels.com/photos/18897125/pexels-photo-18897125.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Henna and bangles", category: "Bride" },
   { url: "https://images.pexels.com/photos/17312688/pexels-photo-17312688.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Garland exchange", category: "Ceremony" },
-  { url: "https://images.pexels.com/photos/37951751/pexels-photo-37951751.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Henna designs on wedding day", category: "Bride", span: "tall" },
+  { url: "https://images.pexels.com/photos/37951751/pexels-photo-37951751.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Henna designs on wedding day", category: "Bride" },
   { url: "https://images.pexels.com/photos/16632447/pexels-photo-16632447.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Smiling couple", category: "Candid Moments" },
-  { url: "https://images.pexels.com/photos/32483856/pexels-photo-32483856.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Joyful wedding celebration", category: "Reception", span: "wide" },
+  { url: "https://images.pexels.com/photos/32483856/pexels-photo-32483856.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Joyful wedding celebration", category: "Reception" },
   { url: "https://images.pexels.com/photos/27876529/pexels-photo-27876529.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Exchanging jewelry", category: "Groom" },
   { url: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Mehndi hands", category: "Family" },
   { url: "https://images.pexels.com/photos/38218185/pexels-photo-38218185.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Wedding hand ritual", category: "Ceremony" },
-  { url: "https://images.pexels.com/photos/38681643/pexels-photo-38681643.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Colorful wedding ceremony", category: "Reception", span: "tall" },
+  { url: "https://images.pexels.com/photos/38681643/pexels-photo-38681643.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Colorful wedding ceremony", category: "Reception" },
   { url: "https://images.pexels.com/photos/12060074/pexels-photo-12060074.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Kanyadan ceremony", category: "Ceremony" }
 ];
 const PREWEDDING_PORTFOLIO = [
-  { url: "https://images.pexels.com/photos/30871487/pexels-photo-30871487.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple at historic church", category: "Outdoor", span: "wide" },
-  { url: "https://images.pexels.com/photos/30372650/pexels-photo-30372650.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Flowing veil outdoors", category: "Cinematic", span: "tall" },
+  { url: "https://images.pexels.com/photos/30871487/pexels-photo-30871487.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple at historic church", category: "Outdoor" },
+  { url: "https://images.pexels.com/photos/30372650/pexels-photo-30372650.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Flowing veil outdoors", category: "Cinematic" },
   { url: "https://images.pexels.com/photos/37912240/pexels-photo-37912240.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple at Golconda Fort", category: "Destination" },
-  { url: "https://images.pexels.com/photos/32404924/pexels-photo-32404924.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Mountain top couple", category: "Destination", span: "wide" },
+  { url: "https://images.pexels.com/photos/32404924/pexels-photo-32404924.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Mountain top couple", category: "Destination" },
   { url: "https://images.pexels.com/photos/8296813/pexels-photo-8296813.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Rustic brick wall couple", category: "Outdoor" },
-  { url: "https://images.pexels.com/photos/30161795/pexels-photo-30161795.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Elegant pre-wedding shoot", category: "Cinematic", span: "tall" },
+  { url: "https://images.pexels.com/photos/30161795/pexels-photo-30161795.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Elegant pre-wedding shoot", category: "Cinematic" },
   { url: "https://images.pexels.com/photos/30161854/pexels-photo-30161854.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple embracing outdoors", category: "Cinematic" },
   { url: "https://images.pexels.com/photos/8296801/pexels-photo-8296801.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Historical architecture shoot", category: "Outdoor" }
 ];
 const EVENT_PORTFOLIO = [
-  { url: "https://images.pexels.com/photos/30682919/pexels-photo-30682919.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Birthday party with friends", category: "Birthday", span: "wide" },
+  { url: "https://images.pexels.com/photos/30682919/pexels-photo-30682919.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Birthday party with friends", category: "Birthday" },
   { url: "https://images.pexels.com/photos/32333371/pexels-photo-32333371.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Birthday with cakes", category: "Birthday" },
-  { url: "https://images.pexels.com/photos/9275222/pexels-photo-9275222.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Conference audience", category: "Corporate", span: "tall" },
+  { url: "https://images.pexels.com/photos/9275222/pexels-photo-9275222.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Conference audience & keynote", category: "Corporate" },
   { url: "https://images.pexels.com/photos/15141493/pexels-photo-15141493.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Business conference", category: "Corporate" },
-  { url: "https://images.pexels.com/photos/15490147/pexels-photo-15490147.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple in traditional clothing", category: "Engagement", span: "wide" },
+  { url: "https://images.pexels.com/photos/15490147/pexels-photo-15490147.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Couple in traditional clothing", category: "Engagement" },
   { url: "https://images.pexels.com/photos/27176823/pexels-photo-27176823.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Birthday with sparklers", category: "Birthday" },
   { url: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Mehndi hands", category: "Anniversary" },
-  { url: "https://images.pexels.com/photos/8761782/pexels-photo-8761782.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Conference break conversation", category: "Corporate", span: "tall" }
+  { url: "https://images.pexels.com/photos/8761782/pexels-photo-8761782.jpeg?auto=compress&cs=tinysrgb&w=900", alt: "Conference break conversation", category: "Corporate" }
 ];
 const ALBUMS = [
   {
@@ -180,48 +180,112 @@ const ALBUMS = [
     ]
   }
 ];
+const FEATURED_BENTO_VIDEO = {
+  id: "rituals-of-udaipur",
+  title: "Rituals of Udaipur — Master Wedding Film",
+  caption: "Featured Masterwork",
+  category: "Cinema Master Film",
+  thumbnail: "https://images.pexels.com/photos/33975526/pexels-photo-33975526.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  poster: "https://images.pexels.com/photos/33975526/pexels-photo-33975526.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  videoUrl: "/videos/sample-film.mp4",
+  fallbackUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4",
+  youtubeId: "ysz5S6PUM-U",
+  duration: "08:15",
+  quality: "4K DCI · 24.00 FPS · PRORES 422 HQ",
+  director: "Sachin V. · Master Colorist",
+  description: "An emotional cinematic voyage through the majestic palatial rituals of Udaipur, shot on multi-camera cinema rigs with live Dolby soundscapes and custom 3D LUT grading."
+};
+
 const VIDEOS = [
   {
     id: "wedding-film",
-    title: "Rahul & Priya \u2014 Wedding Film",
+    title: "Rahul & Priya — Royal Palace Wedding Film",
+    caption: "Royal Palace Wedding",
     category: "Wedding Films",
     thumbnail: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "Qw9t9DqGM3w"
+    poster: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4",
+    youtubeId: "ysz5S6PUM-U",
+    duration: "04:35",
+    quality: "4K DCI · 60FPS",
+    director: "SVML Master Unit",
+    description: "Grand traditional wedding ceremonies captured across three days with artisan cinema lenses and live multi-track audio recording."
   },
   {
     id: "wedding-highlights",
-    title: "Arjun weds Meera \u2014 Highlights",
+    title: "Arjun weds Meera — Palatial Highlights",
+    caption: "Palatial Highlights",
     category: "Wedding Highlights",
     thumbnail: "https://images.pexels.com/photos/38147801/pexels-photo-38147801.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "1M1fejLqjO8"
+    poster: "https://images.pexels.com/photos/38147801/pexels-photo-38147801.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    youtubeId: "aqz-KE-bpKQ",
+    duration: "03:15",
+    quality: "4K DCI · 60FPS",
+    director: "SVML Master Unit",
+    description: "Heartwarming vows, laughter, and high-energy baraat celebrations condensed into an unforgettable cinematic highlight reel."
   },
   {
     id: "prewedding-film",
-    title: "Karan & Anaya \u2014 Pre-Wedding Film",
+    title: "Karan & Anaya — Sunset Hills Pre-Wedding",
+    caption: "Sunset Hills Pre-Wedding",
     category: "Pre-Wedding Films",
     thumbnail: "https://images.pexels.com/photos/30372650/pexels-photo-30372650.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "L_jWHffIx5E"
+    poster: "https://images.pexels.com/photos/30372650/pexels-photo-30372650.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4",
+    youtubeId: "jNQXAC9IVRw",
+    duration: "05:40",
+    quality: "4K DCI · 60FPS",
+    director: "SVML Master Unit",
+    description: "Golden hour romance in the scenic hills, featuring dramatic aerial drone cinematography and poetic storytelling."
   },
   {
     id: "cinematic",
-    title: "Vows \u2014 Cinematic Reel",
+    title: "Eternal Vows — Cinematic Slow-Motion Reel",
+    caption: "Cinematic Slow-Motion Reel",
     category: "Cinematic Videos",
     thumbnail: "https://images.pexels.com/photos/32483856/pexels-photo-32483856.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "tVj3B0w5xlg"
+    poster: "https://images.pexels.com/photos/32483856/pexels-photo-32483856.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    youtubeId: "aqz-KE-bpKQ",
+    duration: "02:50",
+    quality: "4K DCI · 120FPS",
+    director: "SVML Master Unit",
+    description: "High-frame-rate 120 FPS ultra slow-motion capturing floating floral petals, sparkling jewelry, and tearful glances."
   },
   {
     id: "birthday-video",
-    title: "Little Mira Turns Five",
+    title: "Little Mira Turns Five — Golden Celebration",
+    caption: "Golden Milestone Birthday",
     category: "Birthday Videos",
     thumbnail: "https://images.pexels.com/photos/30682919/pexels-photo-30682919.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "iIKxyDRmCpQ"
+    poster: "https://images.pexels.com/photos/30682919/pexels-photo-30682919.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    youtubeId: "ysz5S6PUM-U",
+    duration: "03:20",
+    quality: "4K UHD · 60FPS",
+    director: "SVML Master Unit",
+    description: "Pure innocence and festive childhood joy documented with playful prime lenses and vibrant color palette."
   },
   {
     id: "event-video",
-    title: "Annual Gala \u2014 Highlights",
+    title: "Annual Heritage Gala — Executive Highlights",
+    caption: "Executive Gala Highlights",
     category: "Event Videos",
     thumbnail: "https://images.pexels.com/photos/9275222/pexels-photo-9275222.jpeg?auto=compress&cs=tinysrgb&w=900",
-    youtubeId: "2Vv-BfVoq4g"
+    poster: "https://images.pexels.com/photos/9275222/pexels-photo-9275222.jpeg?auto=compress&cs=tinysrgb&w=900",
+    videoUrl: "/videos/sample-film.mp4",
+    fallbackUrl: "https://media.w3.org/2010/05/sintel/trailer.mp4",
+    youtubeId: "aqz-KE-bpKQ",
+    duration: "06:10",
+    quality: "4K DCI · 60FPS",
+    director: "SVML Master Unit",
+    description: "Multi-angle corporate gala production covering keynote stages, red carpet arrivals, and evening awards banquet."
   }
 ];
 const PACKAGES = [
@@ -290,6 +354,7 @@ const NAV_LINKS = [
 export {
   ALBUMS,
   EVENT_PORTFOLIO,
+  FEATURED_BENTO_VIDEO,
   HERO_SLIDES,
   NAV_LINKS,
   PACKAGES,

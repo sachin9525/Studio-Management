@@ -1,6 +1,14 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectThemeMode,
+  selectIsDark,
+  toggleTheme as toggleThemeAction,
+  setTheme as setThemeAction,
+} from '@/store/slices/themeSlice';
 
 const ThemeContext = createContext({
+<<<<<<< HEAD
   theme: 'light',
   toggleTheme: () => { },
   isDark: false,
@@ -46,12 +54,28 @@ export function ThemeProvider({ children }) {
       // Ignore storage errors in private browsing
     }
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+=======
+  theme: 'dark',
+  toggleTheme: () => {},
+  isDark: true,
+});
+
+export function ThemeProvider({ children }) {
+  const dispatch = useDispatch();
+  const theme = useSelector(selectThemeMode);
+  const isDark = useSelector(selectIsDark);
+
+  const toggleTheme = () => {
+    dispatch(toggleThemeAction());
+>>>>>>> 5c3de334890c83be6a71b75dd461a49f9fb2c2d1
   };
 
-  const isDark = theme === 'dark';
+  const setTheme = (newTheme) => {
+    dispatch(setThemeAction(newTheme));
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, isDark }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -66,4 +90,3 @@ export function useTheme() {
 }
 
 export default ThemeContext;
-

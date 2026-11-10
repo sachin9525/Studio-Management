@@ -253,84 +253,121 @@ html.light,
   color: #151311 !important;
 }
 
-/* Sidebar Navigation in Light Mode */
+/* Glassy Sidebar V5 in Light Mode */
 .light aside {
-  background-color: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.03);
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
-.light aside .text-ink-50 {
+.light aside [class*="rounded-[28px]"] {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light aside a,
+.light aside button,
+.light aside span,
+.light aside p,
+.light aside input {
+  color: #18181b;
+}
+
+.light aside .text-ink-50,
+.light aside h2 {
   color: #09090b !important;
 }
 
+.light aside .text-ink-400,
 .light aside .text-ink-500 {
   color: #4b5563 !important;
-  font-weight: 600 !important;
 }
 
-/* Inactive Sidebar Links */
-.light nav a:not([class*="from-gold-"]) {
-  color: #374151 !important;
-  font-weight: 500;
-}
-
-.light nav a:not([class*="from-gold-"]):hover {
+/* Collapse button in Light Mode */
+.light aside button[class*="rounded-full"][class*="z-50"],
+.light aside button[title*="sidebar"] {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
   color: #09090b !important;
-  background-color: rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
 }
 
-.light nav a:not([class*="from-gold-"]) span {
-  color: #374151 !important;
-}
-
-.light nav a:not([class*="from-gold-"]):hover span {
+.light aside button[class*="rounded-full"][class*="z-50"] svg,
+.light aside button[title*="sidebar"] svg {
   color: #09090b !important;
+  stroke: #09090b !important;
 }
 
-.light nav a:not([class*="from-gold-"]) svg {
+/* Sidebar active link in Light Mode */
+.light aside .sidebar-active,
+.light aside a[class*="sidebar-active"] {
+  background-color: rgba(133, 77, 14, 0.12) !important;
+  border-color: rgba(133, 77, 14, 0.35) !important;
+  color: #854d0e !important;
+}
+
+.light aside .sidebar-active span,
+.light aside .sidebar-active svg {
+  color: #854d0e !important;
+}
+
+/* Inactive Sidebar Links in Light Mode */
+.light aside a:not([class*="sidebar-active"]) span {
+  color: #27272a !important;
+}
+
+.light aside a:not([class*="sidebar-active"]) svg {
   color: #4b5563 !important;
 }
 
-.light nav a:not([class*="from-gold-"]):hover svg {
-  color: #854d0e !important;
+.light aside a:not([class*="sidebar-active"]):hover span,
+.light aside a:not([class*="sidebar-active"]):hover svg {
+  color: #09090b !important;
 }
 
-/* Active Sidebar Link (High prominence & luxury warmth) */
-.light nav a[class*="from-gold-"] {
-  background: linear-gradient(to right, rgba(133, 77, 14, 0.12), rgba(133, 77, 14, 0.04), transparent) !important;
-  color: #854d0e !important;
-  border-left-color: #854d0e !important;
-  font-weight: 700 !important;
-}
-
-.light nav a[class*="from-gold-"] span {
-  color: #854d0e !important;
-  font-weight: 700 !important;
-}
-
-.light nav a[class*="from-gold-"] svg {
-  color: #854d0e !important;
-  filter: drop-shadow(0 0 3px rgba(133, 77, 14, 0.3)) !important;
-}
-
-/* Top Header & Bar in Light Mode */
+/* Top Floating Header & Bar in Light Mode */
 .light header {
-  background-color: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
 }
 
-/* View Site Button */
-.light a[href="/"]:not([class*="group"]) {
-  border-color: rgba(133, 77, 14, 0.35) !important;
-  background-color: rgba(133, 77, 14, 0.08) !important;
-  color: #854d0e !important;
+/* Header Back Button in Light Mode */
+.light header button[title*="dashboard"],
+.light header button[title*="back"],
+.light header button[title*="Back"] {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #09090b !important;
+}
+
+.light header button[title*="dashboard"] span,
+.light header button[title*="back"] span,
+.light header button[title*="Back"] span {
+  color: #09090b !important;
   font-weight: 600 !important;
 }
 
-.light a[href="/"]:not([class*="group"]):hover {
-  background-color: rgba(133, 77, 14, 0.16) !important;
-  color: #593006 !important;
+.light header button[title*="dashboard"] svg,
+.light header button[title*="back"] svg,
+.light header button[title*="Back"] svg {
+  color: #09090b !important;
+  stroke: #09090b !important;
+}
+
+.light header button[title*="dashboard"]:hover,
+.light header button[title*="back"]:hover,
+.light header button[title*="Back"]:hover {
+  border-color: rgba(217, 119, 6, 0.4) !important;
+  color: #b45309 !important;
+}
+
+.light header button[title*="dashboard"]:hover span,
+.light header button[title*="back"]:hover span,
+.light header button[title*="dashboard"]:hover svg,
+.light header button[title*="back"]:hover svg {
+  color: #b45309 !important;
+  stroke: #b45309 !important;
 }
 
 /* Crisp Solid White Card Backgrounds */
@@ -493,3 +530,169 @@ html.light,
 .light .bg-black\/80 .text-gold-300 {
   color: #f0d38b !important;
 }
+
+/* ==========================================================================
+   PHOTO HERO & DARK OVERLAY CONTAINER RULES (LIGHT & DARK MODE)
+   Hero section is a full-bleed dark photography showcase.
+   Typography MUST be crisp white & champagne gold regardless of theme.
+   ========================================================================== */
+
+#home h1,
+.light #home h1,
+.light #home h1.heading-serif,
+.light #home .heading-serif {
+  color: #ffffff !important;
+}
+
+#home h1 span,
+.light #home h1 span,
+.light #home h1 .text-gold-300,
+.light #home h1 span[class*="text-gold"] {
+  color: #f0d38b !important;
+  text-shadow: 0 0 25px rgba(240, 211, 139, 0.45);
+}
+
+.light #home p {
+  color: #e2e8f0 !important;
+}
+
+.light #home .text-ink-200,
+.light #home .text-ink-300 {
+  color: #e2e8f0 !important;
+}
+
+.light #home .text-ink-400,
+.light #home .text-ink-500 {
+  color: #cbd5e1 !important;
+}
+
+/* Eyebrow Pill in Hero */
+.light #home [class*="bg-gold-400/10"] {
+  background-color: rgba(18, 16, 14, 0.85) !important;
+  border-color: rgba(240, 211, 139, 0.45) !important;
+}
+
+.light #home [class*="bg-gold-400/10"] span {
+  color: #f0d38b !important;
+}
+
+.light #home [class*="bg-gold-400/10"] svg {
+  color: #f0d38b !important;
+}
+
+/* Outline Buttons & Links inside Hero */
+.light #home a[class*="border-ink-300"],
+.light #home a[class*="border-white"],
+.light #home button[class*="border-white"],
+.light #home [class*="outline"] {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  background-color: rgba(18, 16, 14, 0.65) !important;
+}
+
+.light #home a[class*="from-gold-"] {
+  background: linear-gradient(to right, #d8b36a, #bd9148) !important;
+  color: #151311 !important;
+}
+
+.light #home a[class*="from-gold-"] span,
+.light #home a[class*="from-gold-"] svg {
+  color: #151311 !important;
+}
+
+.light #home a[href="/vendor/register"] {
+  color: #e2e8f0 !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.light #home a[href="/vendor/register"]:hover {
+  color: #f0d38b !important;
+}
+
+/* Stats in Hero */
+.light #home .font-serif[class*="text-gold"] {
+  color: #f0d38b !important;
+}
+
+/* Slide Indicator Buttons at Bottom */
+.light #home button [class*="font-mono"] {
+  color: #cbd5e1 !important;
+}
+
+.light #home button [class*="font-mono"].text-gold-300 {
+  color: #f0d38b !important;
+}
+
+.light #home a[href="#about"] {
+  color: #cbd5e1 !important;
+  background-color: transparent !important;
+}
+
+.light #home a[href="#about"]:hover {
+  color: #f0d38b !important;
+}
+
+/* Scoped photo overlay contrast safeguards for light mode */
+.light .photo-overlay-bright,
+.light .photo-badge {
+  color: #ffffff !important;
+}
+
+/* 404 & Cinema Animation Keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(0.8deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-1deg); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverseSlow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes pulseHalo {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.18); opacity: 0.45; }
+}
+
+@keyframes filmMarquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatReverse 7s ease-in-out infinite 1s;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 35s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spinReverseSlow 45s linear infinite;
+}
+
+.animate-pulse-halo {
+  animation: pulseHalo 4.5s ease-in-out infinite;
+}
+
+.animate-film-marquee {
+  animation: filmMarquee 25s linear infinite;
+}
+
+
+

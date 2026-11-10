@@ -107,14 +107,14 @@ function VendorDashboard() {
             type="button"
             onClick={loadDashboard}
             disabled={loading}
-            className="inline-flex items-center gap-2 rounded-sm border border-black/10 dark:border-white/10 px-3 py-1.5 text-xs text-ink-200 dark:text-ink-300 transition-colors hover:border-gold-400/40 hover:text-gold-600 dark:hover:text-gold-300 disabled:opacity-50 font-medium"
+            className="inline-flex items-center gap-2 rounded-full border border-black/15 dark:border-white/15 px-4 py-2 text-xs font-semibold bg-white/80 dark:bg-black/30 text-ink-700 dark:text-ink-300 hover:border-gold-500/40 hover:text-gold-700 dark:hover:text-gold-300 transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
           <Link
             to="/vendor/dashboard/projects"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-medium text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-md shadow-gold-500/10"
+            className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg shadow-gold-500/25"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Shoot</span>
@@ -123,9 +123,9 @@ function VendorDashboard() {
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-xs font-semibold text-red-600 dark:text-red-300 shadow-xs">
           <span>{error}</span>
-          <button type="button" onClick={loadDashboard} className="underline underline-offset-4">Try again</button>
+          <button type="button" onClick={loadDashboard} className="underline underline-offset-4 cursor-pointer">Try again</button>
         </div>
       )}
 
@@ -151,39 +151,41 @@ function VendorDashboard() {
         />
         <div className="space-y-6">
           {/* Quick Studio Actions */}
-          <section className="rounded-sm border border-white/5 bg-ink-900/80 backdrop-blur-md p-5">
-            <h3 className="font-serif text-lg text-ink-50 mb-3 flex items-center justify-between">
-              <span>Quick Actions</span>
-              <span className="text-[10px] uppercase tracking-widest text-gold-400 font-sans">Fast Links</span>
+          <section className="relative rounded-[28px] border border-black/10 dark:border-white/15 bg-white/90 dark:bg-black/45 backdrop-blur-2xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+
+            <h3 className="font-serif text-xl text-ink-50 mb-4 flex items-center justify-between font-normal relative z-10">
+              <span>Quick Studio Actions</span>
+              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-gold-700 dark:text-gold-300">Fast Links</span>
             </h3>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5 relative z-10">
               <Link
                 to="/vendor/dashboard/albums"
-                className="flex flex-col items-center justify-center p-3 rounded-sm bg-ink-800/60 border border-white/5 hover:border-gold-400/30 text-ink-300 hover:text-gold-300 transition-all group"
+                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 hover:border-gold-500/30 text-ink-600 dark:text-ink-300 hover:text-gold-700 dark:hover:text-gold-300 transition-all group shadow-2xs hover:-translate-y-0.5"
               >
-                <Images className="w-5 h-5 mb-1.5 text-gold-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] uppercase tracking-wider font-medium text-center">New Album</span>
+                <Images className="w-5 h-5 mb-2 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-center">New Album</span>
               </Link>
               <Link
                 to="/vendor/dashboard/videos"
-                className="flex flex-col items-center justify-center p-3 rounded-sm bg-ink-800/60 border border-white/5 hover:border-gold-400/30 text-ink-300 hover:text-gold-300 transition-all group"
+                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 hover:border-gold-500/30 text-ink-600 dark:text-ink-300 hover:text-gold-700 dark:hover:text-gold-300 transition-all group shadow-2xs hover:-translate-y-0.5"
               >
-                <Video className="w-5 h-5 mb-1.5 text-gold-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] uppercase tracking-wider font-medium text-center">Upload Film</span>
+                <Video className="w-5 h-5 mb-2 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-center">Upload Film</span>
               </Link>
               <Link
                 to="/vendor/dashboard/packages"
-                className="flex flex-col items-center justify-center p-3 rounded-sm bg-ink-800/60 border border-white/5 hover:border-gold-400/30 text-ink-300 hover:text-gold-300 transition-all group"
+                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 hover:border-gold-500/30 text-ink-600 dark:text-ink-300 hover:text-gold-700 dark:hover:text-gold-300 transition-all group shadow-2xs hover:-translate-y-0.5"
               >
-                <Package className="w-5 h-5 mb-1.5 text-gold-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] uppercase tracking-wider font-medium text-center">Packages</span>
+                <Package className="w-5 h-5 mb-2 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-center">Packages</span>
               </Link>
               <Link
                 to="/vendor/dashboard/services"
-                className="flex flex-col items-center justify-center p-3 rounded-sm bg-ink-800/60 border border-white/5 hover:border-gold-400/30 text-ink-300 hover:text-gold-300 transition-all group"
+                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 hover:border-gold-500/30 text-ink-600 dark:text-ink-300 hover:text-gold-700 dark:hover:text-gold-300 transition-all group shadow-2xs hover:-translate-y-0.5"
               >
-                <Briefcase className="w-5 h-5 mb-1.5 text-gold-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] uppercase tracking-wider font-medium text-center">Services</span>
+                <Briefcase className="w-5 h-5 mb-2 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-center">Services</span>
               </Link>
             </div>
           </section>
