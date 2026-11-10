@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const rawBaseUrl = (import.meta.env.VITE_API_URL || "/api").trim().replace(/\/+$/, "");
-const apiBaseUrl = rawBaseUrl.endsWith("/api") ? rawBaseUrl : `${rawBaseUrl}/api`;
-
-=======
 class ApiError extends Error {
   constructor(message, status = 500, data = {}) {
     super(message);
@@ -37,7 +32,6 @@ function getMediaUrl(path) {
   return `${host}${cleanPath}`;
 }
 
->>>>>>> 5c3de334890c83be6a71b75dd461a49f9fb2c2d1
 async function apiRequest(path, options = {}) {
   const { token, headers, ...requestOptions } = options;
   const isFormData = typeof FormData !== "undefined" && requestOptions.body instanceof FormData;

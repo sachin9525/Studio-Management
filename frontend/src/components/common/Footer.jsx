@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-ink-950 border-t border-white/5 bg-grain transition-colors">
+    <footer className="bg-ink-950 border-t border-black/10 dark:border-white/5 bg-grain transition-colors">
       <div className="container-max py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -30,7 +30,7 @@ function Footer() {
                   key={label}
                   href="#"
                   aria-label={label}
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-ink-300 hover:border-gold-400 hover:text-gold-400 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-ink-300 hover:border-gold-500 hover:text-gold-500 dark:hover:border-gold-400 dark:hover:text-gold-400 transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -107,7 +107,7 @@ function Footer() {
         </div>
 
         {/* Bottom Bar with updated Copyright & Dedicated Page Links */}
-        <div className="mt-14 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-14 pt-8 border-t border-black/10 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-ink-500 text-center md:text-left">
             &copy; {new Date().getFullYear()} SVML &mdash; Sachin Video Mixing Lab. All rights reserved.
           </p>

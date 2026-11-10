@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, Camera } from "lucide-react";
 import { NAV_LINKS } from "@/data/demoContent";
+import { useTheme } from "@/context/ThemeContext";
 import Button from "./Button";
 import ThemeToggle from "./ThemeToggle";
+
 function Navbar() {
+  const { isDark } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -37,13 +40,15 @@ function Navbar() {
     }
   };
 
-  const isNavSolid = !isHomePage || scrolled;
+  // In Light mode, always render a crisp luxury frosted glass navbar for maximum contrast and legibility.
+  // In Dark mode, keep transparent at top over the dark hero, then become solid on scroll.
+  const isNavSolid = !isHomePage || scrolled || !isDark;
 
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         isNavSolid
-          ? "bg-ink-950/90 backdrop-blur-xl border-b border-white/5 py-3.5 shadow-md"
+          ? "bg-white/92 dark:bg-ink-950/90 backdrop-blur-xl border-b border-black/10 dark:border-white/5 py-3.5 shadow-sm dark:shadow-md"
           : "bg-transparent py-5"
       }`}
     >
@@ -53,10 +58,10 @@ function Navbar() {
         onClick={(e) => handleNavClick(e, "#home")}
         className="flex items-center gap-2.5 shrink-0 group"
       >
-        <Camera className="w-6 h-6 text-gold-400 group-hover:rotate-12 transition-transform duration-500" />
-        <span className="font-serif text-xl tracking-wide text-ink-50">
+        <Camera className="w-6 h-6 text-gold-500 dark:text-gold-400 group-hover:rotate-12 transition-transform duration-500" />
+        <span className="font-serif text-xl tracking-wide text-ink-950 dark:text-ink-50 font-medium">
           {"SVML"}
-          <span className="text-gold-400">.</span>
+          <span className="text-gold-500 dark:text-gold-400">.</span>
         </span>
       </a>
       {
@@ -66,27 +71,27 @@ function Navbar() {
         {NAV_LINKS.filter((link) => ["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)).map((link) => <li key={link.label}><a
           href={link.href}
           onClick={(e) => handleNavClick(e, link.href)}
-          className="text-[11px] uppercase tracking-widest text-ink-200 hover:text-gold-400 transition-colors duration-300"
+          className="text-[11px] uppercase tracking-widest font-medium text-ink-200 hover:text-gold-600 dark:hover:text-gold-400 transition-colors duration-300"
         >{link.label}</a></li>)}
         <li className="relative">
           <button
             type="button"
             onClick={() => setMoreOpen(!moreOpen)}
-            className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest text-ink-200 hover:text-gold-400 transition-colors duration-300"
+            className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest font-medium text-ink-200 hover:text-gold-600 dark:hover:text-gold-400 transition-colors duration-300"
             aria-expanded={moreOpen}
             aria-haspopup="menu"
           >
             {"Pages"}
             <ChevronDown className={`w-3.5 h-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
           </button>
-          {moreOpen && <div className="absolute right-0 top-full mt-4 min-w-44 rounded-sm border border-white/10 bg-ink-900/95 p-2 shadow-2xl backdrop-blur-xl" role="menu">{NAV_LINKS.filter((link) => !["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)).map((link) => <a
+          {moreOpen && <div className="absolute right-0 top-full mt-4 min-w-44 rounded-sm border border-black/10 dark:border-white/10 bg-white/98 dark:bg-ink-900/95 p-2 shadow-2xl backdrop-blur-xl" role="menu">{NAV_LINKS.filter((link) => !["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)).map((link) => <a
             key={link.label}
             href={link.href}
             onClick={(e) => {
               handleNavClick(e, link.href);
               setMoreOpen(false);
             }}
-            className="block rounded-sm px-3 py-2.5 text-[11px] uppercase tracking-widest text-ink-300 hover:bg-white/5 hover:text-gold-400 transition-colors"
+            className="block rounded-sm px-3 py-2.5 text-[11px] uppercase tracking-widest text-ink-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
             role="menuitem"
           >{link.label}</a>)}</div>}
         </li>
@@ -112,7 +117,7 @@ function Navbar() {
       /* Mobile drawer */
     }
     <div
-      className={`xl:hidden fixed inset-0 top-0 bg-ink-950/98 backdrop-blur-xl transition-all duration-500 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      className={`xl:hidden fixed inset-0 top-0 bg-white/98 dark:bg-ink-950/98 backdrop-blur-xl transition-all duration-500 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
     >
       <button
         type="button"
@@ -120,25 +125,25 @@ function Navbar() {
           setOpen(false);
           setMoreOpen(false);
         }}
-        className="absolute top-5 right-6 z-10 p-2 text-ink-50 hover:text-gold-400 transition-colors"
+        className="absolute top-5 right-6 z-10 p-2 text-ink-50 hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
         aria-label="Close menu"
       ><X className="w-7 h-7" /></button>
       <div className="flex flex-col h-full pt-24 pb-8 px-8 overflow-y-auto">
         <ul className="flex flex-col gap-1">
           {NAV_LINKS.filter((link) => ["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)).map((link, i) => <li
             key={link.label}
-            className={`border-b border-white/5 ${open ? "animate-fade-up" : ""}`}
+            className={`border-b border-black/5 dark:border-white/5 ${open ? "animate-fade-up" : ""}`}
             style={{ animationDelay: `${i * 40}ms` }}
           ><a
             href={link.href}
             onClick={(e) => handleNavClick(e, link.href)}
-            className="block py-4 font-serif text-2xl text-ink-100 hover:text-gold-400 transition-colors"
+            className="block py-4 font-serif text-2xl text-ink-100 hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
           >{link.label}</a></li>)}
-          <li className="border-b border-white/5">
+          <li className="border-b border-black/5 dark:border-white/5">
             <button
               type="button"
               onClick={() => setMoreOpen(!moreOpen)}
-              className="flex w-full items-center justify-between py-4 font-serif text-2xl text-ink-100 hover:text-gold-400 transition-colors"
+              className="flex w-full items-center justify-between py-4 font-serif text-2xl text-ink-100 hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
               aria-expanded={moreOpen}
             >
               {"Pages"}
@@ -148,7 +153,7 @@ function Navbar() {
               key={link.label}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="block py-2.5 text-sm uppercase tracking-widest text-ink-400 hover:text-gold-400 transition-colors"
+              className="block py-2.5 text-sm uppercase tracking-widest text-ink-400 hover:text-gold-600 dark:hover:text-gold-400 transition-colors"
             >{link.label}</a>)}</div>}
           </li>
         </ul>
