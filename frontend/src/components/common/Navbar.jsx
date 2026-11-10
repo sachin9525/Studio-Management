@@ -56,12 +56,17 @@ function Navbar() {
           ? isHomePage && !scrolled
             ? "transparent"
             : "rgba(21, 19, 17, 0.92)"
-          : "rgba(255, 255, 255, 0.95)",
+          : "rgba(255, 255, 255, 0.96)",
         borderBottom: isDark && isHomePage && !scrolled
           ? "1px solid transparent"
           : isDark
             ? "1px solid rgba(255, 255, 255, 0.08)"
             : "1px solid rgba(0, 0, 0, 0.08)",
+        boxShadow: isDark
+          ? isHomePage && !scrolled
+            ? "none"
+            : "0 10px 30px -10px rgba(0, 0, 0, 0.5)"
+          : "0 4px 25px -2px rgba(0, 0, 0, 0.07)",
       }}
     >
       <nav className="container-max flex items-center justify-between gap-4">

@@ -20,7 +20,7 @@ function ThemeToggle({ className = '', showLabel = false }) {
         {isDark ? (
           <Sun className="w-3.5 h-3.5 text-amber-300 transition-transform duration-500 group-hover:rotate-45" />
         ) : (
-          <Moon className="w-3.5 h-3.5 text-ink-700 dark:text-ink-300 group-hover:text-amber-700 transition-transform duration-500 group-hover:-rotate-12" />
+          <Moon className="w-3.5 h-3.5 text-neutral-800 dark:text-ink-300 group-hover:text-amber-700 transition-transform duration-500 group-hover:-rotate-12" />
         )}
       </div>
 
