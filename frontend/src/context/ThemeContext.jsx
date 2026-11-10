@@ -1,32 +1,36 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => { },
-  isDark: true,
+  isDark: false,
 });
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     try {
-      const saved = localStorage.getItem('svml_theme');
-      if (saved === 'light' || saved === 'dark') return saved;
-      return 'dark'; // Default to signature dark luxury aesthetic
+      // If the user has explicitly chosen a theme via the toggle, respect their choice
+      const explicit = localStorage.getItem('svml_theme_user_set');
+      if (explicit) {
+        const saved = localStorage.getItem('svml_theme');
+        if (saved === 'light' || saved === 'dark') return saved;
+      }
+      return 'light'; // By default, luxury light mode
     } catch {
-      return 'dark';
+      return 'light';
     }
   });
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      root.style.colorScheme = 'light';
-    } else {
+    if (theme === 'dark') {
       root.classList.remove('light');
       root.classList.add('dark');
       root.style.colorScheme = 'dark';
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+      root.style.colorScheme = 'light';
     }
     try {
       localStorage.setItem('svml_theme', theme);
@@ -36,6 +40,11 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggleTheme = () => {
+    try {
+      localStorage.setItem('svml_theme_user_set', 'true');
+    } catch {
+      // Ignore storage errors in private browsing
+    }
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 

@@ -5,6 +5,27 @@
 @tailwind utilities;
 
 :root,
+html.light,
+.light {
+  /* Crisp, high-contrast typography hierarchy for luxury light mode (Default) */
+  --ink-50: 9 9 11;        /* #09090b — Pitch Obsidian for titles & headings (20:1 contrast) */
+  --ink-100: 24 24 27;     /* #18181b — Jet Charcoal primary body text (16:1 contrast) */
+  --ink-200: 39 39 42;     /* #27272a — Deep neutral secondary headings (12:1 contrast) */
+  --ink-300: 63 63 70;     /* #3f3f46 — Rich dark slate descriptions (9:1 contrast) */
+  --ink-400: 75 85 99;     /* #4b5563 — High-contrast dark gray for labels & metadata (7:1 contrast) */
+  --ink-500: 75 85 99;     /* #4b5563 — High-contrast sub-captions & dates (7:1 contrast) */
+  --ink-600: 156 163 175;  /* #9ca3af — Subtle borders & dividers */
+  --ink-800: 244 240 234;  /* #f4f0ea — Soft warm ivory card/hover background */
+  --ink-900: 255 255 255;  /* #ffffff — Crisp pure white card surface */
+  --ink-950: 250 248 245;  /* #faf8f5 — Warm luxury porcelain background */
+
+  /* High-Contrast Rich Antique Honey Bronze for Light Mode */
+  --gold-300: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
+  --gold-400: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
+  --gold-500: 113 63 18;   /* #713f12 — Deep antique bronze (9.2:1 contrast on white) */
+  --gold-600: 89 48 6;     /* #593006 — Rich dark espresso bronze */
+}
+
 html.dark,
 .dark {
   --ink-50: 247 245 242;
@@ -23,27 +44,6 @@ html.dark,
   --gold-400: 216 179 106; /* #d8b36a */
   --gold-500: 189 145 72;  /* #bd9148 */
   --gold-600: 154 113 52;  /* #9a7134 */
-}
-
-html.light,
-.light {
-  /* Crisp, high-contrast typography hierarchy for luxury light mode */
-  --ink-50: 9 9 11;        /* #09090b — Pitch Obsidian for titles & headings (20:1 contrast) */
-  --ink-100: 24 24 27;     /* #18181b — Jet Charcoal primary body text (16:1 contrast) */
-  --ink-200: 39 39 42;     /* #27272a — Deep neutral secondary headings (12:1 contrast) */
-  --ink-300: 63 63 70;     /* #3f3f46 — Rich dark slate descriptions (9:1 contrast) */
-  --ink-400: 75 85 99;     /* #4b5563 — High-contrast dark gray for labels & metadata (7:1 contrast) */
-  --ink-500: 75 85 99;     /* #4b5563 — High-contrast sub-captions & dates (7:1 contrast) */
-  --ink-600: 156 163 175;  /* #9ca3af — Subtle borders & dividers */
-  --ink-800: 244 240 234;  /* #f4f0ea — Soft warm ivory card/hover background */
-  --ink-900: 255 255 255;  /* #ffffff — Crisp pure white card surface */
-  --ink-950: 250 248 245;  /* #faf8f5 — Warm luxury porcelain background */
-
-  /* High-Contrast Rich Antique Honey Bronze for Light Mode */
-  --gold-300: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
-  --gold-400: 133 77 14;   /* #854d0e — Deep rich amber bronze (7.2:1 contrast on white) */
-  --gold-500: 113 63 18;   /* #713f12 — Deep antique bronze (9.2:1 contrast on white) */
-  --gold-600: 89 48 6;     /* #593006 — Rich dark espresso bronze */
 }
 
 @layer base {

@@ -1,10 +1,13 @@
-const apiBaseUrl = (import.meta.env.VITE_API_URL || "/api").replace(/\/$/, "");
+const rawBaseUrl = (import.meta.env.VITE_API_URL || "/api").trim().replace(/\/+$/, "");
+const apiBaseUrl = rawBaseUrl.endsWith("/api") ? rawBaseUrl : `${rawBaseUrl}/api`;
+
 async function apiRequest(path, options = {}) {
   const { token, headers, ...requestOptions } = options;
   const isFormData = typeof FormData !== "undefined" && requestOptions.body instanceof FormData;
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   let response;
   try {
-    response = await fetch(`${apiBaseUrl}${path}`, {
+    response = await fetch(`${apiBaseUrl}${normalizedPath}`, {
       ...requestOptions,
       headers: {
         ...isFormData ? {} : { "Content-Type": "application/json" },
