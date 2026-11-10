@@ -1,90 +1,88 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
-import { Camera, LogOut, Menu, X, Bell } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Menu, X, Bell, ArrowLeft } from "lucide-react";
+import GlassySidebar from "@/components/common/GlassySidebar";
+import ThemeToggle from "@/components/common/ThemeToggle";
+
 function DashboardLayout({ children, navItems, title, role }) {
-  const { profile, signOut } = useAuth();
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/");
-  };
-  const accent = role === "admin" ? "text-gold-400" : "text-gold-400";
-  return <div className="h-screen w-full bg-ink-950 flex overflow-hidden">
-    {
-      /* Sidebar — desktop */
-    }
-    <aside
-      className={`fixed lg:static top-0 left-0 z-40 h-screen w-64 shrink-0 bg-ink-900 border-r border-white/5 flex flex-col transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
-    >
-      <div className="p-6 border-b border-white/5"><Link to="/" className="flex items-center gap-2.5">
-        <Camera className="w-6 h-6 text-gold-400" />
-        <div>
-          <span className="font-serif text-lg text-ink-50 block leading-tight">
-            {"SVML"}
-            <span className="text-gold-400">.</span>
-          </span>
-          <span className={`text-[9px] uppercase tracking-widest ${accent}`}>
-            {role}
-            {" Panel"}
-          </span>
-        </div>
-      </Link></div>
-      <nav className="flex-1 overflow-y-auto py-4 no-scrollbar"><ul className="space-y-1 px-3">{navItems.map((item) => <li key={item.path}><Link
-        to={item.path}
-        onClick={() => setOpen(false)}
-        className="flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm text-ink-400 hover:text-gold-400 hover:bg-white/5 transition-colors"
-      >
-        <span className="shrink-0">{item.icon}</span>
-        <span className="text-xs uppercase tracking-widest">{item.label}</span>
-      </Link></li>)}</ul></nav>
-      <div className="p-4 border-t border-white/5">
-        <div className="flex items-center gap-3 mb-3 px-2">
-          <div className="w-9 h-9 rounded-full bg-gold-400/20 border border-gold-400/30 flex items-center justify-center text-gold-400 font-serif text-sm">{profile?.full_name?.charAt(0).toUpperCase() ?? "V"}</div>
-          <div className="min-w-0">
-            <p className="text-xs text-ink-200 truncate">{profile?.full_name}</p>
-            <p className="text-[10px] text-ink-500 truncate">{profile?.email}</p>
+  const navigate = useNavigate();
+
+  return (
+    <div className="h-screen w-full bg-ink-950 text-ink-100 flex overflow-hidden relative selection:bg-gold-400 selection:text-ink-950 font-sans">
+      {/* Studio Ambient Luxury Background Lighting for Realistic Glass Blur */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_15%_10%,rgba(216,179,106,0.08),rgba(0,0,0,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_15%_10%,rgba(216,179,106,0.1),rgba(0,0,0,0))] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-orange-600/5 rounded-full blur-[140px] pointer-events-none" />
+
+      {/* Glassy SideBar V5 — Desktop */}
+      <div className="hidden lg:block shrink-0">
+        <GlassySidebar role={role} navItems={navItems} />
+      </div>
+
+      {/* Mobile Drawer with Glassy SideBar V5 */}
+      {open && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          <div
+            className="fixed inset-0 bg-ink-950/80 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setOpen(false)}
+          />
+          <div className="relative z-10 w-72 h-full flex items-center">
+            <GlassySidebar role={role} navItems={navItems} />
           </div>
         </div>
-        <button
-          onClick={handleSignOut}
-          className="w-full flex items-center gap-2 px-3 py-2.5 rounded-sm text-xs uppercase tracking-widest text-ink-400 hover:text-red-400 hover:bg-red-500/5 transition-colors"
-        >
-          <LogOut className="w-4 h-4" />
-          {"Logout"}
-        </button>
+      )}
+
+      {/* Main Content Area */}
+      <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
+        {/* Glassy Floating Island Header */}
+        <header className="sticky top-0 z-30 shrink-0 pl-6 sm:pl-8 pr-4 sm:pr-6 pt-3 sm:pt-4 pb-2 transition-all">
+          <div className="rounded-[24px] sm:rounded-full bg-white/90 dark:bg-black/45 backdrop-blur-2xl border border-black/10 dark:border-white/15 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <button
+                className="lg:hidden p-2 rounded-full text-ink-500 hover:text-ink-50 hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                onClick={() => setOpen(!open)}
+                aria-label="Toggle sidebar"
+              >
+                {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+
+              {/* Universal Back Button for All Sidebar Sections */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.history.length > 1) {
+                    navigate(-1);
+                  } else {
+                    navigate(role === 'admin' ? '/admin/dashboard' : '/vendor/dashboard');
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/[0.04] dark:bg-white/10 hover:bg-gold-500/15 border border-black/10 dark:border-white/10 text-xs text-ink-50 hover:text-gold-700 dark:hover:text-gold-300 font-bold transition-all shadow-2xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                title="Go back to dashboard"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-ink-50 group-hover:text-gold-600 dark:group-hover:text-gold-300 stroke-[2.5] transition-transform group-hover:-translate-x-0.5" />
+                <span className="font-sans">Back</span>
+              </button>
+
+              <h1 className="font-serif text-lg sm:text-xl text-ink-50 font-normal tracking-tight">{title}</h1>
+            </div>
+
+            <div className="flex items-center gap-2.5">
+              <ThemeToggle />
+              <button
+                className="relative w-9 h-9 rounded-full flex items-center justify-center border border-black/15 dark:border-white/15 bg-black/[0.04] dark:bg-white/5 text-ink-50 hover:bg-gold-500/10 hover:border-gold-500/40 hover:text-gold-700 dark:hover:text-gold-300 transition-all cursor-pointer shadow-2xs hover:scale-105 active:scale-95"
+                aria-label="Notifications"
+              >
+                <Bell className="w-4 h-4" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-gold-500 ring-2 ring-white dark:ring-black animate-pulse" />
+              </button>
+            </div>
+          </div>
+        </header>
+        <main className="flex-1 p-6 sm:p-8 max-w-7xl w-full mx-auto">{children}</main>
       </div>
-    </aside>
-    {
-      /* Overlay for mobile */
-    }
-    {open && <div className="fixed inset-0 bg-ink-950/60 z-30 lg:hidden" onClick={() => setOpen(false)} />}
-    {
-      /* Main */
-    }
-    <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
-      {
-        /* Top bar */
-      }
-      <header className="sticky top-0 z-20 shrink-0 bg-ink-900/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <button
-            className="lg:hidden text-ink-300"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle sidebar"
-          >{open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}</button>
-          <h1 className="font-serif text-xl text-ink-50">{title}</h1>
-        </div>
-        <div className="flex items-center gap-3"><button className="relative text-ink-400 hover:text-gold-400 transition-colors" aria-label="Notifications">
-          <Bell className="w-5 h-5" />
-          <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-gold-400" />
-        </button></div>
-      </header>
-      <main className="flex-1 p-6">{children}</main>
     </div>
-  </div>;
+  );
 }
-export {
-  DashboardLayout as default
-};
+
+export default DashboardLayout;

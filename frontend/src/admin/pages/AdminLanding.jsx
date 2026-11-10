@@ -2,6 +2,7 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import HeroSection from "@/components/landing/HeroSection";
 import AboutSection from "@/components/landing/AboutSection";
+import BentoExperience3D from "@/components/landing/BentoExperience3D";
 import ServiceSection from "@/components/landing/ServiceSection";
 import WeddingPortfolio from "@/components/landing/WeddingPortfolio";
 import PreWeddingPortfolio from "@/components/landing/PreWeddingPortfolio";
@@ -12,26 +13,29 @@ import PackageSection from "@/components/landing/PackageSection";
 import TestimonialSection from "@/components/landing/TestimonialSection";
 import VendorCTA from "@/components/landing/VendorCTA";
 import ContactSection from "@/components/landing/ContactSection";
+
 function AdminLanding() {
-  return <div className="min-h-screen bg-ink-950">
-    <Navbar />
-    <main>
-      <HeroSection />
-      <AboutSection />
-      <ServiceSection />
-      <WeddingPortfolio />
-      <PreWeddingPortfolio />
-      <EventPortfolio />
-      <AlbumSection />
-      <VideoSection />
-      <PackageSection />
-      <TestimonialSection />
-      <VendorCTA />
-      <ContactSection />
-    </main>
-    <Footer />
-  </div>;
+  return (
+    <div className="min-h-screen bg-ink-950">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <BentoExperience3D />
+        <ServiceSection />
+        <WeddingPortfolio />
+        <PreWeddingPortfolio />
+        <EventPortfolio />
+        <AlbumSection />
+        <VideoSection />
+        <PackageSection />
+        <TestimonialSection />
+        <VendorCTA />
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
+  );
 }
-export {
-  AdminLanding as default
-};
+
+export default AdminLanding;

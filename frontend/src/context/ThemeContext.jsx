@@ -1,48 +1,33 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectThemeMode,
+  selectIsDark,
+  toggleTheme as toggleThemeAction,
+  setTheme as setThemeAction,
+} from '@/store/slices/themeSlice';
 
 const ThemeContext = createContext({
   theme: 'dark',
-  toggleTheme: () => { },
+  toggleTheme: () => {},
   isDark: true,
 });
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    try {
-      const saved = localStorage.getItem('svml_theme');
-      if (saved === 'light' || saved === 'dark') return saved;
-      return 'dark'; // Default to signature dark luxury aesthetic
-    } catch {
-      return 'dark';
-    }
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      root.style.colorScheme = 'light';
-    } else {
-      root.classList.remove('light');
-      root.classList.add('dark');
-      root.style.colorScheme = 'dark';
-    }
-    try {
-      localStorage.setItem('svml_theme', theme);
-    } catch (e) {
-      console.error('Failed to save theme in localStorage', e);
-    }
-  }, [theme]);
+  const dispatch = useDispatch();
+  const theme = useSelector(selectThemeMode);
+  const isDark = useSelector(selectIsDark);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    dispatch(toggleThemeAction());
   };
 
-  const isDark = theme === 'dark';
+  const setTheme = (newTheme) => {
+    dispatch(setThemeAction(newTheme));
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, isDark }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -57,4 +42,3 @@ export function useTheme() {
 }
 
 export default ThemeContext;
-

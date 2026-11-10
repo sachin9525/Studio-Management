@@ -50,13 +50,41 @@ function ContactSection() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
     setError("");
+
+    // Client-side validations from user perspective
+    const trimmedName = form.name.trim();
+    if (trimmedName.length < 2) {
+      setError("Please provide your name (at least 2 characters).");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      setError("Please enter a valid email address (e.g. name@example.com).");
+      return;
+    }
+
+    const rawDigits = form.phone.replace(/\D/g, "");
+    if (rawDigits.length < 10) {
+      setError("Please enter a valid phone number with at least 10 digits.");
+      return;
+    }
+
+    if (!form.eventType) {
+      setError("Please choose an event type from the list.");
+      return;
+    }
+
+    setSubmitting(true);
     try {
       await apiRequest("/inquiries", {
         method: "POST",
         body: JSON.stringify({
           ...form,
+          name: trimmedName,
+          email: form.email.trim(),
+          phone: form.phone.trim(),
           packageId: packageId || undefined,
           eventDate: form.eventDate || undefined,
           studioSlug: window.location.pathname.match(/^\/studio\/([^/]+)/)?.[1],

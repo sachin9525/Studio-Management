@@ -105,22 +105,24 @@ function AdminPortfolio() {
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
-      const matchesStatus =
+      const matchCategory = activeCategory === 'All' || item.category === activeCategory;
+      const matchStatus =
         statusFilter === 'all' ||
         (statusFilter === 'published' && item.isPublished) ||
         (statusFilter === 'draft' && !item.isPublished);
+
       const q = searchQuery.toLowerCase().trim();
-      const matchesSearch =
+      const matchSearch =
         !q ||
         item.title.toLowerCase().includes(q) ||
         item.client.toLowerCase().includes(q) ||
-        item.location.toLowerCase().includes(q);
-      return matchesCategory && matchesStatus && matchesSearch;
+        item.location.toLowerCase().includes(q) ||
+        item.category.toLowerCase().includes(q);
+
+      return matchCategory && matchStatus && matchSearch;
     });
   }, [items, activeCategory, statusFilter, searchQuery]);
 
-  // Actions
   const handleTogglePublish = (id) => {
     const updated = items.map((it) => (it.id === id ? { ...it, isPublished: !it.isPublished } : it));
     saveItems(updated);
@@ -132,7 +134,7 @@ function AdminPortfolio() {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this portfolio project?')) {
+    if (window.confirm('Are you sure you want to delete this showcase item?')) {
       const updated = items.filter((it) => it.id !== id);
       saveItems(updated);
     }
@@ -143,10 +145,10 @@ function AdminPortfolio() {
     setFormData({
       title: '',
       client: '',
-      category: activeCategory === 'All' ? 'Wedding' : activeCategory,
+      category: 'Wedding',
       location: '',
       date: new Date().toISOString().split('T')[0],
-      image: 'https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=900',
+      image: 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1200',
       isPublished: true,
       featured: false,
     });
@@ -202,21 +204,21 @@ function AdminPortfolio() {
       {/* Top Header & Page Banner */}
       <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-1 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-300 text-[10px] uppercase tracking-widest font-semibold flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-gold-400" />
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="px-3 py-1 rounded-full bg-gold-400/10 border border-gold-400/25 text-gold-700 dark:text-gold-300 text-[10px] uppercase font-mono tracking-widest font-bold flex items-center gap-1.5 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-gold-600 dark:text-gold-400" />
               Interactive Showcase Manager
             </span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl text-ink-50 font-normal">Platform Portfolio</h2>
-          <p className="text-sm text-ink-400 mt-1 max-w-2xl">
+          <h2 className="font-serif text-3xl sm:text-4xl text-ink-50 font-normal tracking-tight">Platform Portfolio</h2>
+          <p className="text-xs sm:text-sm text-ink-500 dark:text-ink-400 mt-1 max-w-2xl font-medium">
             Live client visual showcase displayed across the public landing page. Add high-resolution shoots, filter by shoot types, and manage live visibility.
           </p>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 self-start md:self-auto">
           <button
             onClick={handleOpenAddModal}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-medium text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-gold-500/20 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 hover:scale-[1.02] transition-all shadow-lg shadow-gold-500/25 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Add Showcase Shoot</span>
@@ -224,63 +226,55 @@ function AdminPortfolio() {
         </div>
       </div>
 
-      {/* Live Metrics Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md relative overflow-hidden group hover:border-gold-400/30 transition-all">
-          <div className="flex items-center justify-between text-ink-400 mb-2">
-            <span className="text-[10px] uppercase tracking-widest">Total Shoots</span>
-            <FolderHeart className="w-4 h-4 text-gold-400" />
+      {/* 4 Glassy Stat Cards */}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {[
+          ['Total Shoots', stats.total, `${stats.published} published online`],
+          ['Weddings', stats.wedding, 'Traditional & Destination'],
+          ['Pre-Weddings', stats.preWedding, 'Couples & Outdoor'],
+          ['Live Impressions', stats.totalViews.toLocaleString('en-IN'), 'Public Visits'],
+        ].map(([label, value, subtext], idx) => (
+          <div
+            key={label}
+            className="relative rounded-[24px] p-4 sm:p-5 border bg-white/90 dark:bg-black/45 backdrop-blur-2xl border-black/10 dark:border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group hover:-translate-y-0.5 transition-all"
+          >
+            <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
+            <div className="flex items-center justify-between mb-2 relative z-10">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500/20 to-orange-500/20 border border-gold-400/30 text-gold-700 dark:text-gold-300 flex items-center justify-center font-bold text-xs shadow-2xs">
+                {idx + 1}
+              </span>
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 border border-black/10 dark:border-white/15 text-ink-600 dark:text-ink-300">
+                {subtext}
+              </span>
+            </div>
+            <div className="relative z-10">
+              <p className="font-serif text-3xl sm:text-4xl text-ink-50 font-normal tracking-tight group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors tabular-nums">
+                {value}
+              </p>
+              <p className="mt-1 text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 dark:text-ink-400">
+                {label}
+              </p>
+            </div>
           </div>
-          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.total}</p>
-          <div className="mt-2 text-[10px] text-ink-500 flex items-center gap-1">
-            <span className="text-emerald-400 font-semibold">{stats.published}</span> published online
-          </div>
-        </div>
-
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md relative overflow-hidden group hover:border-gold-400/30 transition-all">
-          <div className="flex items-center justify-between text-ink-400 mb-2">
-            <span className="text-[10px] uppercase tracking-widest">Weddings</span>
-            <span className="text-xs text-gold-400">💍</span>
-          </div>
-          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.wedding}</p>
-          <p className="mt-2 text-[10px] text-ink-500">Traditional & Destination</p>
-        </div>
-
-        <div className="p-5 rounded-sm bg-ink-900/70 border border-white/5 backdrop-blur-md relative overflow-hidden group hover:border-gold-400/30 transition-all">
-          <div className="flex items-center justify-between text-ink-400 mb-2">
-            <span className="text-[10px] uppercase tracking-widest">Pre-Weddings</span>
-            <span className="text-xs text-gold-400">✨</span>
-          </div>
-          <p className="font-sans font-bold text-3xl text-ink-50 tabular-nums">{stats.preWedding}</p>
-          <p className="mt-2 text-[10px] text-ink-500">Couples & Outdoor</p>
-        </div>
-
-        <div className="p-5 rounded-sm bg-gradient-to-br from-gold-400/10 via-ink-900/80 to-ink-900 border border-gold-400/20 backdrop-blur-md relative overflow-hidden">
-          <div className="flex items-center justify-between text-gold-400 mb-2">
-            <span className="text-[10px] uppercase tracking-widest font-semibold">Live Impressions</span>
-            <Eye className="w-4 h-4" />
-          </div>
-          <p className="font-sans font-bold text-3xl text-gold-300 tabular-nums">{stats.totalViews.toLocaleString('en-IN')}</p>
-          <p className="mt-2 text-[10px] text-gold-400/80">Public Portfolio Visits</p>
-        </div>
+        ))}
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="p-4 rounded-sm bg-ink-900/90 border border-white/5 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-lg">
+      {/* Filter Pills and Search Bar */}
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-sm text-xs uppercase tracking-wider font-medium transition-all ${
+              className={`rounded-full px-5 py-2 text-xs font-mono uppercase tracking-widest font-bold transition-all cursor-pointer shadow-2xs ${
                 activeCategory === cat
-                  ? 'bg-gold-400 text-ink-950 shadow-md font-semibold'
-                  : 'bg-ink-800/60 text-ink-300 hover:text-ink-50 hover:bg-ink-800 border border-ink-600/30'
+                  ? 'bg-gold-500/15 dark:bg-white/15 border border-gold-500/35 dark:border-white/20 text-gold-900 dark:text-gold-300 shadow-xs'
+                  : 'bg-black/[0.03] dark:bg-white/5 border border-black/10 dark:border-white/10 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-white hover:bg-black/[0.06] dark:hover:bg-white/10'
               }`}
             >
               {cat}
-              <span className="ml-1.5 text-[10px] opacity-75">
+              <span className="ml-1.5 text-[10px] opacity-75 font-mono">
                 ({cat === 'All' ? items.length : items.filter((it) => it.category === cat).length})
               </span>
             </button>
@@ -290,18 +284,18 @@ function AdminPortfolio() {
         {/* Right Search & Status Filter */}
         <div className="flex items-center gap-3">
           <div className="relative flex-1 sm:w-64">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-ink-500" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-500 dark:text-ink-400" />
             <input
               type="text"
               placeholder="Search shoots, couples, cities…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-ink-950/80 border border-white/10 rounded-sm pl-9 pr-8 py-2 text-xs text-ink-100 placeholder:text-ink-500 focus:outline-none focus:border-gold-400 transition-colors"
+              className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 pl-10 pr-8 py-2 text-xs text-ink-50 placeholder:text-ink-400 focus:outline-none focus:border-gold-500/60 shadow-inner"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-500 hover:text-ink-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-900 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -311,21 +305,21 @@ function AdminPortfolio() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-ink-950/80 border border-white/10 rounded-sm px-3 py-2 text-xs text-ink-200 focus:outline-none focus:border-gold-400 transition-colors"
+            className="rounded-full border border-black/15 dark:border-white/15 bg-white/90 dark:bg-black/40 px-4 py-2 text-xs text-ink-50 font-semibold focus:outline-none focus:border-gold-500/60 shadow-2xs cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="published">Published</option>
-            <option value="draft">Drafts</option>
+            <option value="all">ALL STATUS</option>
+            <option value="published">PUBLISHED</option>
+            <option value="draft">DRAFTS</option>
           </select>
         </div>
       </div>
 
       {/* Portfolio Items Grid */}
       {filteredItems.length === 0 ? (
-        <div className="p-16 text-center border border-dashed border-white/10 rounded-sm bg-ink-900/30">
-          <FolderHeart className="w-10 h-10 text-ink-600 mx-auto mb-3" />
-          <h3 className="font-serif text-xl text-ink-200 mb-1">No Portfolio Shoots Found</h3>
-          <p className="text-xs text-ink-500 max-w-md mx-auto mb-4">
+        <div className="p-16 text-center rounded-[28px] border border-black/10 dark:border-white/15 bg-white/80 dark:bg-black/45 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <FolderHeart className="w-10 h-10 text-ink-400 mx-auto mb-3 opacity-60" />
+          <h3 className="font-serif text-xl text-ink-50 mb-1">No Portfolio Shoots Found</h3>
+          <p className="text-xs text-ink-500 max-w-md mx-auto mb-4 font-medium">
             No shoots match your current category or search filter. Try clearing your filters or create a new showcase shoot.
           </p>
           <button
@@ -334,7 +328,7 @@ function AdminPortfolio() {
               setSearchQuery('');
               setStatusFilter('all');
             }}
-            className="px-3.5 py-1.5 rounded-sm border border-gold-400/30 text-gold-400 text-xs uppercase tracking-widest hover:bg-gold-400/10 transition-colors"
+            className="rounded-full px-5 py-2 border border-gold-400/40 text-gold-700 dark:text-gold-300 text-xs font-mono uppercase tracking-widest font-bold hover:bg-gold-400/10 transition-colors cursor-pointer"
           >
             Reset Filters
           </button>
@@ -344,73 +338,75 @@ function AdminPortfolio() {
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="group bg-ink-900/80 border border-white/5 rounded-sm overflow-hidden hover:border-gold-400/30 transition-all duration-300 hover:shadow-2xl hover:shadow-black/60 flex flex-col"
+              className="group relative rounded-[28px] overflow-hidden border border-black/10 dark:border-white/15 bg-white/90 dark:bg-black/45 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Image Frame */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-ink-950">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/10 dark:bg-amber-400/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
 
-                {/* Badges on image */}
-                <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300">
-                    {item.category}
-                  </span>
-                  {item.featured && (
-                    <span className="px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wider font-bold bg-gold-400 text-ink-950 flex items-center gap-1 shadow-sm">
-                      <Sparkles className="w-2.5 h-2.5" /> Featured
+              <div>
+                {/* Image Frame */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-ink-950 m-2.5 rounded-[22px]">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+                  {/* Badges on image */}
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold bg-black/70 backdrop-blur-md border border-white/20 text-gold-300 shadow-md">
+                      {item.category}
                     </span>
-                  )}
-                </div>
+                    {item.featured && (
+                      <span className="px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider font-bold bg-gold-400 text-ink-950 flex items-center gap-1 shadow-md">
+                        <Sparkles className="w-2.5 h-2.5" /> Featured
+                      </span>
+                    )}
+                  </div>
 
-                {/* Published Indicator */}
-                <div className="absolute top-3 right-3">
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1 border backdrop-blur-md ${
-                      item.isPublished
-                        ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
-                        : 'bg-black/70 text-stone-300 border-white/10'
-                    }`}
-                  >
+                  {/* Published Indicator */}
+                  <div className="absolute top-3 right-3">
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        item.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-stone-500'
+                      className={`px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest font-bold flex items-center gap-1.5 border backdrop-blur-md shadow-md ${
+                        item.isPublished
+                          ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
+                          : 'bg-black/70 text-stone-300 border-white/10'
                       }`}
-                    />
-                    {item.isPublished ? 'Live' : 'Draft'}
-                  </span>
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          item.isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-stone-500'
+                        }`}
+                      />
+                      {item.isPublished ? 'Live' : 'Draft'}
+                    </span>
+                  </div>
+
+                  {/* Lightbox Quick View Hover Overlay Button */}
+                  <button
+                    onClick={() => setPreviewItem(item)}
+                    className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-black/70 text-gold-300 border border-gold-400/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-xl cursor-pointer backdrop-blur-md"
+                    title="View full resolution"
+                  >
+                    <Eye className="w-5 h-5" />
+                  </button>
                 </div>
 
-                {/* Lightbox Quick View Hover Overlay Button */}
-                <button
-                  onClick={() => setPreviewItem(item)}
-                  className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-ink-950/80 text-gold-400 border border-gold-400/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-xl"
-                  title="View full resolution"
-                >
-                  <Eye className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Card Meta Content */}
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-xl text-ink-50 font-medium group-hover:text-gold-300 transition-colors">
+                {/* Card Meta Content */}
+                <div className="px-5 py-3">
+                  <h3 className="font-serif text-xl sm:text-2xl text-ink-50 font-normal group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-ink-300 font-medium mt-0.5">{item.client}</p>
+                  <p className="text-xs text-ink-500 dark:text-ink-400 font-medium mt-1">{item.client}</p>
 
-                  <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-[11px] text-ink-500 mt-3 pt-3 border-t border-white/5">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-gold-400" />
+                  <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-[11px] text-ink-600 dark:text-ink-400 mt-3 pt-3 border-t border-black/5 dark:border-white/5">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400 shrink-0" />
                       {item.location}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-ink-500" />
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-ink-500 shrink-0" />
                       {new Date(item.date).toLocaleDateString('en-IN', {
                         month: 'short',
                         year: 'numeric',
@@ -418,49 +414,49 @@ function AdminPortfolio() {
                     </span>
                   </div>
                 </div>
+              </div>
 
-                {/* Action Buttons */}
-                <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-white/5 text-xs">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleTogglePublish(item.id)}
-                      className={`px-2.5 py-1 rounded-sm text-[10px] uppercase tracking-wider font-semibold transition-colors ${
-                        item.isPublished
-                          ? 'text-ink-400 hover:text-amber-400 hover:bg-white/5'
-                          : 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20 hover:bg-emerald-400/20'
-                      }`}
-                    >
-                      {item.isPublished ? 'Unpublish' : 'Publish Live'}
-                    </button>
-                    <button
-                      onClick={() => handleToggleFeatured(item.id)}
-                      className={`px-2.5 py-1 rounded-sm text-[10px] uppercase tracking-wider transition-colors ${
-                        item.featured
-                          ? 'text-gold-400 font-bold'
-                          : 'text-ink-500 hover:text-gold-400 hover:bg-white/5'
-                      }`}
-                      title="Pin to top of public homepage"
-                    >
-                      {item.featured ? '★ Featured' : '☆ Pin'}
-                    </button>
-                  </div>
+              {/* Action Buttons */}
+              <div className="px-5 py-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleTogglePublish(item.id)}
+                    className={`rounded-full px-3.5 py-1 text-[10px] font-mono uppercase tracking-wider font-bold transition-colors cursor-pointer border ${
+                      item.isPublished
+                        ? 'border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/5 text-ink-600 dark:text-ink-400 hover:text-amber-700 dark:hover:text-amber-300'
+                        : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                    }`}
+                  >
+                    {item.isPublished ? 'Unpublish' : 'Publish Live'}
+                  </button>
+                  <button
+                    onClick={() => handleToggleFeatured(item.id)}
+                    className={`rounded-full px-3 py-1 text-[10px] font-mono uppercase tracking-wider font-bold transition-colors cursor-pointer border ${
+                      item.featured
+                        ? 'border-gold-500/40 bg-gold-500/15 text-gold-800 dark:text-gold-300 shadow-2xs'
+                        : 'border-black/10 dark:border-white/10 text-ink-500 hover:text-gold-700 dark:hover:text-gold-300'
+                    }`}
+                    title="Pin to top of public homepage"
+                  >
+                    {item.featured ? '★ Featured' : '☆ Pin'}
+                  </button>
+                </div>
 
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => handleOpenEditModal(item)}
-                      className="p-1.5 rounded-sm text-ink-400 hover:text-gold-300 hover:bg-white/5 transition-colors"
-                      title="Edit project details"
-                    >
-                      <Pencil className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="p-1.5 rounded-sm text-ink-400 hover:text-red-400 hover:bg-red-400/10 transition-colors"
-                      title="Delete project"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => handleOpenEditModal(item)}
+                    className="p-2 rounded-full border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/5 text-ink-600 dark:text-ink-400 hover:text-gold-700 dark:hover:text-gold-300 hover:border-gold-500/30 transition-all cursor-pointer"
+                    title="Edit project details"
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="p-2 rounded-full border border-red-500/20 bg-red-500/5 text-red-600 dark:text-red-400 hover:bg-red-500/15 transition-all cursor-pointer"
+                    title="Delete project"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -471,58 +467,58 @@ function AdminPortfolio() {
       {/* Lightbox / Image Preview Modal */}
       {previewItem && (
         <div
-          className="fixed inset-0 z-50 bg-ink-950/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 animate-fade-in"
+          className="fixed inset-0 z-50 bg-ink-950/80 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 animate-fade-in"
           onClick={() => setPreviewItem(null)}
         >
           <div
-            className="relative max-w-5xl w-full max-h-[90vh] bg-ink-900 border border-gold-400/30 rounded-sm overflow-hidden flex flex-col shadow-2xl animate-scale-in"
+            className="relative max-w-5xl w-full max-h-[90vh] rounded-[28px] border border-black/15 dark:border-white/20 bg-white/95 dark:bg-zinc-950/90 backdrop-blur-2xl overflow-hidden flex flex-col shadow-2xl animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-white/5 flex items-center justify-between bg-ink-950/80">
+            <div className="p-5 border-b border-black/10 dark:border-white/10 flex items-center justify-between">
               <div>
-                <h3 className="font-serif text-xl text-ink-50">{previewItem.title}</h3>
-                <p className="text-xs text-gold-400">
+                <h3 className="font-serif text-2xl text-ink-50">{previewItem.title}</h3>
+                <p className="text-xs text-gold-700 dark:text-gold-300 font-medium">
                   {previewItem.category} · {previewItem.client} · {previewItem.location}
                 </p>
               </div>
               <button
                 onClick={() => setPreviewItem(null)}
-                className="p-2 rounded-sm text-ink-400 hover:text-ink-50 hover:bg-white/10"
+                className="w-8 h-8 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-ink-500 hover:text-ink-950 dark:hover:text-white cursor-pointer transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="flex-1 overflow-auto p-2 bg-black flex items-center justify-center">
+            <div className="flex-1 overflow-auto p-4 bg-black/40 flex items-center justify-center">
               <img
                 src={previewItem.image}
                 alt={previewItem.title}
-                className="max-h-[70vh] w-auto object-contain rounded-sm shadow-2xl"
+                className="max-h-[70vh] w-auto object-contain rounded-2xl shadow-2xl"
               />
             </div>
           </div>
         </div>
       )}
 
-      {/* Add / Edit Project Modal */}
+      {/* Add / Edit Project Glassy Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-ink-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="relative w-full max-w-xl bg-ink-900 border border-gold-400/30 rounded-sm p-6 shadow-2xl animate-scale-in my-8">
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/5">
-              <h3 className="font-serif text-2xl text-ink-50">
+        <div className="fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="relative w-full max-w-xl rounded-[28px] border border-black/15 dark:border-white/20 bg-white/95 dark:bg-zinc-950/90 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl animate-scale-in my-8">
+            <div className="flex items-center justify-between pb-4 mb-5 border-b border-black/10 dark:border-white/10">
+              <h3 className="font-serif text-2xl text-ink-50 font-normal">
                 {editingItem ? 'Edit Showcase Shoot' : 'Add New Showcase Shoot'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-sm text-ink-400 hover:text-ink-100"
+                className="w-8 h-8 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-ink-500 hover:text-ink-950 dark:hover:text-white cursor-pointer transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleSubmitForm} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                  <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                     Shoot Title *
                   </label>
                   <input
@@ -531,12 +527,12 @@ function AdminPortfolio() {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g. Royal Palace Wedding"
-                    className="w-full bg-ink-950 border border-white/10 rounded-sm px-3.5 py-2.5 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                    className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2.5 text-xs text-ink-50 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                  <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                     Client / Couple Name *
                   </label>
                   <input
@@ -545,20 +541,20 @@ function AdminPortfolio() {
                     value={formData.client}
                     onChange={(e) => setFormData({ ...formData, client: e.target.value })}
                     placeholder="e.g. Rohan & Tanya"
-                    className="w-full bg-ink-950 border border-white/10 rounded-sm px-3.5 py-2.5 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                    className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2.5 text-xs text-ink-50 focus:outline-none focus:border-gold-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                  <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                     Category
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-ink-950 border border-white/10 rounded-sm px-3 py-2.5 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                    className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2.5 text-xs text-ink-50 focus:outline-none focus:border-gold-500 cursor-pointer"
                   >
                     <option value="Wedding">Wedding</option>
                     <option value="Pre-Wedding">Pre-Wedding</option>
@@ -567,7 +563,7 @@ function AdminPortfolio() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                  <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                     Location
                   </label>
                   <input
@@ -575,25 +571,25 @@ function AdminPortfolio() {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="e.g. Udaipur, RJ"
-                    className="w-full bg-ink-950 border border-white/10 rounded-sm px-3 py-2.5 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                    className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2.5 text-xs text-ink-50 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                  <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                     Event Date
                   </label>
                   <input
                     type="date"
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full bg-ink-950 border border-white/10 rounded-sm px-3 py-2 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                    className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2 text-xs text-ink-50 focus:outline-none focus:border-gold-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-ink-400 mb-1.5">
+                <label className="block text-[10px] uppercase font-mono font-bold tracking-widest text-ink-500 mb-1.5">
                   High-Res Image URL *
                 </label>
                 <input
@@ -602,12 +598,12 @@ function AdminPortfolio() {
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   placeholder="https://images.pexels.com/..."
-                  className="w-full bg-ink-950 border border-white/10 rounded-sm px-3.5 py-2.5 text-xs text-ink-100 focus:outline-none focus:border-gold-400"
+                  className="w-full rounded-full border border-black/15 dark:border-white/15 bg-white dark:bg-black/50 px-4 py-2.5 text-xs text-ink-50 focus:outline-none focus:border-gold-500"
                 />
               </div>
 
               {formData.image && (
-                <div className="aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-black/40">
+                <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/40">
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                 </div>
               )}
@@ -618,9 +614,9 @@ function AdminPortfolio() {
                     type="checkbox"
                     checked={formData.isPublished}
                     onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                    className="rounded bg-ink-950 border-white/20 text-gold-400 focus:ring-gold-400 w-4 h-4"
+                    className="rounded-sm bg-white dark:bg-ink-950 border-black/20 dark:border-white/20 text-gold-500 focus:ring-gold-400 w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-xs text-ink-200">Publish Immediately to Live Site</span>
+                  <span className="text-xs text-ink-100 font-medium">Publish Immediately to Live Site</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -628,23 +624,23 @@ function AdminPortfolio() {
                     type="checkbox"
                     checked={formData.featured}
                     onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                    className="rounded bg-ink-950 border-white/20 text-gold-400 focus:ring-gold-400 w-4 h-4"
+                    className="rounded-sm bg-white dark:bg-ink-950 border-black/20 dark:border-white/20 text-gold-500 focus:ring-gold-400 w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-xs text-gold-400 font-medium">Pin as Featured Hero Shoot</span>
+                  <span className="text-xs text-gold-700 dark:text-gold-300 font-bold">Pin as Featured Hero Shoot</span>
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-black/10 dark:border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-sm text-xs text-ink-400 hover:text-ink-100 hover:bg-white/5"
+                  className="rounded-full px-5 py-2 text-xs font-semibold text-ink-500 hover:text-ink-950 dark:hover:text-white cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-sm bg-gold-400 text-ink-950 text-xs font-semibold uppercase tracking-wider hover:bg-gold-300 transition-colors shadow-lg"
+                  className="rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-ink-950 px-6 py-2.5 text-xs font-bold uppercase tracking-wider hover:brightness-110 shadow-lg shadow-gold-500/25 transition-all cursor-pointer"
                 >
                   {editingItem ? 'Update Shoot' : 'Save & Publish'}
                 </button>
@@ -658,4 +654,3 @@ function AdminPortfolio() {
 }
 
 export default AdminPortfolio;
-

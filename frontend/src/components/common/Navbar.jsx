@@ -7,20 +7,28 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const isHomePage = typeof window !== "undefined" && window.location.pathname === "/";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
+
   const handleNavClick = (e, href) => {
     if (href.startsWith("#")) {
+      if (window.location.pathname !== "/") {
+        window.location.href = `/${href}`;
+        return;
+      }
       e.preventDefault();
       setOpen(false);
       const el = document.querySelector(href);
@@ -28,9 +36,17 @@ function Navbar() {
         el.scrollIntoView({ behavior: "smooth" });
     }
   };
-  return <header
-    className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-ink-950/90 backdrop-blur-xl border-b border-white/5 py-3" : "bg-transparent py-5"}`}
-  >
+
+  const isNavSolid = !isHomePage || scrolled;
+
+  return (
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        isNavSolid
+          ? "bg-ink-950/90 backdrop-blur-xl border-b border-white/5 py-3.5 shadow-md"
+          : "bg-transparent py-5"
+      }`}
+    >
     <nav className="container-max flex items-center justify-between gap-4">
       <a
         href="#home"
@@ -148,7 +164,8 @@ function Navbar() {
         </div>
       </div>
     </div>
-  </header>;
+  </header>
+  );
 }
 export {
   Navbar as default

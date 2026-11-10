@@ -18,10 +18,18 @@ const app = express();
 const port = process.env.PORT || 5000;
 const uploadsDirectory = fileURLToPath(new URL('./uploads/', import.meta.url));
 
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use('/uploads', express.static(uploadsDirectory, { maxAge: '1d' }));
-app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
+
+// Health check endpoints for Render and ping monitors
+app.get('/', (_req, res) => res.json({ status: 'ok', service: 'svml-backend', uptime: process.uptime() }));
+app.get('/api/health', (_req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/inquiries', inquiryRoutes);
