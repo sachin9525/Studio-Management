@@ -64,21 +64,31 @@ function VideoSection() {
                   </span>
                 </div>
 
-                {/* 4K DCI Badge */}
+                {/* 4K DCI & Duration Badges */}
                 <div
-                  className="absolute top-3 right-3"
+                  className="absolute top-3 right-3 flex items-center gap-1.5"
                   style={{ transform: "translateZ(20px)" }}
                 >
                   <span className="text-[9px] uppercase tracking-widest font-mono text-emerald-400 bg-black/80 backdrop-blur-md px-2 py-0.5 rounded border border-emerald-400/30">
-                    4K DCI · 60FPS
+                    {video.quality || "4K DCI · 60FPS"}
+                  </span>
+                  <span className="text-[9px] font-mono text-gold-300 bg-black/80 backdrop-blur-md px-2 py-0.5 rounded border border-white/15">
+                    {video.duration || "04:00"}
                   </span>
                 </div>
               </div>
 
               <div className="p-4 sm:p-5 flex items-center justify-between">
-                <h3 className="font-serif text-lg sm:text-xl text-ink-50 font-medium group-hover:text-gold-300 transition-colors">
-                  {video.title}
-                </h3>
+                <div>
+                  <h3 className="font-serif text-lg sm:text-xl text-ink-50 font-medium group-hover:text-gold-300 transition-colors">
+                    {video.title}
+                  </h3>
+                  {video.caption && (
+                    <p className="text-xs text-ink-400 mt-0.5 font-light">
+                      {video.caption}
+                    </p>
+                  )}
+                </div>
               </div>
             </TiltCard3D>
           ))}
@@ -87,8 +97,7 @@ function VideoSection() {
 
       {activeVideo !== null && (
         <VideoModal
-          youtubeId={VIDEOS[activeVideo].youtubeId}
-          title={VIDEOS[activeVideo].title}
+          video={VIDEOS[activeVideo]}
           onClose={() => setActiveVideo(null)}
         />
       )}

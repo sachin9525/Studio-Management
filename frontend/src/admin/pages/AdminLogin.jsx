@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Camera, ArrowRight, ArrowLeft, AlertCircle, Loader2, ShieldCheck } from "lucide-react";
 import ThemeToggle from "@/components/common/ThemeToggle";
 function AdminLogin() {
-  const { signIn } = useAuth();
+  const { signIn, authNotice } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -53,6 +53,12 @@ function AdminLogin() {
         <h1 className="heading-serif text-4xl md:text-5xl mt-4 mb-3">Platform Admin</h1>
         <p className="text-ink-400 text-sm">Sign in to manage the SVML platform.</p>
       </div>
+      {authNotice && (
+        <div className="mb-6 flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-3 text-sm text-amber-500">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          {authNotice}
+        </div>
+      )}
       {error && <div className="mb-6 flex items-center gap-3 bg-red-500/10 border border-red-500/30 rounded-sm px-4 py-3 text-sm text-red-400">
         <AlertCircle className="w-5 h-5 shrink-0" />
         {error}

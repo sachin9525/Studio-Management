@@ -82,8 +82,32 @@ function VendorAlbums() {
     setSaved(false);
   };
 
+  const handleFileChange = (e) => {
+    const selected = Array.from(e.target.files || []);
+    const maxSizeBytes = 15 * 1024 * 1024; // 15MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    for (const f of selected) {
+      if (!allowedTypes.includes(f.type) && !f.name.match(/\.(jpe?g|png|webp|gif)$/i)) {
+        setError(`"${f.name}" is not a supported image format. Please select JPG, PNG, or WEBP images.`);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+      if (f.size > maxSizeBytes) {
+        setError(`"${f.name}" is ${(f.size / (1024 * 1024)).toFixed(1)}MB. Each image must be under 15MB.`);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+    }
+    setError('');
+    setFiles(selected);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!form.title.trim()) {
+      setError("Please enter a title for the album.");
+      return;
+    }
     setSaving(true);
     setError('');
     setSaved(false);
@@ -335,7 +359,7 @@ function VendorAlbums() {
                 type="file"
                 multiple
                 accept="image/jpeg,image/png,image/webp,image/gif"
-                onChange={(e) => setFiles(Array.from(e.target.files || []))}
+                onChange={handleFileChange}
                 className="hidden"
                 id="vendor-album-file-input"
               />

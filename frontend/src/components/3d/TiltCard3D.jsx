@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function TiltCard3D({
   children,
   className = '',
-  maxTilt = 12,
+  maxTilt = 10,
   scale = 1.02,
   glare = true,
   onClick,
@@ -11,42 +11,49 @@ export default function TiltCard3D({
   ...props
 }) {
   const cardRef = useRef(null);
-  const [transform, setTransform] = useState('');
-  const [glareStyle, setGlareStyle] = useState({ opacity: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+  const glareRef = useRef(null);
+  const rafId = useRef(null);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const normX = (x / rect.width) * 2 - 1; // -1 to 1
-    const normY = (y / rect.height) * 2 - 1; // -1 to 1
+    if (rafId.current) cancelAnimationFrame(rafId.current);
 
-    const rotX = -normY * maxTilt;
-    const rotY = normX * maxTilt;
+    rafId.current = requestAnimationFrame(() => {
+      const normX = (x / rect.width) * 2 - 1; // -1 to 1
+      const normY = (y / rect.height) * 2 - 1; // -1 to 1
 
-    setTransform(
-      `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`
-    );
+      const rotX = -normY * maxTilt;
+      const rotY = normX * maxTilt;
 
-    if (glare) {
-      setGlareStyle({
-        opacity: 0.85,
-        background: `radial-gradient(circle 240px at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(216, 179, 106, 0.22) 0%, transparent 75%)`,
-      });
-    }
+      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+
+      if (glare && glareRef.current) {
+        glareRef.current.style.opacity = '0.85';
+        glareRef.current.style.background = `radial-gradient(circle 240px at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(216, 179, 106, 0.22) 0%, transparent 75%)`;
+      }
+    });
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (cardRef.current) {
+      cardRef.current.style.transition = 'transform 0.1s ease-out, box-shadow 0.2s ease-out';
+    }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
-    setGlareStyle({ opacity: 0 });
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    if (cardRef.current) {
+      cardRef.current.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease-out';
+      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    }
+    if (glare && glareRef.current) {
+      glareRef.current.style.opacity = '0';
+    }
   };
 
   return (
@@ -58,11 +65,8 @@ export default function TiltCard3D({
       onClick={onClick}
       className={`relative transform-gpu will-change-transform ${className}`}
       style={{
-        transform,
+        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
         transformStyle: 'preserve-3d',
-        transition: isHovered
-          ? 'transform 0.1s ease-out, box-shadow 0.2s ease-out'
-          : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease-out',
         ...style,
       }}
       {...props}
@@ -70,9 +74,10 @@ export default function TiltCard3D({
       {/* Dynamic Specular Glare Overlay */}
       {glare && (
         <div
+          ref={glareRef}
           className="pointer-events-none absolute inset-0 z-30 rounded-inherit transition-opacity duration-300"
           style={{
-            ...glareStyle,
+            opacity: 0,
             mixBlendMode: 'overlay',
           }}
         />
@@ -81,4 +86,3 @@ export default function TiltCard3D({
     </div>
   );
 }
-

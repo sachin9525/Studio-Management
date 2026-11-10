@@ -123,9 +123,9 @@ function VendorDashboard() {
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+        <div role="alert" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-xs font-semibold text-red-600 dark:text-red-300 shadow-xs">
           <span>{error}</span>
-          <button type="button" onClick={loadDashboard} className="underline underline-offset-4">Try again</button>
+          <button type="button" onClick={loadDashboard} className="underline underline-offset-4 cursor-pointer">Try again</button>
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Film,
   Sparkles,
@@ -7,15 +7,48 @@ import {
   Compass,
   Zap,
   Play,
+  Pause,
   Volume2,
+  VolumeX,
+  Maximize2,
+  X,
   CheckCircle2,
   ArrowRight,
 } from 'lucide-react';
 import TiltCard3D from '@/components/3d/TiltCard3D';
+import VideoModal from '@/components/common/VideoModal';
+import { FEATURED_BENTO_VIDEO } from '@/data/demoContent';
 
 export default function BentoExperience3D() {
   const [sliderPos, setSliderPos] = useState(55);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(true);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [isInlinePlaying, setIsInlinePlaying] = useState(false);
+  const [isTheaterOpen, setIsTheaterOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const inlineVideoRef = useRef(null);
+
+  const handleStartInline = (e) => {
+    e?.stopPropagation();
+    setIsInlinePlaying(true);
+    setIsPlayingAudio(true);
+  };
+
+  const handleStopInline = (e) => {
+    e?.stopPropagation();
+    setIsInlinePlaying(false);
+    setIsPlayingAudio(false);
+    if (inlineVideoRef.current) {
+      inlineVideoRef.current.pause();
+    }
+  };
+
+  const handleToggleMute = (e) => {
+    e?.stopPropagation();
+    if (inlineVideoRef.current) {
+      inlineVideoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden bg-ink-950">
@@ -85,33 +118,123 @@ export default function BentoExperience3D() {
                 </div>
               </div>
 
-              {/* Interactive Video Preview Mockup with 3D Popout */}
+              {/* Interactive Video Preview Mockup with 3D Popout & Working Player */}
               <div
-                className="relative rounded-sm overflow-hidden aspect-[16/8] sm:aspect-[16/7] border border-white/10 bg-black/80 my-4 group-hover:scale-[1.01] transition-transform duration-500"
+                className="relative rounded-sm overflow-hidden aspect-video border border-white/10 bg-black my-4 group-hover:scale-[1.01] transition-transform duration-500 select-none shadow-2xl"
                 style={{ transform: 'translateZ(25px)' }}
               >
-                <img
-                  src="https://images.pexels.com/photos/33975526/pexels-photo-33975526.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                  alt="Cinematic wedding film preview"
-                  className="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                {!isInlinePlaying ? (
+                  <>
+                    <img
+                      src={FEATURED_BENTO_VIDEO.thumbnail}
+                      alt={FEATURED_BENTO_VIDEO.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/40" />
 
-                {/* Central Play Badge */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full bg-gold-400/90 text-ink-950 flex items-center justify-center pl-1 shadow-2xl shadow-gold-400/40 group-hover:scale-110 transition-transform">
-                    <Play className="w-6 h-6 fill-current" />
+                    {/* Central Animated Gold Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={handleStartInline}
+                        className="w-16 h-16 rounded-full bg-gradient-to-tr from-gold-500 via-amber-400 to-gold-300 text-ink-950 flex items-center justify-center pl-1 shadow-2xl shadow-gold-400/50 hover:scale-115 active:scale-95 transition-all cursor-pointer group/playbtn"
+                        title="Play Featured Film Preview"
+                        aria-label="Play Master Wedding Film Preview"
+                      >
+                        <Play className="w-7 h-7 fill-current group-hover/playbtn:scale-110 transition-transform" />
+                      </button>
+                    </div>
+
+                    {/* Top Telemetry & Theater Mode Quick Action */}
+                    <div className="absolute top-3 inset-x-3 flex items-center justify-between text-[9px] font-mono">
+                      <span className="text-gold-300 uppercase tracking-widest bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-sm border border-white/15">
+                        {FEATURED_BENTO_VIDEO.quality}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsTheaterOpen(true);
+                        }}
+                        className="text-gold-300 bg-black/80 hover:bg-gold-400 hover:text-ink-950 px-2.5 py-1 rounded-sm border border-white/15 hover:border-gold-400 backdrop-blur-md flex items-center gap-1.5 transition-all cursor-pointer"
+                        title="Expand to Fullscreen Theater Modal"
+                      >
+                        <Maximize2 className="w-3 h-3" />
+                        <span className="uppercase tracking-wider font-semibold">Cinema Theater</span>
+                      </button>
+                    </div>
+
+                    {/* Bottom Metadata & Duration Telemetry */}
+                    <div className="absolute bottom-3 inset-x-3 flex items-center justify-between text-xs text-ink-100">
+                      <span className="font-serif italic text-gold-300 line-clamp-1">
+                        "{FEATURED_BENTO_VIDEO.title}"
+                      </span>
+                      <span className="font-mono text-[10px] text-ink-400 shrink-0 ml-2">
+                        01:42 / {FEATURED_BENTO_VIDEO.duration}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  /* Active Live Video Stream */
+                  <div className="relative w-full h-full bg-black">
+                    <video
+                      ref={inlineVideoRef}
+                      src={FEATURED_BENTO_VIDEO.videoUrl}
+                      poster={FEATURED_BENTO_VIDEO.poster}
+                      autoPlay
+                      controls
+                      playsInline
+                      muted={isMuted}
+                      onPlay={() => setIsPlayingAudio(true)}
+                      onPause={() => setIsPlayingAudio(false)}
+                      onError={(e) => {
+                        if (e.target.src !== FEATURED_BENTO_VIDEO.fallbackUrl) {
+                          e.target.src = FEATURED_BENTO_VIDEO.fallbackUrl;
+                          e.target.load();
+                          e.target.play().catch(() => {});
+                        }
+                      }}
+                      className="w-full h-full object-contain bg-black"
+                    />
+
+                    {/* Live Stream Floating Badges */}
+                    <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none z-10">
+                      <span className="text-[9px] font-mono text-emerald-300 bg-black/80 px-2.5 py-1 rounded-sm border border-emerald-500/30 backdrop-blur-md">
+                        ● LIVE 4K MASTER FEED
+                      </span>
+                      <div className="flex items-center gap-2 pointer-events-auto">
+                        <button
+                          type="button"
+                          onClick={handleToggleMute}
+                          className="w-7 h-7 rounded-sm bg-black/80 hover:bg-gold-400 hover:text-ink-950 text-gold-300 flex items-center justify-center border border-white/20 transition-all cursor-pointer"
+                          title={isMuted ? "Unmute Audio" : "Mute Audio"}
+                        >
+                          {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (inlineVideoRef.current) inlineVideoRef.current.pause();
+                            setIsTheaterOpen(true);
+                          }}
+                          className="text-[10px] font-mono text-gold-300 bg-black/80 hover:bg-gold-400 hover:text-ink-950 px-2.5 py-1 rounded-sm border border-white/20 flex items-center gap-1.5 transition-all cursor-pointer"
+                          title="Expand into Theater Modal"
+                        >
+                          <Maximize2 className="w-3 h-3" />
+                          <span>Theater</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleStopInline}
+                          className="w-7 h-7 rounded-sm bg-black/80 hover:bg-red-500/80 text-white flex items-center justify-center border border-white/20 transition-all cursor-pointer"
+                          title="Close Inline Player"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                {/* Telemetry Overlays */}
-                <div className="absolute top-3 left-3 text-[9px] font-mono text-gold-300 uppercase tracking-widest bg-black/70 px-2.5 py-1 rounded-sm border border-white/10">
-                  REC ● 4K DCI · 24.00 FPS · PRORES 422 HQ
-                </div>
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-ink-100">
-                  <span className="font-serif italic text-gold-300">"Rituals of Udaipur" — Featured Film</span>
-                  <span className="font-mono text-[10px] text-ink-400">03:42 / 08:15</span>
-                </div>
+                )}
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5 text-xs text-ink-300">
@@ -123,9 +246,14 @@ export default function BentoExperience3D() {
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Directional Wireless Lavs
                   </span>
                 </div>
-                <span className="text-gold-400 font-medium hover:text-gold-300 transition-colors inline-flex items-center gap-1">
-                  Watch Films <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsTheaterOpen(true)}
+                  className="text-gold-400 font-medium hover:text-gold-300 transition-colors inline-flex items-center gap-1 cursor-pointer group/link"
+                >
+                  <span>Watch in Theater</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                </button>
               </div>
             </div>
           </TiltCard3D>
@@ -361,6 +489,14 @@ export default function BentoExperience3D() {
           </TiltCard3D>
         </div>
       </div>
+
+      {/* Global Cinema Theater Modal */}
+      {isTheaterOpen && (
+        <VideoModal
+          video={FEATURED_BENTO_VIDEO}
+          onClose={() => setIsTheaterOpen(false)}
+        />
+      )}
     </section>
   );
 }

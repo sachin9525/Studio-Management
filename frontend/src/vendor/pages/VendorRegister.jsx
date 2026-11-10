@@ -25,6 +25,31 @@ function VendorRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
+    // Client-side validations
+    if (form.fullName.trim().length < 2) {
+      setError("Please provide your full name (at least 2 characters).");
+      return;
+    }
+    if (form.studioName.trim().length < 2) {
+      setError("Please provide your studio name (at least 2 characters).");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    const rawDigits = form.phone.replace(/\D/g, "");
+    if (rawDigits.length < 10) {
+      setError("Please enter a valid phone number (at least 10 digits).");
+      return;
+    }
+    if (form.password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     setLoading(true);
     const { error: error2 } = await signUpVendor(form);
     setLoading(false);

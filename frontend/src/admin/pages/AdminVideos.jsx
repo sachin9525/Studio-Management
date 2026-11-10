@@ -18,11 +18,12 @@ import { VIDEOS } from '@/data/demoContent';
 const initialVideos = VIDEOS.map((vid, idx) => ({
   id: `vid-${idx + 1}`,
   title: vid.title,
-  caption: vid.caption,
-  poster: vid.poster,
-  videoUrl: vid.videoUrl || 'https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-having-their-first-dance-41484-large.mp4',
-  duration: idx === 0 ? '03:45' : idx === 1 ? '06:12' : '04:30',
-  quality: '4K Ultra HD',
+  caption: vid.caption || vid.category,
+  poster: vid.poster || vid.thumbnail,
+  videoUrl: vid.videoUrl || '/videos/sample-film.mp4',
+  fallbackUrl: vid.fallbackUrl || '/videos/sample-film.mp4',
+  duration: vid.duration || (idx === 0 ? '03:45' : idx === 1 ? '06:12' : '04:30'),
+  quality: vid.quality || '4K Ultra HD',
   views: 3200 + idx * 850,
   isPublished: true,
 }));
@@ -299,12 +300,20 @@ function AdminVideos() {
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="aspect-video bg-black flex items-center justify-center">
+            <div className="aspect-video bg-black flex items-center justify-center relative">
               <video
                 src={selectedVideo.videoUrl}
                 poster={selectedVideo.poster}
                 controls
                 autoPlay
+                onError={(e) => {
+                  const fallback = selectedVideo.fallbackUrl || '/videos/sample-film.mp4';
+                  if (e.target.src !== fallback) {
+                    e.target.src = fallback;
+                    e.target.load();
+                    e.target.play().catch(() => {});
+                  }
+                }}
                 className="w-full h-full object-contain"
               />
             </div>

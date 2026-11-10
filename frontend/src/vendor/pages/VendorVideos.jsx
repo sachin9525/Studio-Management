@@ -39,8 +39,8 @@ const DEFAULT_POSTERS = [
   'https://images.pexels.com/photos/32327730/pexels-photo-32327730.jpeg?auto=compress&cs=tinysrgb&w=900',
 ];
 
-const SAMPLE_VIDEO_URL =
-  'https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-having-their-first-dance-41484-large.mp4';
+const SAMPLE_VIDEO_URL = '/videos/sample-film.mp4';
+const SAMPLE_FALLBACK_URL = '/videos/sample-film.mp4';
 
 function VendorVideos() {
   const { session } = useAuth();
@@ -89,8 +89,33 @@ function VendorVideos() {
     setSaved(false);
   };
 
+  const handleFileChange = (e) => {
+    const selected = Array.from(e.target.files || []);
+    const maxVideoBytes = 100 * 1024 * 1024; // 100MB
+    for (const f of selected) {
+      const isVideo = f.type.startsWith("video/") || f.name.match(/\.(mp4|webm|mov|ogg)$/i);
+      const isImage = f.type.startsWith("image/") || f.name.match(/\.(jpe?g|png|webp)$/i);
+      if (!isVideo && !isImage) {
+        setError(`"${f.name}" is not a recognized video or image format. Please select MP4, WebM, or MOV files.`);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        return;
+      }
+      if (f.size > maxVideoBytes) {
+        setError(`"${f.name}" is ${(f.size / (1024 * 1024)).toFixed(1)}MB. Videos are limited to 100MB for optimal performance.`);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        return;
+      }
+    }
+    setError("");
+    setFiles(selected);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!form.title.trim()) {
+      setError("Please enter a film title.");
+      return;
+    }
     setSaving(true);
     setError('');
     setSaved(false);
@@ -342,7 +367,7 @@ function VendorVideos() {
                 type="file"
                 multiple
                 accept="video/mp4,video/webm,video/quicktime,image/*"
-                onChange={(e) => setFiles(Array.from(e.target.files || []))}
+                onChange={handleFileChange}
                 className="hidden"
                 id="vendor-video-file-input"
               />
@@ -568,6 +593,13 @@ function VendorVideos() {
                 src={selectedVideo.streamUrl}
                 controls
                 autoPlay
+                onError={(e) => {
+                  if (e.target.src !== SAMPLE_FALLBACK_URL) {
+                    e.target.src = SAMPLE_FALLBACK_URL;
+                    e.target.load();
+                    e.target.play().catch(() => {});
+                  }
+                }}
                 className="w-full h-full object-contain"
               >
                 Your browser does not support the video tag.

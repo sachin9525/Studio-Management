@@ -61,9 +61,23 @@ function VendorProfile() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSaving(true);
     setError('');
     setSaved(false);
+
+    if (profile.fullName && profile.fullName.trim().length < 2) {
+      setError('Please enter your full name (at least 2 characters).');
+      return;
+    }
+    if (profile.studioName && profile.studioName.trim().length < 2) {
+      setError('Please enter your studio name (at least 2 characters).');
+      return;
+    }
+    if (profile.phone && profile.phone.replace(/\D/g, '').length < 10) {
+      setError('Please enter a valid phone number with at least 10 digits.');
+      return;
+    }
+
+    setSaving(true);
     try {
       const data = await apiRequest('/vendor/profile', {
         method: 'PUT',
