@@ -9,7 +9,22 @@ class ApiError extends Error {
   }
 }
 
-const rawBaseUrl = (import.meta.env.VITE_API_URL || "/api").trim().replace(/\/+$/, "");
+let rawBaseUrl = (import.meta.env.VITE_API_URL || "/api").trim().replace(/\/+$/, "");
+
+// Auto-correct legacy gym-admin-backend URL to the official live svml-backend URL
+if (rawBaseUrl.includes("gym-admin-backend")) {
+  rawBaseUrl = "https://svml-backend.onrender.com";
+}
+
+// In production on Vercel, default to the official live backend if not explicitly set
+if (
+  typeof window !== "undefined" &&
+  window.location.hostname.includes("vercel.app") &&
+  (!import.meta.env.VITE_API_URL || rawBaseUrl === "/api")
+) {
+  rawBaseUrl = "https://svml-backend.onrender.com";
+}
+
 // Ensure apiBaseUrl always points to the /api endpoint regardless of how VITE_API_URL is configured
 const apiBaseUrl = rawBaseUrl.endsWith("/api") ? rawBaseUrl : `${rawBaseUrl}/api`;
 
