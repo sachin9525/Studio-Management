@@ -1,10 +1,6 @@
 services:
   - type: web
-<<<<<<< HEAD
     name: gym-admin-backend
-=======
-    name: svml-backend
->>>>>>> 5c3de334890c83be6a71b75dd461a49f9fb2c2d1
     runtime: node
     rootDir: backend
     plan: free

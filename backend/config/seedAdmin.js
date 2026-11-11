@@ -9,7 +9,15 @@ export async function seedAdmin() {
 
   const existingAdmin = await User.findOne({ email });
 
-  if (existingAdmin) return;
+  if (existingAdmin) {
+    const isMatching = await bcrypt.compare(password, existingAdmin.passwordHash);
+    if (!isMatching) {
+      existingAdmin.passwordHash = await bcrypt.hash(password, 12);
+      await existingAdmin.save();
+      console.log(`Admin password updated from environment for ${email}`);
+    }
+    return;
+  }
 
   const passwordHash = await bcrypt.hash(password, 12);
   await User.create({
