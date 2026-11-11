@@ -4,6 +4,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import PageLoader from "@/components/common/PageLoader";
 import ProtectedRoute from "@/components/common/ProtectedRoute";
+import WhatsAppButton from "@/components/common/WhatsAppButton";
 import { vendorNavItems } from "@/data/navConfig";
 
 // Keep Public Landing Page eagerly loaded for instant initial render
@@ -144,6 +145,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          <WhatsAppButton />
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
