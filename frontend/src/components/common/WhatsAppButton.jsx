@@ -22,7 +22,7 @@ export default function WhatsAppButton() {
           setWhatsappNumber(settings.whatsappNumber);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   if (isDashboard) return null;
@@ -38,11 +38,10 @@ export default function WhatsAppButton() {
     >
       {/* Tooltip Badge on Hover */}
       <div
-        className={`hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md border shadow-lg transition-all duration-300 pointer-events-none ${
-          isHovered
+        className={`hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md border shadow-lg transition-all duration-300 pointer-events-none ${isHovered
             ? "opacity-100 translate-x-0"
             : "opacity-0 translate-x-3"
-        } bg-white/95 dark:bg-neutral-900/95 border-neutral-200/80 dark:border-white/10`}
+          } bg-white/95 dark:bg-neutral-900/95 border-neutral-200/80 dark:border-white/10`}
       >
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -85,3 +84,4 @@ export default function WhatsAppButton() {
     </aside>
   );
 }
+
