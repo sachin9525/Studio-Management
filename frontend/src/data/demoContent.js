@@ -1,13 +1,13 @@
 const HERO_SLIDES = [
   {
-    url: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    alt: "Bride and groom performing a traditional wedding ritual",
-    caption: "Rituals"
-  },
-  {
     url: "https://images.pexels.com/photos/38147801/pexels-photo-38147801.jpeg?auto=compress&cs=tinysrgb&w=1920",
     alt: "Close-up of an Indian couple in traditional wedding attire",
     caption: "Portraits"
+  },
+  {
+    url: "https://images.pexels.com/photos/32327732/pexels-photo-32327732.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    alt: "Bride and groom performing a traditional wedding ritual",
+    caption: "Rituals"
   },
   {
     url: "https://images.pexels.com/photos/32483856/pexels-photo-32483856.jpeg?auto=compress&cs=tinysrgb&w=1920",
