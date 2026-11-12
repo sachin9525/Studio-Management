@@ -62,7 +62,7 @@ function HeroSection() {
       <Canvas3DScene particleCount={90} className="z-10" />
 
       {/* Main Hero Container */}
-      <div className="container-max 2xl:max-w-[1440px] relative z-20 my-auto py-4 sm:py-6 lg:py-8">
+      <div className="container-max relative z-20 my-auto py-4 sm:py-6 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-12 items-center">
           {/* Left Hero Content */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">

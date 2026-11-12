@@ -74,10 +74,16 @@ html.dark,
 
 @layer components {
   .container-px {
-    @apply px-5 sm:px-8 lg:px-12;
+    padding-left: clamp(1.25rem, 4vw, 4.5rem);
+    padding-right: clamp(1.25rem, 4vw, 4.5rem);
   }
   .container-max {
-    @apply mx-auto max-w-7xl container-px;
+    width: 100%;
+    max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1.25rem, 4vw, 4.5rem);
+    padding-right: clamp(1.25rem, 4vw, 4.5rem);
   }
   .section-pad {
     @apply py-20 md:py-28;
