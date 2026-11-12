@@ -156,66 +156,98 @@ function Navbar() {
         {/* Mobile Hamburger Toggle */}
         <div className="xl:hidden flex items-center gap-2">
           <ThemeToggle />
-          {!open && (
-            <button
-              className="text-neutral-900 dark:text-ink-50 p-1"
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-          )}
+          <button
+            type="button"
+            className="p-2 rounded-md text-neutral-900 dark:text-ink-50 hover:bg-neutral-100 dark:hover:bg-white/10 transition-colors"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (100% Solid Fullscreen Luxury Panel) */}
       <div
-        className={`xl:hidden fixed inset-0 top-0 bg-white/98 dark:bg-ink-950/98 backdrop-blur-xl transition-all duration-300 ${
-          open ? "opacity-100 visible" : "opacity-0 invisible"
+        className={`xl:hidden fixed inset-0 z-[100] h-screen w-screen flex flex-col transition-all duration-300 ${
+          open ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"
         }`}
+        style={{
+          backgroundColor: isDark ? '#141210' : '#faf8f5',
+        }}
       >
-        <button
-          type="button"
-          onClick={() => {
-            setOpen(false);
-            setMoreOpen(false);
-          }}
-          className="absolute top-5 right-6 z-10 p-2 text-neutral-900 dark:text-ink-50 hover:text-amber-600 dark:hover:text-gold-400 transition-colors"
-          aria-label="Close menu"
-        >
-          <X className="w-7 h-7" />
-        </button>
-        <div className="flex flex-col h-full pt-24 pb-8 px-8 overflow-y-auto">
-          <ul className="flex flex-col gap-1">
+        {/* Drawer Header with Brand Logo & Aligned Controls */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200/80 dark:border-white/10 shrink-0">
+          <a
+            href="#home"
+            onClick={(e) => {
+              handleNavClick(e, "#home");
+              setOpen(false);
+            }}
+            className="flex items-center gap-2.5"
+          >
+            <Camera className="w-6 h-6 text-amber-600 dark:text-gold-400" />
+            <span className="font-serif text-xl tracking-wide text-neutral-900 dark:text-ink-50 font-bold">
+              SVML<span className="text-amber-600 dark:text-gold-400">.</span>
+            </span>
+          </a>
+
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setMoreOpen(false);
+              }}
+              className="p-2 rounded-full border border-neutral-200/80 dark:border-white/10 text-neutral-900 dark:text-ink-50 hover:text-amber-600 dark:hover:text-gold-400 hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Navigation List */}
+        <div className="flex-1 px-6 py-6 overflow-y-auto flex flex-col justify-between">
+          <ul className="flex flex-col">
             {NAV_LINKS.filter((link) =>
               ["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)
             ).map((link, i) => (
               <li
                 key={link.label}
-                className={`border-b border-neutral-200 dark:border-white/5 ${open ? "animate-fade-up" : ""}`}
-                style={{ animationDelay: `${i * 40}ms` }}
+                className="border-b border-neutral-200/70 dark:border-white/5"
               >
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block py-4 font-serif text-2xl text-neutral-900 dark:text-ink-100 hover:text-amber-600 dark:hover:text-gold-400 transition-colors"
+                  className="flex items-center justify-between py-3.5 font-serif text-2xl text-neutral-900 dark:text-ink-100 hover:text-amber-600 dark:hover:text-gold-400 transition-colors"
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="text-xs font-mono font-medium text-neutral-400 dark:text-neutral-500">
+                    0{i + 1}
+                  </span>
                 </a>
               </li>
             ))}
-            <li className="border-b border-neutral-200 dark:border-white/5">
+
+            {/* Pages Accordion */}
+            <li className="border-b border-neutral-200/70 dark:border-white/5">
               <button
                 type="button"
                 onClick={() => setMoreOpen(!moreOpen)}
-                className="flex w-full items-center justify-between py-4 font-serif text-2xl text-neutral-900 dark:text-ink-100 hover:text-amber-600 dark:hover:text-gold-400 transition-colors"
+                className="flex w-full items-center justify-between py-3.5 font-serif text-2xl text-neutral-900 dark:text-ink-100 hover:text-amber-600 dark:hover:text-gold-400 transition-colors"
                 aria-expanded={moreOpen}
               >
-                {"Pages"}
-                <ChevronDown className={`w-5 h-5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+                <span>Pages</span>
+                <ChevronDown
+                  className={`w-5 h-5 transition-transform duration-200 ${
+                    moreOpen ? "rotate-180 text-amber-600 dark:text-gold-400" : "text-neutral-400"
+                  }`}
+                />
               </button>
               {moreOpen && (
-                <div className="pb-3 pl-4">
+                <div className="py-2 pl-4 flex flex-col gap-1 border-l-2 border-amber-500/40 ml-2 mb-2">
                   {NAV_LINKS.filter(
                     (link) => !["Home", "About", "Services", "Portfolio", "Testimonials", "Contact"].includes(link.label)
                   ).map((link) => (
@@ -223,7 +255,7 @@ function Navbar() {
                       key={link.label}
                       href={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className="block py-2.5 text-sm uppercase tracking-widest text-neutral-600 hover:text-amber-600 dark:text-ink-400 dark:hover:text-gold-400 transition-colors"
+                      className="py-2 text-sm uppercase tracking-widest font-semibold text-neutral-600 hover:text-amber-600 dark:text-neutral-300 dark:hover:text-gold-400 transition-colors"
                     >
                       {link.label}
                     </a>
@@ -232,11 +264,14 @@ function Navbar() {
               )}
             </li>
           </ul>
-          <div className="mt-8 flex flex-col gap-3">
+
+          {/* Action Buttons */}
+          <div className="mt-8 pt-6 border-t border-neutral-200/80 dark:border-white/10 flex flex-col gap-3">
             <Button
               to="/vendor/login"
               variant="outline"
               size="md"
+              className="w-full justify-center font-semibold border-neutral-300 dark:border-white/20 text-neutral-900 dark:text-white"
               onClick={() => {
                 setOpen(false);
                 setMoreOpen(false);
@@ -248,6 +283,7 @@ function Navbar() {
               to="/vendor/register"
               variant="gold"
               size="md"
+              className="w-full justify-center font-bold shadow-md"
               onClick={() => {
                 setOpen(false);
                 setMoreOpen(false);

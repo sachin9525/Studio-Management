@@ -326,8 +326,9 @@ html.light,
   color: #09090b !important;
 }
 
-/* Top Floating Header & Bar in Light Mode */
-.light header {
+/* Top Floating Header & Bar in Light Mode (Scoped to Dashboard layouts) */
+.light header.dashboard-header,
+.light header.sticky {
   background-color: transparent !important;
   border-color: transparent !important;
 }
