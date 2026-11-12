@@ -62,13 +62,13 @@ function HeroSection() {
       <Canvas3DScene particleCount={90} className="z-10" />
 
       {/* Main Hero Container */}
-      <div className="container-max relative z-20 my-auto py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="container-max 2xl:max-w-[1440px] relative z-20 my-auto py-4 sm:py-6 lg:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-12 items-center">
           {/* Left Hero Content */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* 3D Eyebrow Pill */}
             <div
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border backdrop-blur-md shadow-sm mb-6 group transition-all duration-300"
+              className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border backdrop-blur-md shadow-sm mb-4 sm:mb-6 group transition-all duration-300"
               style={{
                 backgroundColor: isDark ? 'rgba(18, 16, 14, 0.85)' : 'rgba(255, 255, 255, 0.9)',
                 borderColor: isDark ? 'rgba(216, 179, 106, 0.4)' : 'rgba(180, 130, 40, 0.3)',
@@ -79,17 +79,17 @@ function HeroSection() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
               </span>
               <span
-                className="text-[11px] uppercase tracking-widest font-semibold"
+                className="text-[10px] sm:text-[11px] uppercase tracking-widest font-semibold"
                 style={{ color: isDark ? '#f0d38b' : '#854d0e' }}
               >
                 SVML · India's Luxury Studio & Cine Platform
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-gold-400 group-hover:rotate-45 transition-transform" />
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-600 dark:text-gold-400 group-hover:rotate-45 transition-transform" />
             </div>
 
-            {/* Master Headline */}
+            {/* Master Headline (Viewport-Fluid Scale) */}
             <h1
-              className="heading-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl max-w-2xl text-balance leading-[1.08] tracking-tight transition-colors drop-shadow-sm"
+              className="heading-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl max-w-2xl text-balance leading-[1.1] tracking-tight transition-colors drop-shadow-sm"
               style={{
                 color: isDark ? '#ffffff' : '#09090b',
                 textShadow: isDark
@@ -113,7 +113,7 @@ function HeroSection() {
             </h1>
 
             <div
-              className={`h-px w-20 my-6 ${
+              className={`h-px w-16 sm:w-20 my-4 sm:my-5 ${
                 isDark
                   ? 'bg-gradient-to-r from-gold-400 via-amber-300 to-transparent'
                   : 'bg-gradient-to-r from-amber-600 via-amber-400 to-transparent'
@@ -122,21 +122,21 @@ function HeroSection() {
 
             {/* Sub-headline */}
             <p
-              className="text-sm sm:text-base md:text-lg max-w-xl font-normal leading-relaxed transition-colors"
+              className="text-xs sm:text-sm md:text-base lg:text-base xl:text-lg max-w-xl font-normal leading-relaxed transition-colors"
               style={{ color: isDark ? '#e2e8f0' : '#3f3f46' }}
             >
               From majestic Indian wedding rituals to private destination pre-weddings — crafted with Hollywood color science into heirlooms you will revisit for a lifetime.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mt-6 sm:mt-7">
               <Button href="#wedding" variant="gold" size="lg" className="shadow-xl shadow-amber-600/20 group font-bold">
                 <span>Explore 3D Portfolio</span>
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center font-sans uppercase tracking-widest text-xs px-8 py-4 rounded-sm border transition-all duration-300 shadow-sm backdrop-blur-md font-semibold"
+                className="inline-flex items-center justify-center font-sans uppercase tracking-widest text-xs px-6 sm:px-8 py-3.5 sm:py-4 rounded-sm border transition-all duration-300 shadow-sm backdrop-blur-md font-semibold"
                 style={{
                   backgroundColor: isDark ? 'rgba(18, 16, 14, 0.65)' : 'rgba(255, 255, 255, 0.95)',
                   borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.15)',
@@ -155,21 +155,21 @@ function HeroSection() {
               </Link>
             </div>
 
-            {/* Live Stats Ribbon */}
+            {/* Live Stats Ribbon (Responsive Spacing) */}
             <div
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-12 pt-8 w-full max-w-xl border-t transition-colors"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8 pt-5 sm:pt-6 w-full max-w-xl border-t transition-colors"
               style={{ borderColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
             >
               {STUDIO_STATS.map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
                   <p
-                    className="font-serif text-2xl sm:text-3xl font-bold"
+                    className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold"
                     style={{ color: isDark ? '#f0d38b' : '#854d0e' }}
                   >
                     {stat.value}
                   </p>
                   <p
-                    className="text-[10px] uppercase tracking-wider mt-0.5 font-semibold"
+                    className="text-[9px] sm:text-[10px] uppercase tracking-wider mt-0.5 font-semibold"
                     style={{ color: isDark ? '#cbd5e1' : '#4b5563' }}
                   >
                     {stat.label}
@@ -181,7 +181,7 @@ function HeroSection() {
 
           {/* Right Hero: Interactive 3D Camera Lens & Optical Rings */}
           <div className="lg:col-span-5 flex items-center justify-center relative">
-            <CameraLens3D currentImage={HERO_SLIDES[active]?.url} className="w-full max-w-[420px]" />
+            <CameraLens3D currentImage={HERO_SLIDES[active]?.url} className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[380px] xl:max-w-[420px]" />
           </div>
         </div>
       </div>

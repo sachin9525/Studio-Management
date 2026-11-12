@@ -47,7 +47,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
 
         {/* Outer Ring 1: Anodized F-Stop Ring (Optical Glass in Light Mode) */}
         <div
-          className="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full border-2 flex items-center justify-center shadow-2xl backdrop-blur-md group cursor-pointer transition-colors duration-500"
+          className="relative w-64 h-64 sm:w-76 sm:h-76 md:w-84 md:h-84 lg:w-88 lg:h-88 xl:w-96 xl:h-96 rounded-full border-2 flex items-center justify-center shadow-2xl backdrop-blur-md group cursor-pointer transition-all duration-500"
           style={{
             transform: 'translateZ(10px)',
             background: isDark
@@ -63,7 +63,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
         >
           {/* Rotating Focus Marks */}
           <div
-            className="absolute inset-2.5 rounded-full border border-dashed animate-[spin_45s_linear_infinite]"
+            className="absolute inset-2 sm:inset-2.5 rounded-full border border-dashed animate-[spin_45s_linear_infinite]"
             style={{
               animationDirection: 'reverse',
               borderColor: isDark ? 'rgba(216, 179, 106, 0.3)' : 'rgba(180, 130, 40, 0.35)',
@@ -72,25 +72,25 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
 
           {/* Focal Ticks and Measurements */}
           <div
-            className="absolute top-3 text-[9px] uppercase tracking-widest font-mono font-bold drop-shadow-sm"
+            className="absolute top-2.5 sm:top-3 text-[8px] sm:text-[9px] uppercase tracking-widest font-mono font-bold drop-shadow-sm"
             style={{ color: isDark ? '#f0d38b' : '#92400e' }}
           >
             ✦ F/1.2 CINE PRIME ✦
           </div>
           <div
-            className="absolute bottom-3 text-[9px] uppercase tracking-widest font-mono font-semibold"
+            className="absolute bottom-2.5 sm:bottom-3 text-[8px] sm:text-[9px] uppercase tracking-widest font-mono font-semibold"
             style={{ color: isDark ? '#a8a29e' : '#57534e' }}
           >
             85MM T1.5 · Ø 82MM
           </div>
           <div
-            className="absolute left-3 text-[9px] uppercase tracking-widest font-mono font-semibold -rotate-90"
+            className="absolute left-2 sm:left-3 text-[8px] sm:text-[9px] uppercase tracking-widest font-mono font-semibold -rotate-90"
             style={{ color: isDark ? '#a8a29e' : '#57534e' }}
           >
             AUTO FOCUS
           </div>
           <div
-            className="absolute right-3 text-[9px] uppercase tracking-widest font-mono rotate-90 font-bold"
+            className="absolute right-2 sm:right-3 text-[8px] sm:text-[9px] uppercase tracking-widest font-mono rotate-90 font-bold"
             style={{ color: isDark ? '#f0d38b' : '#92400e' }}
           >
             SVML OPTICS
@@ -98,7 +98,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
 
           {/* Inner Ring 2: Anodized Metallic Bezel with Optical Depth */}
           <div
-            className="w-56 h-56 sm:w-68 sm:h-68 md:w-76 md:h-76 rounded-full border p-4 flex items-center justify-center relative overflow-hidden transition-colors duration-500"
+            className="w-48 h-48 sm:w-58 sm:h-58 md:w-66 md:h-66 lg:w-70 lg:h-70 xl:w-76 xl:h-76 rounded-full border p-3 sm:p-4 flex items-center justify-center relative overflow-hidden transition-all duration-500"
             style={{
               transform: 'translateZ(30px)',
               background: isDark
@@ -124,7 +124,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
 
             {/* Aperture Iris Core */}
             <div
-              className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full border-2 flex items-center justify-center overflow-hidden transition-all duration-700"
+              className="relative w-30 h-30 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-44 xl:h-44 rounded-full border-2 flex items-center justify-center overflow-hidden transition-all duration-700"
               style={{
                 transform: 'translateZ(45px)',
                 backgroundColor: isDark ? 'rgba(0, 0, 0, 0.95)' : 'rgba(255, 255, 255, 0.12)',
@@ -146,7 +146,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
               )}
               {/* Glass Lens Core with Camera Icon */}
               <div
-                className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border flex items-center justify-center transition-all duration-500 shadow-md ${
+                className={`w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 xl:w-24 xl:h-24 rounded-full border flex items-center justify-center transition-all duration-500 shadow-md ${
                   apertureOpen ? 'scale-110 shadow-lg' : 'scale-95'
                 }`}
                 style={{
@@ -158,7 +158,7 @@ export default function CameraLens3D({ className = '', currentImage = null }) {
                   WebkitBackdropFilter: 'blur(6px)',
                 }}
               >
-                <Camera className="w-9 h-9 text-amber-700 dark:text-gold-300 drop-shadow animate-pulse" />
+                <Camera className="w-7 h-7 sm:w-8 sm:h-8 xl:w-9 xl:h-9 text-amber-700 dark:text-gold-300 drop-shadow animate-pulse" />
               </div>
 
               {/* Shimmer light pass */}
