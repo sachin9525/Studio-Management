@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ChevronDown, Menu, X, Camera } from "lucide-react";
 import { NAV_LINKS } from "@/data/demoContent";
 import { useTheme } from "@/context/ThemeContext";
@@ -10,7 +10,29 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const isHomePage = typeof window !== "undefined" && window.location.pathname === "/";
+
+  // Close desktop "Pages" dropdown on click outside or Escape
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMoreOpen(false);
+    };
+
+    if (moreOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [moreOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -100,11 +122,11 @@ function Navbar() {
           ))}
 
           {/* More Pages Dropdown */}
-          <li className="relative">
+          <li className="relative" ref={dropdownRef}>
             <button
               type="button"
               onClick={() => setMoreOpen(!moreOpen)}
-              className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest font-semibold text-neutral-700 hover:text-amber-700 dark:text-ink-200 dark:hover:text-gold-400 transition-colors duration-200"
+              className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest font-semibold text-neutral-700 hover:text-amber-700 dark:text-ink-200 dark:hover:text-gold-400 transition-colors duration-200 cursor-pointer"
               aria-expanded={moreOpen}
               aria-haspopup="menu"
             >
@@ -113,7 +135,7 @@ function Navbar() {
             </button>
             {moreOpen && (
               <div
-                className="absolute right-0 top-full mt-4 min-w-44 rounded-md border border-neutral-200 dark:border-white/10 bg-white/98 dark:bg-ink-900/95 p-2 shadow-2xl backdrop-blur-xl"
+                className="absolute right-0 top-full mt-3 min-w-48 rounded-2xl border border-black/10 dark:border-white/15 bg-white dark:bg-[#141210] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl z-50 animate-fade-in"
                 role="menu"
               >
                 {NAV_LINKS.filter(
@@ -126,10 +148,11 @@ function Navbar() {
                       handleNavClick(e, link.href);
                       setMoreOpen(false);
                     }}
-                    className="block rounded-sm px-3 py-2 text-[11px] uppercase tracking-widest font-medium text-neutral-700 hover:bg-neutral-100 hover:text-amber-700 dark:text-ink-300 dark:hover:bg-white/5 dark:hover:text-gold-400 transition-colors"
+                    className="flex items-center justify-between rounded-xl px-3.5 py-2.5 text-[11px] uppercase tracking-widest font-semibold text-neutral-800 hover:text-amber-700 hover:bg-black/[0.04] dark:text-ink-200 dark:hover:text-gold-300 dark:hover:bg-white/[0.08] transition-all group"
                     role="menuitem"
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500/0 group-hover:bg-amber-500 transition-all" />
                   </a>
                 ))}
               </div>

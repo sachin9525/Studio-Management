@@ -36,7 +36,7 @@ function DashboardLayout({ children, navItems, title, role }) {
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
         {/* Glassy Floating Island Header */}
-        <header className="sticky top-0 z-30 shrink-0 pl-6 sm:pl-8 pr-4 sm:pr-6 pt-3 sm:pt-4 pb-2 transition-all">
+        <header className="sticky top-0 z-30 shrink-0 px-6 sm:px-8 pt-3 sm:pt-4 pb-2 transition-all">
           <div className="rounded-[24px] sm:rounded-full bg-white/90 dark:bg-black/45 backdrop-blur-2xl border border-black/10 dark:border-white/15 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             <div className="flex items-center gap-3 sm:gap-4">
               <button
@@ -79,7 +79,7 @@ function DashboardLayout({ children, navItems, title, role }) {
             </div>
           </div>
         </header>
-        <main className="flex-1 p-6 sm:p-8 max-w-7xl w-full mx-auto">{children}</main>
+        <main className="flex-1 px-6 sm:px-8 py-6 w-full animate-fade-in transition-all duration-300">{children}</main>
       </div>
     </div>
   );

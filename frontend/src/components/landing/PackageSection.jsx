@@ -4,6 +4,7 @@ import Button from "@/components/common/Button";
 import { Check, Star, Sparkles, ShieldCheck } from "lucide-react";
 import { apiRequest } from "@/utils/api";
 import TiltCard3D from "@/components/3d/TiltCard3D";
+import PackageBookingModal from "./PackageBookingModal";
 
 const priceFormat = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
@@ -60,6 +61,19 @@ const FALLBACK_PACKAGES = [
 function PackageSection() {
   const [packages, setPackages] = useState(FALLBACK_PACKAGES);
   const [loading, setLoading] = useState(false);
+  const [bookingPackage, setBookingPackage] = useState(null);
+
+  // Auto-open modal if packageId is present in URL (e.g. ?packageId=pkg-signature)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlPkgId = urlParams.get("packageId");
+    if (urlPkgId && packages.length > 0) {
+      const matched = packages.find((p) => p._id === urlPkgId);
+      if (matched) {
+        setBookingPackage(matched);
+      }
+    }
+  }, [packages]);
 
   useEffect(() => {
     let isCurrent = true;
@@ -150,10 +164,10 @@ function PackageSection() {
 
               <div>
                 <Button
-                  href={`/?packageId=${encodeURIComponent(pkg._id)}#contact`}
+                  onClick={() => setBookingPackage(pkg)}
                   variant={pkg.isFeatured ? "gold" : "outline"}
                   size="md"
-                  className="w-full font-semibold shadow-lg"
+                  className="w-full font-semibold shadow-lg cursor-pointer"
                 >
                   Book Package
                 </Button>
@@ -165,6 +179,21 @@ function PackageSection() {
             </TiltCard3D>
           ))}
         </div>
+
+        {/* Luxury Glassy Package Booking Modal */}
+        {bookingPackage && (
+          <PackageBookingModal
+            pkg={bookingPackage}
+            onClose={() => {
+              setBookingPackage(null);
+              // Clean up URL packageId param if it was set
+              if (window.location.search.includes("packageId")) {
+                const newUrl = window.location.pathname + window.location.hash;
+                window.history.replaceState({}, "", newUrl);
+              }
+            }}
+          />
+        )}
       </div>
     </section>
   );

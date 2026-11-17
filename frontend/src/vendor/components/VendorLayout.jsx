@@ -79,7 +79,7 @@ function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Das
       {/* Main Content Area — independent scroll */}
       <div className="flex-1 min-w-0 h-screen flex flex-col overflow-y-auto relative scroll-smooth">
         {/* Glassy Floating Island Header */}
-        <header className="sticky top-0 z-30 shrink-0 pl-6 sm:pl-8 pr-4 sm:pr-6 pt-3 sm:pt-4 pb-2 transition-all">
+        <header className="sticky top-0 z-30 shrink-0 px-6 sm:px-8 pt-3 sm:pt-4 pb-2 transition-all">
           <div className="relative rounded-[24px] sm:rounded-full bg-white/85 dark:bg-black/50 backdrop-blur-3xl border border-black/10 dark:border-white/15 px-4 sm:px-6 py-2 flex items-center justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
             {/* Ambient Corner Glow */}
             <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/15 dark:bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
@@ -219,7 +219,7 @@ function VendorLayout({ children, navItems = vendorNavItems, title = 'Vendor Das
         </header>
 
         {/* Dynamic Page Content */}
-        <main className="flex-1 p-6 sm:p-8 max-w-7xl w-full mx-auto animate-fade-in">
+        <main className="flex-1 px-6 sm:px-8 py-6 w-full animate-fade-in transition-all duration-300">
           {children}
         </main>
       </div>

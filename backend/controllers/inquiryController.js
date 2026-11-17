@@ -6,7 +6,7 @@ import User from '../models/User.js';
 const inquiryStatuses = ['new', 'contacted', 'booked'];
 
 export async function createInquiry(req, res) {
-  const { name, email, phone, eventType, eventDate, eventLocation, budget, message, studioSlug, packageId } = req.body;
+  const { name, email, phone, eventType, eventDate, eventLocation, budget, message, studioSlug, packageId, packageName: directPackageName } = req.body;
   const cleanEmail = typeof email === 'string' ? email.trim() : '';
 
   if (![name, phone, eventType].every((value) => typeof value === 'string' && value.trim())) {
@@ -23,14 +23,16 @@ export async function createInquiry(req, res) {
 
   try {
     let vendorId;
-    let packageName;
+    let packageName = typeof directPackageName === 'string' && directPackageName.trim() ? directPackageName.trim() : undefined;
     if (packageId) {
-      if (!mongoose.isValidObjectId(packageId)) return res.status(400).json({ message: 'Invalid package.' });
-      const studioPackage = await StudioPackage.findOne({ _id: packageId, isPublished: true })
-        .populate({ path: 'vendorId', match: { role: 'vendor', status: 'approved' }, select: '_id' });
-      if (!studioPackage?.vendorId) return res.status(404).json({ message: 'Package not found or no longer available.' });
-      vendorId = studioPackage.vendorId._id;
-      packageName = studioPackage.name;
+      if (mongoose.isValidObjectId(packageId)) {
+        const studioPackage = await StudioPackage.findOne({ _id: packageId, isPublished: true })
+          .populate({ path: 'vendorId', match: { role: 'vendor', status: 'approved' }, select: '_id' });
+        if (studioPackage?.vendorId) {
+          vendorId = studioPackage.vendorId._id;
+          packageName = studioPackage.name;
+        }
+      }
     } else if (studioSlug) {
       const vendor = await User.findOne({ studioSlug, role: 'vendor', status: 'approved' }).select('_id');
       if (!vendor) return res.status(404).json({ message: 'Studio not found or not accepting inquiries.' });
